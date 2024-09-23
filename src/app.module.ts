@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SmeeService } from '@kb-config';
+import { configService, SmeeService } from '@kb-config';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 
 @Module({
-  imports: [],
+  imports: [
+    DevtoolsModule.register({
+      http: configService.config.NODE_ENV !== 'production',
+    })
+  ],
   controllers: [AppController],
   providers: [
     AppService,
