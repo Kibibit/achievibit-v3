@@ -10,7 +10,7 @@ export class AppController {
     private readonly appService: AppService,
     private readonly smeeService: SmeeService
   ) {
-    this.smeeService.initializeSmeeClient();
+    // this.smeeService.initializeSmeeClient();
   }
 
   @Get()

@@ -23,7 +23,7 @@ export class Documentation {
     )
     .addTag(
       'default',
-      'utility api endpoints'
+      'Utility api endpoints'
     )
     .build();
 
