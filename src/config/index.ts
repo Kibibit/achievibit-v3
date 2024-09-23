@@ -4,3 +4,4 @@
 
 export * from './achievibit.config';
 export * from './config.service';
+export * from './smee/smee.service';
