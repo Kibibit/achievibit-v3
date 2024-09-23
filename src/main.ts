@@ -3,7 +3,9 @@ import { NestFactory } from '@nestjs/core';
 import { configService } from '@kb-config';
 
 import { AppModule } from './app.module';
-import { setupDocumentation } from './documentation';
+import { Documentation } from './documentation';
+
+bootstrap();
 
 async function bootstrap() {
   const app = await NestFactory.create(
@@ -11,8 +13,7 @@ async function bootstrap() {
     { snapshot: true }
   );
 
-  await setupDocumentation(app);
+  await Documentation.addDocumentation(app);
 
   await app.listen(configService.config.PORT);
 }
-bootstrap();
