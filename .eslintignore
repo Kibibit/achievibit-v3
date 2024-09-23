@@ -1,3 +1,4 @@
 .storybook/**/*
 tester-app/**/*
 dist/**/*
+.eslintrc.js

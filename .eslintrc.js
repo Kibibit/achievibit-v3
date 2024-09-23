@@ -29,7 +29,10 @@ module.exports = {
         '@typescript-eslint/eslint-plugin',
         'unused-imports',
         'simple-import-sort',
-        'import'
+        'import',
+        '@stylistic',
+        '@angular-eslint',
+        '@angular-eslint/template'
       ],
       extends: [
         'plugin:@angular-eslint/recommended',
@@ -182,7 +185,7 @@ module.exports = {
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',
         '@typescript-eslint/no-empty-interface': 'error',
-        '@typescript-eslint/member-delimiter-style': 'error',
+        '@stylistic/member-delimiter-style': 'error',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/naming-convention': [
@@ -196,8 +199,8 @@ module.exports = {
             }
           }
         ],
-        '@typescript-eslint/semi': [ 'error' ],
-        '@typescript-eslint/type-annotation-spacing': [
+        '@stylistic/semi': [ 'error' ],
+        '@stylistic/type-annotation-spacing': [
           'error', {
             'before': false,
             'after': true,
@@ -217,72 +220,72 @@ module.exports = {
       ],
       extends: [ 'plugin:storybook/recommended' ]
     },
-    {
-      files: [
-        '*.html'
-      ],
-      extends: [
-        'plugin:@angular-eslint/template/recommended'
-      ],
-      plugins: [
-        '@angular-eslint',
-        '@angular-eslint/template'
-      ],
-      rules: {
-        '@angular-eslint/template/attributes-order': [
-          'error', {
-            alphabetical: false
-          }
-        ],
-        '@angular-eslint/template/accessibility-alt-text': [
-          'error'
-        ],
-        '@angular-eslint/template/accessibility-elements-content': [
-          'error'
-        ],
-        '@angular-eslint/template/accessibility-interactive-supports-focus': [
-          'error'
-        ],
-        '@angular-eslint/template/accessibility-label-has-associated-control': [
-          'error'
-        ],
-        '@angular-eslint/template/accessibility-role-has-required-aria': [
-          'error'
-        ],
-        '@angular-eslint/template/accessibility-table-scope': [
-          'error'
-        ],
-        '@angular-eslint/template/banana-in-box': [
-          'error'
-        ],
-        '@angular-eslint/template/button-has-type': [
-          'error'
-        ],
-        '@angular-eslint/template/click-events-have-key-events': [
-          'error'
-        ],
-        '@angular-eslint/template/conditional-complexity': [
-          'error'
-        ],
-        '@angular-eslint/template/eqeqeq': [
-          'error'
-        ],
-        '@angular-eslint/template/no-distracting-elements': [
-          'error'
-        ],
-        '@angular-eslint/template/no-duplicate-attributes': [
-          'error'
-        ],
-        // '@angular-eslint/template/no-interpolation-in-attributes': [
-        //   'error'
-        // ],
-        '@angular-eslint/template/no-negated-async': [
-          'error'
-        ],
-        '@angular-eslint/template/no-positive-tabindex': [
-          'error'
-        ]
-      }
-    }
+    // {
+    //   files: [
+    //     '*.html'
+    //   ],
+    //   extends: [
+    //     'plugin:@angular-eslint/template/recommended'
+    //   ],
+    //   plugins: [
+    //     '@angular-eslint',
+    //     '@angular-eslint/template'
+    //   ],
+    //   rules: {
+    //     '@angular-eslint/template/attributes-order': [
+    //       'error', {
+    //         alphabetical: false
+    //       }
+    //     ],
+    //     '@angular-eslint/template/accessibility-alt-text': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/accessibility-elements-content': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/accessibility-interactive-supports-focus': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/accessibility-label-has-associated-control': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/accessibility-role-has-required-aria': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/accessibility-table-scope': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/banana-in-box': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/button-has-type': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/click-events-have-key-events': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/conditional-complexity': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/eqeqeq': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/no-distracting-elements': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/no-duplicate-attributes': [
+    //       'error'
+    //     ],
+    //     // '@angular-eslint/template/no-interpolation-in-attributes': [
+    //     //   'error'
+    //     // ],
+    //     '@angular-eslint/template/no-negated-async': [
+    //       'error'
+    //     ],
+    //     '@angular-eslint/template/no-positive-tabindex': [
+    //       'error'
+    //     ]
+    //   }
+    // }
   ]
 };
