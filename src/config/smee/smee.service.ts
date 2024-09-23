@@ -17,7 +17,7 @@ export class SmeeService implements BeforeApplicationShutdown {
                 target: `http://localhost:${configService.config.PORT}/webhooks/github`,
                 logger: {
                     info: (msg) => this.logger.verbose(msg),
-                    error: (msg) => this.logger.error(msg)
+                    error: (msg) => this.logger.error(JSON.stringify(msg, null, 2)),
                 }
             });
 
