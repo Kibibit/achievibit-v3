@@ -1,10 +1,11 @@
-import { INestApplication } from "@nestjs/common";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { AsyncApiDocumentBuilder, AsyncApiModule } from "nestjs-asyncapi";
+import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
+
+import { INestApplication } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 
 export async function setupDocumentation(app: INestApplication<any>) {
-const config = new DocumentBuilder()
+  const config = new DocumentBuilder()
     .setTitle('achievibit-api')
     .setDescription('The achievibit API description. For the WebSocket API, please visit [achievibit-ws](/async-api)')
     .setVersion('1.0')
@@ -17,10 +18,10 @@ const config = new DocumentBuilder()
     .setDescription('For API documentation, please visit [achievibit-api](/api)')
     .setVersion('1.0')
     .setDefaultContentType('application/json')
-    .addSecurity('user-password', {type: 'userPassword'})
+    .addSecurity('user-password', { type: 'userPassword' })
     .addServer('achievibit-ws', {
-        url: 'ws://localhost:3000',
-        protocol: 'socket.io',
+      url: 'ws://localhost:3000',
+      protocol: 'socket.io'
     })
     .build();
 

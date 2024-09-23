@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+
 import { BaseConfig, Configuration, ConfigVariable } from '@kibibit/configit';
 
 @Configuration()
