@@ -16,6 +16,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@kb-config": ["src/config/index"],
+      "@kb-auth": ["src/auth/index"],
+      "@kb-models": ["src/models/index"],
+      "@kb-users": ["src/users/index"]
+    }
   }
 }

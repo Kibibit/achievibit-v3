@@ -6,6 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "generate-barrels": "barrelsby --delete -d ./src -l below -q --exclude spec.ts --exclude spec.js --exclude __mocks__ && echo '> Barrels Generated'",
+    "prebuild": "npm run generate-barrels",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -36,6 +38,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "barrelsby": "^2.8.1",
     "eslint": "^8.42.0",
     "jest": "^29.5.0",
     "source-map-support": "^0.5.21",
