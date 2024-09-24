@@ -1,5 +1,5 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GitHubAuthGuard } from './github-auth.guard';
 import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
@@ -45,6 +45,7 @@ export class AuthController {
 
     @Get('me')
     @UseGuards(JwtAuthGuard)
+	@ApiBearerAuth()
     @ApiOperation({
 		summary: 'Get current user',
 		description: 'Returns the current user. Requires a valid JWT token'

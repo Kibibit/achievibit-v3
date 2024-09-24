@@ -14,6 +14,7 @@ export class Documentation {
   static swaggerPath = 'api/docs';
   static config = new DocumentBuilder()
     .setTitle('achievibit-api')
+    .addBearerAuth()
     .setDescription('The achievibit API description. For the WebSocket API, please visit [achievibit-ws](/api-async)')
     .setVersion('1.0')
     .setContact(
