@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GitHubAuthGuard } from './github-auth.guard';
 import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
-import { User } from '@kb-models';
+import { IUser } from '@kb-models';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
@@ -36,7 +36,7 @@ export class AuthController {
         @Res({ passthrough: true }) res: Response
     ) {
         console.log(req.user);
-		const user = req.user as User;
+		const user = req.user as IUser;
 
 		const { accessToken } = await this.jwtAuthService.githubLogin(user);
 		res.cookie('jwt', accessToken);

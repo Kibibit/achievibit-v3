@@ -1,6 +1,6 @@
 import { AuthProvider } from './auth.model';
 
-export interface User {
+export interface IUser {
 	/** Our internal user ID – independent from the `providerId`! */
 	id: string;
 
@@ -19,4 +19,6 @@ export interface User {
 	}[];
 
 	accessToken: string;
+
+	username: string;
 }
