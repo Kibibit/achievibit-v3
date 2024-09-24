@@ -1,31 +1,30 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    OneToMany,
-    ObjectIdColumn,
-    ObjectId,
-  } from 'typeorm';
-  import { Integration } from './Integration.entity';
-  
+  Column,
+  Entity,
+  ObjectId,
+  ObjectIdColumn,
+  OneToMany
+} from 'typeorm';
+
+import { Integration } from './Integration.entity';
+
   @Entity('users')
-  export class User {
+export class User {
     @ObjectIdColumn()
-    id: ObjectId;
-  
+      id: ObjectId;
+
     @Column({ unique: true })
-    username: string;
-  
+      username: string;
+
     @Column()
-    avatar: string;
-  
+      avatar: string;
+
     @Column({ nullable: true })
-    email?: string;
-  
+      email?: string;
+
     @OneToMany(() => Integration, (integration) => integration.user, {
       // Automatically manage integration relations
       cascade: true
     })
-    integrations: Integration[];
-  }
-  
+      integrations: Integration[];
+}

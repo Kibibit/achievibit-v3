@@ -1,10 +1,10 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { configService } from '@kb-config';
 
 import { AppModule } from './app.module';
 import { Documentation } from './documentation';
-import { Logger } from '@nestjs/common';
 
 bootstrap();
 

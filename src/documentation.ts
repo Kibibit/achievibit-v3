@@ -1,8 +1,8 @@
 import axios from 'axios';
+import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 interface ISwaggerMethod {
   get: (attr: string) => string;
@@ -82,10 +82,10 @@ export class Documentation {
       .setDescription('For API documentation, please visit [achievibit-api](/api)')
       .setVersion('1.0')
       .setDefaultContentType('application/json')
-      .addSecurity('user-password', {type: 'userPassword'})
+      .addSecurity('user-password', { type: 'userPassword' })
       .addServer('achievibit-ws', {
-          url: 'ws://localhost:3000',
-          protocol: 'socket.io',
+        url: 'ws://localhost:3000',
+        protocol: 'socket.io'
       })
       .build();
 

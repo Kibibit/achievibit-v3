@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AuthModule } from '@kb-auth';
 import { configService, SmeeService } from '@kb-config';
+import { UsersModule } from '@kb-users';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from '@kb-auth';
-import { UsersModule } from '@kb-users';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './models/user.entity';
 
 @Module({
   imports: [
@@ -19,7 +18,7 @@ import { User } from './models/user.entity';
       type: 'mongodb',
       url: 'mongodb://localhost:27017',
       database: 'test',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
       ssl: false
     }),
     AuthModule,

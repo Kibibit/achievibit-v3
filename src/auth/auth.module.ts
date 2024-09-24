@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from '@kb-users';
-import { JwtStrategy } from './jwt.strategy';
-import { GitHubStrategy } from './github.strategy';
+import { PassportModule } from '@nestjs/passport';
+
 import { configService } from '@kb-config';
+import { UsersModule } from '@kb-users';
+
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { GitHubStrategy } from './github.strategy';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
       secret: configService.config.JWT_SECRET,
-      signOptions: { expiresIn: '24h' },
+      signOptions: { expiresIn: '24h' }
     }),
     UsersModule
   ],
@@ -24,6 +26,6 @@ import { configService } from '@kb-config';
     // Services
     AuthService
   ],
-  controllers: [AuthController]
+  controllers: [ AuthController ]
 })
 export class AuthModule {}

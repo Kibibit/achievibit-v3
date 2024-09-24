@@ -1,46 +1,45 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    ManyToOne,
-    ObjectIdColumn,
-    ObjectId,
-  } from 'typeorm';
-  import { User } from './user.entity';
+  Column,
+  Entity,
+  ManyToOne,
+  ObjectId,
+  ObjectIdColumn
+} from 'typeorm';
 
-  export enum SystemEnum {
+import { User } from './user.entity';
+
+export enum SystemEnum {
     GITHUB = 'github',
     GITLAB = 'gitlab',
     BITBUCKET = 'bitbucket'
   }
-  
+
   @Entity('integrations')
-  export class Integration {
+export class Integration {
     @ObjectIdColumn()
-    id: ObjectId;
-  
+      id: ObjectId;
+
     @Column('enum', { enum: SystemEnum })
-    system: SystemEnum;
-  
+      system: SystemEnum;
+
     @Column()
-    systemUsername: string;
-  
+      systemUsername: string;
+
     @Column()
-    systemAvatar: string;
-  
+      systemAvatar: string;
+
     @Column('json', { nullable: true })
-    organizations: { orgId: string; orgName: string }[];
-  
+      organizations: { orgId: string; orgName: string }[];
+
     @Column()
-    accessToken: string;
-  
+      accessToken: string;
+
     @Column()
-    refreshToken: string;
-  
+      refreshToken: string;
+
     @Column()
-    tokenExpiry: Date;
-  
+      tokenExpiry: Date;
+
     @ManyToOne(() => User, (user) => user.integrations)
-    user: User; // Relation to the User entity
-  }
-  
+      user: User; // Relation to the User entity
+}
