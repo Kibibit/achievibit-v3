@@ -1,6 +1,9 @@
 
+import { User } from '@kb-models';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { omit } from 'lodash';
+import { MongoRepository } from 'typeorm';
 
 // This should be a real class/interface representing a user entity
 export interface IUser {
@@ -12,6 +15,10 @@ export interface IUser {
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private readonly usersRepository: MongoRepository<User>,
+  ) {}
   private readonly users: IUser[] = [
     {
         userId: 10427304,
@@ -19,6 +26,10 @@ export class UsersService {
         provider: 'github',
     }
   ];
+
+  async create(user: User) {
+    return this.usersRepository.save(user);
+  }
 
   async findAll() {
     return this.users.map(user => omit(user, ['accessToken', 'refreshToken']));

@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
+import { User } from '@kb-models';
 
 @Controller('users')
 @ApiTags('Users')
@@ -8,6 +9,15 @@ export class UsersController {
     constructor(
         private readonly usersService: UsersService
     ) {}
+
+    @Post()
+    @ApiOperation({
+        summary: 'Create user',
+        description: 'Creates a new user'
+    })
+    async createUser(@Body() body: Partial<User>) {
+        return await this.usersService.create(body as User);
+    }
 
     @Get()
     @ApiOperation({
