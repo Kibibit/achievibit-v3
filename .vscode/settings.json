@@ -1,7 +1,7 @@
 {
     "eslint.enable": true,
     "eslint.options": {
-        "overrideConfigFile": "./.eslintrc.cjs",
+        "overrideConfigFile": "./.eslintrc.js",
         "extensions": [".js", ".jsx", ".ts", ".tsx", ".html"]
     },
     "eslint.probe": [
