@@ -1,5 +1,6 @@
 
 import { Injectable } from '@nestjs/common';
+import { omit } from 'lodash';
 
 // This should be a real class/interface representing a user entity
 export interface IUser {
@@ -18,6 +19,10 @@ export class UsersService {
         provider: 'github',
     }
   ];
+
+  async findAll() {
+    return this.users.map(user => omit(user, ['accessToken', 'refreshToken']));
+  }
 
   async findOne(username: string): Promise<IUser | undefined> {
     return this.users.find(user => user.username === username);
