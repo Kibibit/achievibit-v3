@@ -20,14 +20,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const accessToken = await this.usersService.getAccessToken(payload.username);
-    if (!accessToken) {
-      throw new UnauthorizedException('Invalid GitHub access token');
+    const dbUser = await this.usersService.findOne(payload.username);
+    if (!dbUser) {
+      throw new UnauthorizedException();
     }
 
-    return {
-      ...payload,
-      accessToken
-    };
+    return dbUser;
   }
 }

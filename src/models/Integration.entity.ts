@@ -1,3 +1,4 @@
+import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   Entity,
@@ -17,6 +18,7 @@ export enum SystemEnum {
   @Entity('integrations')
 export class Integration {
     @ObjectIdColumn()
+    @Expose({ groups: [ 'admin' ] })
       id: ObjectId;
 
     @Column('enum', { enum: SystemEnum })
@@ -32,15 +34,22 @@ export class Integration {
       organizations: { orgId: string; orgName: string }[];
 
     @Column()
+    @Exclude()
       accessToken: string;
 
     @Column()
+    @Exclude()
       refreshToken: string;
 
     @Column()
+    @Exclude()
       tokenExpiry: Date;
 
     // Relation to the User entity
     @ManyToOne(() => User, (user) => user.integrations)
       user: User;
+
+    constructor(partial: Partial<Integration>) {
+      Object.assign(this, partial);
+    }
 }

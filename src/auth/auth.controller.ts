@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { IUser } from '@kb-models';
+import { User } from '@kb-models';
 
 import { AuthService } from './auth.service';
 import { GitHubAuthGuard } from './github-auth.guard';
@@ -38,10 +38,10 @@ export class AuthController {
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response
     ) {
-      console.log(req.user);
-      const user = req.user as IUser;
+      const user = req.user as User;
 
       const { accessToken } = await this.jwtAuthService.githubLogin(user);
+
       res.cookie('jwt', accessToken);
       return { access_token: accessToken };
     }

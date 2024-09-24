@@ -1,7 +1,10 @@
-import { omit } from 'lodash';
+import { instanceToPlain } from 'class-transformer';
+import { SystemEnum } from 'src/models/Integration.entity';
 
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+
+import { User } from '@kb-models';
 
 import { UsersService } from '../users/users.service';
 
@@ -12,30 +15,22 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async githubLogin(user: any) {
-    const userProfile = user.profile;
-    const payload = {
-      ...omit(userProfile, [
-        '_json',
-        '_raw'
-      ]),
-      system: userProfile.provider
-    };
+  async githubLogin(user: User) {
+    const userGitHubIntegration = user.integrations
+      .find((integration) => integration.system === SystemEnum.GITHUB);
 
-    await this.usersService.updateAccessToken(userProfile.username, user.accessToken);
+    await this.usersService.updateAccessToken(user.username, userGitHubIntegration.accessToken);
+
+    const sanitizedUser = instanceToPlain(new User(user));
 
     return {
-      accessToken: this.jwtService.sign(payload)
+      accessToken: this.jwtService.sign(sanitizedUser)
     };
   }
 
-  async validateGitHubUser(username: string, system: string) {
-    const user = await this.usersService.findOne(username);
+  async validateGitHubUser(username: string) {
+    const user = await this.usersService.findOneByIntegration(username, SystemEnum.GITHUB);
 
-    if (user && user.provider === system) {
-      return user;
-    }
-
-    return null;
+    return user;
   }
 }

@@ -1,16 +1,20 @@
 import { Profile, Strategy } from 'passport-github2';
+import { SystemEnum } from 'src/models/Integration.entity';
 
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { configService } from '@kb-config';
+import { Integration } from '@kb-models';
+import { UsersService } from '@kb-users';
 
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class GitHubStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService
   ) {
     super({
       clientID: configService.config.GITHUB_CLIENT_ID,
@@ -38,15 +42,34 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
     // (e.g., creating the user property on the Request object), and the request
     // handling pipeline can continue.
 
-    const user = await this.authService.validateGitHubUser(profile.username, 'github');
+    let user = await this.authService.validateGitHubUser(profile.username);
+
+    if (!user) {
+      user = await this.usersService.create({
+        username: profile.username,
+        avatar: profile.photos[0].value,
+        email: profile.emails[0].value,
+        integrations: [ {
+          system: SystemEnum.GITHUB,
+          systemUsername: profile.username,
+          accessToken: accessToken,
+          refreshToken: _refreshToken
+        } ] as Integration[]
+      });
+    } else {
+      await this.usersService.updateIntegrations(user.username, {
+        system: SystemEnum.GITHUB,
+        systemUsername: profile.username,
+        accessToken: accessToken,
+        refreshToken: _refreshToken
+      });
+    }
+
     if (!user) {
       // TODO Depending on the concrete implementation of findOrCreate(), throwing the
       // UnauthorizedException here might not make sense...
       throw new UnauthorizedException();
     }
-    return {
-      profile,
-      accessToken
-    };
+    return user;
   }
 }

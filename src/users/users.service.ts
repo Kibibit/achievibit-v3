@@ -1,11 +1,12 @@
 
 import { omit } from 'lodash';
+import { SystemEnum } from 'src/models/Integration.entity';
 import { MongoRepository } from 'typeorm';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { User } from '@kb-models';
+import { CreateUser, User } from '@kb-models';
 
 // This should be a real class/interface representing a user entity
 export interface IUser {
@@ -29,8 +30,26 @@ export class UsersService {
     }
   ];
 
-  create(user: User) {
+  create(user: CreateUser) {
     return this.usersRepository.save(user);
+  }
+
+  async updateIntegrations(username: string, integrations: any) {
+    const user = await this.findOne(username);
+
+    if (!user) {
+      throw new InternalServerErrorException('Something went wrong');
+    }
+
+    user.integrations.push(integrations);
+
+    return await this.usersRepository.updateOne({
+      username
+    }, {
+      $set: {
+        integrations: user.integrations
+      }
+    });
   }
 
   findAll() {
@@ -38,7 +57,23 @@ export class UsersService {
   }
 
   findOne(username: string) {
-    return this.users.find((user) => user.username === username);
+    return this.usersRepository.findOne({
+      where: {
+        username
+      },
+      relations: [ 'integrations' ]
+    });
+  }
+
+  findOneByIntegration(integrationUsername: string, integration: SystemEnum) {
+    return this.usersRepository.findOne({
+      where: {
+        integrations: {
+          systemUsername: integrationUsername,
+          system: integration
+        }
+      }
+    });
   }
 
   updateAccessToken(username: string, accessToken: string) {
