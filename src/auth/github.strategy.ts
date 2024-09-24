@@ -38,7 +38,6 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
     // (e.g., creating the user property on the Request object), and the request
     // handling pipeline can continue.
 
-    const { id } = profile;
     const user = await this.authService.validateGitHubUser(profile.username, 'github');
     if (!user) {
       // TODO Depending on the concrete implementation of findOrCreate(), throwing the

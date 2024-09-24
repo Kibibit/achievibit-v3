@@ -29,26 +29,26 @@ export class UsersService {
     }
   ];
 
-  async create(user: User) {
+  create(user: User) {
     return this.usersRepository.save(user);
   }
 
-  async findAll() {
+  findAll() {
     return this.users.map((user) => omit(user, [ 'accessToken', 'refreshToken' ]));
   }
 
-  async findOne(username: string): Promise<IUser | undefined> {
+  findOne(username: string) {
     return this.users.find((user) => user.username === username);
   }
 
-  async updateAccessToken(username: string, accessToken: string) {
+  updateAccessToken(username: string, accessToken: string) {
     const user = this.users.find((user) => user.username === username);
     if (user) {
       user.accessToken = accessToken;
     }
   }
 
-  async getAccessToken(username: string) {
+  getAccessToken(username: string) {
     const user = this.users.find((user) => user.username === username);
     if (user) {
       return user.accessToken;

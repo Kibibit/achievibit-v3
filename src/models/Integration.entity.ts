@@ -40,6 +40,7 @@ export class Integration {
     @Column()
       tokenExpiry: Date;
 
+    // Relation to the User entity
     @ManyToOne(() => User, (user) => user.integrations)
-      user: User; // Relation to the User entity
+      user: User;
 }
