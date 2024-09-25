@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
-import { PullRequestsService } from './pull-requests.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { PullRequest } from '@kb-models';
+
 import { PullRequestsController } from './pull-requests.controller';
+import { PullRequestsService } from './pull-requests.service';
 
 @Module({
-  providers: [PullRequestsService],
-  controllers: [PullRequestsController]
+  imports: [
+    TypeOrmModule.forFeature([ PullRequest ])
+  ],
+  providers: [ PullRequestsService ],
+  controllers: [ PullRequestsController ]
 })
 export class PullRequestsModule {}

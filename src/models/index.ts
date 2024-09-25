@@ -3,6 +3,8 @@
  */
 
 export * from './Integration.entity';
+export * from './organization.entity';
+export * from './pull-request.entity';
 export * from './repository.entity';
 export * from './user.entity';
 export * from './pagination/page-meta.model';
