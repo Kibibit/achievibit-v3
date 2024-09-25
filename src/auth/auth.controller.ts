@@ -11,17 +11,6 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 @Controller('auth')
 @ApiTags('Authentication')
 export class AuthController {
-  @Get('me')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Get current user',
-    description: 'Returns the current user. Requires a valid JWT token'
-  })
-  me(@Req() req: Request) {
-    return instanceToPlain(new User(req.user), { groups: [ 'self' ] });
-  }
-
   @Get('logout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
