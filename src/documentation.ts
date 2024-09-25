@@ -64,7 +64,53 @@ export class Documentation {
 
     SwaggerModule.setup(Documentation.swaggerPath, app, document, {
       customSiteTitle: Documentation.title,
-      customCss,
+      customCss: `${ customCss }
+[id*="BitbucketController"] .opblock-summary-description:before {
+    transform: translateY(3px);
+    margin-right: .3em;
+    content: '';
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    /* background-color: #0052CC; */
+    background-color: white;
+    mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
+}
+
+[id*="GithubController"] .opblock-summary-description:before {
+    transform: translateY(3px);
+    margin-right: .3em;
+    content: '';
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    /* background-color: #0052CC; */
+    background-color: white;
+    mask-image: url(https://simpleicons.org/icons/github.svg);
+}
+
+[id*="GitlabController"] .opblock-summary-description:before {
+    transform: translateY(3px);
+    margin-right: .3em;
+    content: '';
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    /* background-color: #0052CC; */
+    background-color: white;
+    mask-image: url(https://simpleicons.org/icons/gitlab.svg);
+}
+
+.swagger-ui .opblock .opblock-summary-description {
+  padding: 1em 1em 1em 0;
+}
+
+.swagger-ui .opblock-description-wrapper h4,
+.swagger-ui .opblock-external-docs-wrapper h4,
+.swagger-ui .opblock-title_normal h4 {
+  color: var(--put-color);
+}
+      `.trim(),
       customJs: '//kibibit.io/kibibit-assets/swagger/swagger.js',
       swaggerOptions: {
         docExpansion: 'none',

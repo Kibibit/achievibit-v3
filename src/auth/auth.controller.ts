@@ -9,7 +9,7 @@ import { User } from '@kb-models';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Controller('auth')
-@ApiTags('GitHub Authentication')
+@ApiTags('Authentication')
 export class AuthController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
@@ -20,5 +20,17 @@ export class AuthController {
   })
   me(@Req() req: Request) {
     return instanceToPlain(new User(req.user), { groups: [ 'self' ] });
+  }
+
+  @Get('logout')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Logout',
+    description: 'Clears the JWT cookie, and invalidates the JWT token'
+  })
+  logout(@Req() req: Request) {
+    req.res.clearCookie('kibibit-jwt');
+    return { message: 'Logged out' };
   }
 }

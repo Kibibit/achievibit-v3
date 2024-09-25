@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { User } from '@kb-models';
 
@@ -9,6 +9,7 @@ import { GitLabAuthGuard } from '../../guards/gitlab-auth.guard';
 import { JwtService } from '../jwt/jwt.service';
 
 @Controller('auth/gitlab')
+@ApiTags('Authentication')
 export class GitlabController {
   constructor(
     private readonly jwtService: JwtService
@@ -17,7 +18,11 @@ export class GitlabController {
   @Get()
   @ApiOperation({
     summary: 'Initiate GitLab OAuth flow',
-    description: 'Redirects to GitLab OAuth flow for authentication'
+    description: 'Redirects to GitLab OAuth flow for authentication',
+    externalDocs: {
+      description: 'GitLab OAuth',
+      url: 'https://docs.gitlab.com/ee/api/oauth2.html'
+    }
   })
   @UseGuards(GitLabAuthGuard)
   async gitlabAuth() {
@@ -41,7 +46,7 @@ export class GitlabController {
 
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
-    res.cookie('jwt', accessToken);
+    res.cookie('kibibit-jwt', accessToken);
     return { access_token: accessToken };
   }
 }

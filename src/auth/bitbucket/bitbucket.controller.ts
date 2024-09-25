@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { User } from '@kb-models';
 
@@ -9,6 +9,7 @@ import { BitBucketAuthGuard } from '../../guards/bitbucket-auth.guard';
 import { JwtService } from '../jwt/jwt.service';
 
 @Controller('auth/bitbucket')
+@ApiTags('Authentication')
 export class BitbucketController {
   constructor(
     private readonly jwtService: JwtService
@@ -16,8 +17,12 @@ export class BitbucketController {
 
   @Get()
   @ApiOperation({
-    summary: 'Initiate GitLab OAuth flow',
-    description: 'Redirects to GitLab OAuth flow for authentication'
+    summary: 'Initiate BitBucket OAuth flow',
+    description: 'Redirects to BitBucket OAuth flow for authentication',
+    externalDocs: {
+      description: 'BitBucket OAuth',
+      url: 'https://developer.atlassian.com/cloud/bitbucket/oauth-2/'
+    }
   })
   @UseGuards(BitBucketAuthGuard)
   async bitbucketAuth() {
@@ -41,7 +46,7 @@ export class BitbucketController {
 
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
-    res.cookie('jwt', accessToken);
+    res.cookie('kibibit-jwt', accessToken);
     return { access_token: accessToken };
   }
 }

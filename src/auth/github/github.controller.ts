@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { User } from '@kb-models';
 
@@ -9,6 +9,7 @@ import { GitHubAuthGuard } from '../../guards/github-auth.guard';
 import { JwtService } from '../jwt/jwt.service';
 
 @Controller('auth/github')
+@ApiTags('Authentication')
 export class GithubController {
   constructor(
     private readonly jwtService: JwtService
@@ -17,7 +18,11 @@ export class GithubController {
   @Get()
   @ApiOperation({
     summary: 'Initiate Github OAuth flow',
-    description: 'Redirects to Github OAuth flow for authentication'
+    description: 'Redirects to Github OAuth flow for authentication',
+    externalDocs: {
+      description: 'Github OAuth',
+      url: 'https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/'
+    }
   })
   @UseGuards(GitHubAuthGuard)
   async githubAuth() {
@@ -40,7 +45,7 @@ export class GithubController {
 
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
-    res.cookie('jwt', accessToken);
+    res.cookie('kibibit-jwt', accessToken);
     return { access_token: accessToken };
   }
 }
