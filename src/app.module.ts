@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SessionUserModule } from './session-user/session-user.module';
 import { RepositoriesModule } from './repositories/repositories.module';
+import { PullRequestsModule } from './pull-requests/pull-requests.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { RepositoriesModule } from './repositories/repositories.module';
     AuthModule,
     UsersModule,
     SessionUserModule,
-    RepositoriesModule
+    RepositoriesModule,
+    PullRequestsModule
   ],
   controllers: [ AppController ],
   providers: [
