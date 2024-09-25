@@ -5,7 +5,7 @@ import { MongoRepository } from 'typeorm';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateUser, User } from '@kb-models';
+import { CreateUser, PageMetaModel, PageModel, PageOptionsModel, User } from '@kb-models';
 
 @Injectable()
 export class UsersService {
@@ -52,8 +52,18 @@ export class UsersService {
     });
   }
 
-  findAll() {
-    return this.usersRepository.find();
+  async findAll(
+    pageOptions: PageOptionsModel
+  ) {
+    const [entities, itemCount] = await this.usersRepository.findAndCount({
+      order: { createdAt: pageOptions.order }, // Sorting by createdAt field
+      skip: pageOptions.skip,
+      take: pageOptions.take,
+    });
+
+    const pageMeta = new PageMetaModel({ itemCount, pageOptionsModel: pageOptions });
+
+    return new PageModel(entities, pageMeta);
   }
 
   findOne(username: string) {

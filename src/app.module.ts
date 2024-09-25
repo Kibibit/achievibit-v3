@@ -21,6 +21,7 @@ import { SessionUserModule } from './session-user/session-user.module';
       url: configService.config.MONGO_URL,
       database: configService.config.MONGO_DB_NAME,
       entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
+      synchronize: true,
       ssl: false
     }),
     AuthModule,

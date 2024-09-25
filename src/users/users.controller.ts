@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { User } from '@kb-models';
+import { PageOptionsModel, User } from '@kb-models';
 
 import { UsersService } from './users.service';
 
@@ -26,8 +26,10 @@ export class UsersController {
       summary: 'Get all users',
       description: 'Returns a paginated list of all users'
     })
-    async getUsers() {
-      return await this.usersService.findAll();
+    async getUsers(
+      @Query() pageOptions: PageOptionsModel,
+    ) {
+      return await this.usersService.findAll(pageOptions);
     }
 
     @Get(':id')

@@ -17,7 +17,13 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
       clientID: configService.config.GITHUB_CLIENT_ID,
       clientSecret: configService.config.GITHUB_CLIENT_SECRET,
       callbackURL: configService.config.GITHUB_CALLBACK_URL,
-      scope: [ 'public_profile' ]
+      scope: [
+        'public_profile',
+        'user',
+        'read:packages',
+        'read:project',
+        'read:org'
+      ]
     });
   }
 
@@ -50,7 +56,8 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
           system: SystemEnum.GITHUB,
           systemUsername: profile.username,
           accessToken: accessToken,
-          refreshToken: _refreshToken
+          refreshToken: _refreshToken,
+          systemEmails: profile.emails.map((email) => email.value)
         } ] as Integration[]
       });
     } else {
@@ -58,7 +65,8 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
         system: SystemEnum.GITHUB,
         systemUsername: profile.username,
         accessToken: accessToken,
-        refreshToken: _refreshToken
+        refreshToken: _refreshToken,
+        systemEmails: profile.emails.map((email) => email.value)
       });
     }
 

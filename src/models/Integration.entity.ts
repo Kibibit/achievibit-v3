@@ -25,6 +25,9 @@ export class Integration {
       system: SystemEnum;
 
     @Column()
+      systemEmails: string[];
+
+    @Column()
       systemUsername: string;
 
     @Column()

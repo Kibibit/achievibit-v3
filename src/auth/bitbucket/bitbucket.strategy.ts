@@ -43,7 +43,8 @@ export class BitBucketStrategy extends PassportStrategy(Strategy) {
           system: SystemEnum.BITBUCKET,
           systemUsername: profile.username,
           accessToken: accessToken,
-          refreshToken: _refreshToken
+          refreshToken: _refreshToken,
+          systemEmails: emails.all
         } ] as Integration[]
       });
     } else {
@@ -51,7 +52,8 @@ export class BitBucketStrategy extends PassportStrategy(Strategy) {
         system: SystemEnum.BITBUCKET,
         systemUsername: profile.username,
         accessToken: accessToken,
-        refreshToken: _refreshToken
+        refreshToken: _refreshToken,
+        systemEmails: emails.all
       });
     }
 

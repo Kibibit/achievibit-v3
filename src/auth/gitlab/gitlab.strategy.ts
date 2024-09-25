@@ -45,6 +45,7 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
           system: SystemEnum.GITLAB,
           systemUsername: profile.username,
           accessToken: accessToken,
+          systemEmails: profile.emails,
           refreshToken: _refreshToken
         } ] as Integration[]
       });
@@ -53,7 +54,8 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
         system: SystemEnum.GITLAB,
         systemUsername: profile.username,
         accessToken: accessToken,
-        refreshToken: _refreshToken
+        refreshToken: _refreshToken,
+        systemEmails: profile.emails
       });
     }
 

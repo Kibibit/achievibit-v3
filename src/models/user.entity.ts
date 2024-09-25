@@ -1,7 +1,9 @@
-import { Expose, Transform, Type } from 'class-transformer';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import {
   Column,
+  CreateDateColumn,
   Entity,
+  Index,
   ObjectId,
   ObjectIdColumn
 } from 'typeorm';
@@ -16,14 +18,20 @@ export class User {
     @Expose({ groups: [ 'admin' ] })
       id: ObjectId;
 
-    @Column({ unique: true })
+    @CreateDateColumn()
+    @Exclude()
+      createdAt: Date;
+
+    @Column()
+    @Index({ unique: true })
       username: string;
 
     @Column()
       avatar: string;
 
-    @Column({ nullable: true })
+    @Column()
     @Expose({ groups: [ 'admin', 'self' ] })
+    @Index({ unique: true })
       email?: string;
 
     @ObjectIdColumn({
@@ -42,4 +50,4 @@ export class User {
     }
 }
 
-export class CreateUser extends OmitType(User, [ 'id' ] as const) {}
+export class CreateUser extends OmitType(User, [ 'id', 'createdAt' ] as const) {}

@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { configService } from '@kb-config';
@@ -14,6 +14,8 @@ async function bootstrap() {
     AppModule,
     { snapshot: true }
   );
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   await Documentation.addDocumentation(app);
 
