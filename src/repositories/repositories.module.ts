@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
-import { RepositoriesService } from './repositories.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { Repository } from '@kb-models';
+
 import { RepositoriesController } from './repositories.controller';
+import { RepositoriesService } from './repositories.service';
 
 @Module({
-  providers: [RepositoriesService],
-  controllers: [RepositoriesController]
+  imports: [
+    TypeOrmModule.forFeature([ Repository ])
+  ],
+  providers: [ RepositoriesService ],
+  controllers: [ RepositoriesController ]
 })
 export class RepositoriesModule {}
