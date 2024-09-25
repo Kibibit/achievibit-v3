@@ -56,7 +56,8 @@ export class UsersService {
     pageOptions: PageOptionsModel
   ) {
     const [entities, itemCount] = await this.usersRepository.findAndCount({
-      order: { createdAt: pageOptions.order }, // Sorting by createdAt field
+      // Sorting by createdAt field
+      order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,
       take: pageOptions.take,
     });
