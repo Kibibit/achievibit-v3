@@ -10,6 +10,7 @@ import { UsersModule } from '@kb-users';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SessionUserModule } from './session-user/session-user.module';
+import { RepositoriesModule } from './repositories/repositories.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { SessionUserModule } from './session-user/session-user.module';
     }),
     AuthModule,
     UsersModule,
-    SessionUserModule
+    SessionUserModule,
+    RepositoriesModule
   ],
   controllers: [ AppController ],
   providers: [
