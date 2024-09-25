@@ -8,12 +8,9 @@ import { configService } from '@kb-config';
 import { Integration } from '@kb-models';
 import { UsersService } from '@kb-users';
 
-import { AuthService } from './auth.service';
-
 @Injectable()
 export class GitHubStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private readonly authService: AuthService,
     private readonly usersService: UsersService
   ) {
     super({
@@ -42,7 +39,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
     // (e.g., creating the user property on the Request object), and the request
     // handling pipeline can continue.
 
-    let user = await this.authService.validateGitHubUser(profile.username);
+    let user = await this.usersService.findOne(profile.username);
 
     if (!user) {
       user = await this.usersService.create({

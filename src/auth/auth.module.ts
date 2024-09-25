@@ -1,30 +1,31 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
 
-import { configService } from '@kb-config';
 import { UsersModule } from '@kb-users';
 
+import { BitbucketModule } from './bitbucket/bitbucket.module';
+import { BitBucketStrategy } from './bitbucket/bitbucket.strategy';
+import { GithubModule } from './github/github.module';
+import { GitHubStrategy } from './github/github.strategy';
+import { GitlabModule } from './gitlab/gitlab.module';
+import { GitLabStrategy } from './gitlab/gitlab.strategy';
+import { JwtStrategy } from './jwt/jwt.strategy';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { GitHubStrategy } from './github.strategy';
-import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
-    PassportModule,
-    JwtModule.register({
-      secret: configService.config.JWT_SECRET,
-      signOptions: { expiresIn: '24h' }
-    }),
-    UsersModule
+    UsersModule,
+    GithubModule,
+    GitlabModule,
+    BitbucketModule
   ],
   providers: [
     // Strategies
     JwtStrategy,
     GitHubStrategy,
+    GitLabStrategy,
+    BitBucketStrategy
     // Services
-    AuthService
+    // AuthService
   ],
   controllers: [ AuthController ]
 })

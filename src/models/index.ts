@@ -3,6 +3,4 @@
  */
 
 export * from './Integration.entity';
-export * from './auth.model';
 export * from './user.entity';
-export * from './user.model';

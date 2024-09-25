@@ -22,7 +22,8 @@
       "@kb-config": ["src/config/index"],
       "@kb-auth": ["src/auth/index"],
       "@kb-models": ["src/models/index"],
-      "@kb-users": ["src/users/index"]
+      "@kb-users": ["src/users/index"],
+      "@kb-guards": ["src/guards/index"]
     }
   }
 }
