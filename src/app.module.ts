@@ -17,8 +17,8 @@ import { AppService } from './app.service';
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://localhost:27017',
-      database: 'test',
+      url: configService.config.MONGO_URL,
+      database: configService.config.MONGO_DB_NAME,
       entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
       ssl: false
     }),

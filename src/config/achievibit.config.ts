@@ -63,4 +63,12 @@ export class AchievibitConfig extends BaseConfig {
   @IsString()
   @IsOptional()
     BITBUCKET_CALLBACK_URL: string;
+
+  @ConfigVariable()
+  @IsString()
+    MONGO_URL: string;
+
+  @ConfigVariable()
+  @IsString()
+    MONGO_DB_NAME: string;
 }
