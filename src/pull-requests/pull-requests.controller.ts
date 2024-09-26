@@ -1,6 +1,7 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { configService } from '@kb-config';
 import { JwtAuthGuard } from '@kb-guards';
 import { PageOptionsModel } from '@kb-models';
 
@@ -15,12 +16,13 @@ export class PullRequestsController {
 
   @Get()
   @ApiOperation({
-    summary: 'Get all repositories',
+    summary: 'Get all pull requests',
     description: 'Returns a paginated list of all pull requests'
   })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  async getPullRequests(
+  @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  async getPullRequestsDev(
     @Query() pageOptions: PageOptionsModel
   ) {
     return await this.pullRequestsService.findAll(pageOptions);
@@ -28,12 +30,13 @@ export class PullRequestsController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Get repository by id',
+    summary: 'Get a pull request by id',
     description: 'Returns a pull requests by its id'
   })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  async getPullRequest(
+  @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  async getPullRequestDev(
     @Query('id') id: string
   ) {
     return await this.pullRequestsService.findById(id);

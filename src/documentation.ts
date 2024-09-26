@@ -3,6 +3,7 @@ import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { configService } from '@kb-config';
 
 interface ISwaggerMethod {
   get: (attr: string) => string;
@@ -36,7 +37,15 @@ export class Documentation {
       in: 'header',
       description: 'Secret token for Bitbucket webhooks validation (usually sent by Bitbucket)'
     })
-    .setDescription('The achievibit API description. For the WebSocket API, please visit [achievibit-ws](/api-async)')
+    .setDescription([
+      `![swagger-mode](https://img.shields.io/badge/`,
+      `mode-${ configService.config.NODE_ENV }-`,
+      `${ configService.isDevelopmentMode ? 'FF5BF8' : '8A2BE2' }`,
+      `)\n\n`,
+      'The achievibit API description.',
+      '\n\n',
+      'For the WebSocket API, please visit [achievibit-ws](/api-async)'
+    ].join(''))
     .setVersion('1.0')
     .setContact(
       'thatkookooguy',
@@ -120,6 +129,21 @@ export class Documentation {
     /* background-color: #0052CC; */
     background-color: white;
     mask-image: url(https://simpleicons.org/icons/gitlab.svg);
+}
+
+[id$="Dev"] .opblock-summary-description:after {
+    transform: translateY(1px);
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: .5em;
+    content: '';
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background-color: #ff5bf8;
+    mask-image: url(https://simpleicons.org/icons/devdotto.svg);
 }
 
 .swagger-ui .opblock .opblock-summary-description {

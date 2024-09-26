@@ -1,8 +1,9 @@
 import { instanceToPlain } from 'class-transformer';
 import { Request } from 'express';
+import { UserSettings } from 'src/models/user-settings.entity';
 
-import { Controller, Get, NotImplementedException, Patch, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, NotImplementedException, Patch, Req, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@kb-guards';
 import { User } from '@kb-models';
@@ -16,6 +17,10 @@ export class SessionUserController {
   @ApiOperation({
     summary: 'Get current user',
     description: 'Returns the current user. Requires a valid JWT token'
+  })
+  @ApiOkResponse({
+    description: 'Current user',
+    type: User
   })
   getSessionUser(@Req() req: Request) {
     return instanceToPlain(new User(req.user), { groups: [ 'self' ] });
@@ -40,6 +45,10 @@ export class SessionUserController {
     summary: 'Get current user settings',
     description: 'Returns the current user settings. Requires a valid JWT token'
   })
+  @ApiOkResponse({
+    description: 'Current user settings',
+    type: UserSettings
+  })
   getSessionUserSettings(@Req() req: Request) {
     throw new NotImplementedException();
   }
@@ -51,7 +60,11 @@ export class SessionUserController {
     summary: 'Update current user settings',
     description: 'Updates the current user settings. Requires a valid JWT token'
   })
-  updateSessionUserSettings(@Req() req: Request) {
+  @ApiOkResponse({
+    description: 'Updated user settings',
+    type: UserSettings
+  })
+  updateSessionUserSettings(@Body() body: UserSettings) {
     throw new NotImplementedException();
   }
 

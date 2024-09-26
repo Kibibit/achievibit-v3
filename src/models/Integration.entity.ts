@@ -7,6 +7,8 @@ import {
   ObjectIdColumn
 } from 'typeorm';
 
+import { ApiProperty } from '@nestjs/swagger';
+
 import { User } from './user.entity';
 
 export enum SystemEnum {
@@ -15,25 +17,30 @@ export enum SystemEnum {
     BITBUCKET = 'bitbucket'
   }
 
-  @Entity('integrations')
+@Entity('integrations')
 export class Integration {
     @ObjectIdColumn()
     @Expose({ groups: [ 'admin' ] })
       id: ObjectId;
 
     @Column('enum', { enum: SystemEnum })
+    @ApiProperty({ enum: SystemEnum })
       system: SystemEnum;
 
     @Column()
+    @ApiProperty()
       systemEmails: string[];
 
     @Column()
+    @ApiProperty()
       systemUsername: string;
 
     @Column()
+    @ApiProperty()
       systemAvatar: string;
 
     @Column('json', { nullable: true })
+    @ApiProperty()
       organizations: { orgId: string; orgName: string }[];
 
     @Column()
