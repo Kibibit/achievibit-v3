@@ -53,7 +53,7 @@ export class Documentation {
     .setVersion('1.0')
     .setContact(
       'thatkookooguy',
-      'github.com/thatkookooguy',
+      'https://github.com/thatkookooguy',
       'thatkookooguy@kibibit.io'
     )
     .addTag(
