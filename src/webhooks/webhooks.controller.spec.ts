@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { WebhooksController } from './webhooks.controller';
 
 describe('WebhooksController', () => {
@@ -6,7 +7,7 @@ describe('WebhooksController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [WebhooksController],
+      controllers: [ WebhooksController ]
     }).compile();
 
     controller = module.get<WebhooksController>(WebhooksController);

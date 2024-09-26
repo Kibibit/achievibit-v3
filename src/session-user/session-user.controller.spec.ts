@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { SessionUserController } from './session-user.controller';
 
 describe('SessionUserController', () => {
@@ -6,7 +7,7 @@ describe('SessionUserController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SessionUserController],
+      controllers: [ SessionUserController ]
     }).compile();
 
     controller = module.get<SessionUserController>(SessionUserController);

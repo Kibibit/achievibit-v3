@@ -60,7 +60,7 @@ export class User {
     @Column()
     @Expose({ groups: [ 'admin', 'self' ] })
     @ApiProperty()
-    settings: UserSettings;
+      settings: UserSettings;
 
     constructor(partial: Partial<User>) {
       Object.assign(this, partial);
