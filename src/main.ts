@@ -26,4 +26,5 @@ async function bootstrap() {
     'localhost'
   );
   logger.log(`Application is running on: ${ appUrl }`);
+  logger.log(`Running in ${ configService.config.NODE_ENV } mode`);
 }
