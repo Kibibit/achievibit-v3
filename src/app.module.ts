@@ -13,6 +13,7 @@ import { SessionUserModule } from './session-user/session-user.module';
 import { RepositoriesModule } from './repositories/repositories.module';
 import { PullRequestsModule } from './pull-requests/pull-requests.module';
 import { OrganizationsModule } from './organizations/organizations.module';
+import { WebhooksModule } from './webhooks/webhooks.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { OrganizationsModule } from './organizations/organizations.module';
     SessionUserModule,
     RepositoriesModule,
     PullRequestsModule,
-    OrganizationsModule
+    OrganizationsModule,
+    WebhooksModule
   ],
   controllers: [ AppController ],
   providers: [

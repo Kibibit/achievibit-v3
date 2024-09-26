@@ -14,7 +14,28 @@ export class Documentation {
   static swaggerPath = 'api/docs';
   static config = new DocumentBuilder()
     .setTitle('achievibit-api')
-    .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      description: 'JWT token for authenticated user routes'
+    })
+    .addSecurity('gitlab-webhook', {
+      type: 'apiKey',
+      name: 'x-gitlab-token',
+      in: 'header',
+      description: 'Secret token for GitLab webhooks validation (usually sent by GitLab)'
+    })
+    .addSecurity('github-webhook', {
+      type: 'apiKey',
+      name: 'x-hub-signature-256',
+      in: 'header',
+      description: 'Secret token for GitHub webhooks validation (usually sent by GitHub)'
+    })
+    .addSecurity('bitbucket-webhook', {
+      type: 'apiKey',
+      name: 'x-hub-signature',
+      in: 'header',
+      description: 'Secret token for Bitbucket webhooks validation (usually sent by Bitbucket)'
+    })
     .setDescription('The achievibit API description. For the WebSocket API, please visit [achievibit-ws](/api-async)')
     .setVersion('1.0')
     .setContact(
@@ -107,8 +128,13 @@ export class Documentation {
 
 .swagger-ui .opblock-description-wrapper h4,
 .swagger-ui .opblock-external-docs-wrapper h4,
-.swagger-ui .opblock-title_normal h4 {
+.swagger-ui .opblock-title_normal h4,
+.swagger-ui .dialog-ux .modal-ux-content p {
   color: var(--put-color);
+}
+
+.swagger-ui .opblock-control-arrow {
+  width: 50px;
 }
       `.trim(),
       customJs: '//kibibit.io/kibibit-assets/swagger/swagger.js',

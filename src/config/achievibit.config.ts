@@ -71,4 +71,16 @@ export class AchievibitConfig extends BaseConfig {
   @ConfigVariable()
   @IsString()
     MONGO_DB_NAME: string;
+
+  @ConfigVariable()
+  @IsString()
+    GITHUB_WEBHOOK_SECRET: string;
+
+  @ConfigVariable()
+  @IsString()
+    GITLAB_WEBHOOK_SECRET: string;
+
+  @ConfigVariable()
+  @IsString()
+    BITBUCKET_WEBHOOK_SECRET: string;
 }

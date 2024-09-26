@@ -6,3 +6,6 @@ export * from './bitbucket-auth.guard';
 export * from './github-auth.guard';
 export * from './gitlab-auth.guard';
 export * from './jwt-auth.guard';
+export * from './bitbucket-webhook/bitbucket-webhook.guard';
+export * from './github-webhook/github-webhook.guard';
+export * from './gitlab-webhook/gitlab-webhook.guard';
