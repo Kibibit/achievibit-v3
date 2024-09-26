@@ -8,12 +8,7 @@ import {
 
 import { ApiProperty } from '@nestjs/swagger';
 
-
-export enum SystemEnum {
-    GITHUB = 'github',
-    GITLAB = 'gitlab',
-    BITBUCKET = 'bitbucket'
-  }
+import { SystemEnum } from './Integration.entity';
 
   @Entity('user-settings')
 export class UserSettings {

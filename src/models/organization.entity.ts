@@ -8,7 +8,7 @@ import {
   ObjectIdColumn
 } from 'typeorm';
 
-import { OmitType } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 
 import { SystemEnum } from './Integration.entity';
 
@@ -20,17 +20,25 @@ export class Organization {
 
     @CreateDateColumn()
     @Exclude()
+    @ApiProperty()
       createdAt: Date;
 
     @Column()
     @Index({ unique: true })
+    @ApiProperty()
       name: string;
 
     @Column()
+    @ApiProperty()
       system: SystemEnum;
 
     @Column()
+    @ApiProperty()
       owner: string;
+
+    @Column()
+    @ApiProperty()
+      members: string[];
 
     constructor(partial: Partial<Organization>) {
       Object.assign(this, partial);

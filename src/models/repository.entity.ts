@@ -8,7 +8,7 @@ import {
   ObjectIdColumn
 } from 'typeorm';
 
-import { OmitType } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 
 import { SystemEnum } from './Integration.entity';
 
@@ -20,16 +20,20 @@ export class Repository {
 
     @CreateDateColumn()
     @Exclude()
+    @ApiProperty()
       createdAt: Date;
 
     @Column()
     @Index({ unique: true })
+    @ApiProperty()
       name: string;
 
     @Column()
+    @ApiProperty()
       system: SystemEnum;
 
     @Column()
+    @ApiProperty()
       owner: string;
 
     constructor(partial: Partial<Repository>) {
