@@ -5,17 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@kb-auth';
 import { configService, SmeeService } from '@kb-config';
+import { DisableInProductionGuard } from '@kb-guards';
+import { OrganizationsModule } from '@kb-organizations';
+import { PullRequestsModule } from '@kb-pull-requests';
+import { RepositoriesModule } from '@kb-repositories';
+import { SessionUserModule } from '@kb-session-user';
+import { ShieldsModule } from '@kb-shields';
 import { UsersModule } from '@kb-users';
+import { WebhooksModule } from '@kb-webhooks';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SessionUserModule } from './session-user/session-user.module';
-import { RepositoriesModule } from './repositories/repositories.module';
-import { PullRequestsModule } from './pull-requests/pull-requests.module';
-import { OrganizationsModule } from './organizations/organizations.module';
-import { WebhooksModule } from './webhooks/webhooks.module';
-import { DisableInProductionGuard } from '@kb-guards';
-import { ShieldsModule } from '@kb-shields';
 
 @Module({
   imports: [
@@ -47,7 +47,7 @@ import { ShieldsModule } from '@kb-shields';
     },
     {
       provide: APP_GUARD,
-      useClass: DisableInProductionGuard,
+      useClass: DisableInProductionGuard
     },
     AppService,
     SmeeService

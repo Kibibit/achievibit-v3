@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiCreatedResponse, ApiExcludeEndpoint, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { CreateUser, PageModel, PageOptionsModel, User } from '@kb-models';
-
-import { UsersService } from './users.service';
 import { configService } from '@kb-config';
 import { ApiOkResponsePaginated, DisableInProduction } from '@kb-decorators';
+import { CreateUser, PageOptionsModel, User } from '@kb-models';
+
+import { UsersService } from './users.service';
 
 @Controller('users')
 @ApiTags('Users')
@@ -36,7 +36,7 @@ export class UsersController {
   })
   @ApiOkResponsePaginated(User)
   async getUsers(
-    @Query() pageOptions: PageOptionsModel,
+    @Query() pageOptions: PageOptionsModel
   ) {
     return await this.usersService.findAll(pageOptions);
   }

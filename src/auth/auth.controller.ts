@@ -1,10 +1,7 @@
-import { instanceToPlain } from 'class-transformer';
 import { Request } from 'express';
 
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-
-import { User } from '@kb-models';
 
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 

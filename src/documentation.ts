@@ -3,6 +3,7 @@ import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { configService } from '@kb-config';
 
 interface ISwaggerMethod {
@@ -42,10 +43,10 @@ export class Documentation {
       description: 'Secret token for Bitbucket webhooks validation (usually sent by Bitbucket)'
     })
     .setDescription([
-      `![swagger-mode](https://img.shields.io/badge/`,
+      '![swagger-mode](https://img.shields.io/badge/',
       `mode-${ configService.config.NODE_ENV }-`,
       `${ configService.isDevelopmentMode ? 'FF5BF8' : '8A2BE2' }`,
-      `)\n\n`,
+      ')\n\n',
       'The achievibit API description.',
       '\n\n',
       'For the WebSocket API, please visit [achievibit-ws](/api-async)'

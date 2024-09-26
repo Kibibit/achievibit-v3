@@ -55,11 +55,11 @@ export class UsersService {
   async findAll(
     pageOptions: PageOptionsModel
   ) {
-    const [entities, itemCount] = await this.usersRepository.findAndCount({
+    const [ entities, itemCount ] = await this.usersRepository.findAndCount({
       // Sorting by createdAt field
       order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,
-      take: pageOptions.take,
+      take: pageOptions.take
     });
 
     const pageMeta = new PageMetaModel({ itemCount, pageOptionsModel: pageOptions });
