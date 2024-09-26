@@ -2,7 +2,7 @@ import { instanceToPlain } from 'class-transformer';
 import { Request } from 'express';
 
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { User } from '@kb-models';
 
@@ -14,6 +14,7 @@ export class AuthController {
   @Get('logout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Logout',
     description: 'Clears the JWT cookie, and invalidates the JWT token'

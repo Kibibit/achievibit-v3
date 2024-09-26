@@ -19,6 +19,10 @@ export class Documentation {
       type: 'http',
       description: 'JWT token for authenticated user routes'
     })
+    .addCookieAuth('user_token', {
+      type: 'apiKey',
+      description: 'JWT token for authenticated user routes'
+    })
     .addSecurity('gitlab-webhook', {
       type: 'apiKey',
       name: 'x-gitlab-token',
