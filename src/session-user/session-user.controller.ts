@@ -2,15 +2,20 @@ import { instanceToPlain } from 'class-transformer';
 import { Request } from 'express';
 import { UserSettings } from 'src/models/user-settings.entity';
 
-import { Body, Controller, Get, NotImplementedException, Patch, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Header, NotImplementedException, Patch, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@kb-guards';
 import { User } from '@kb-models';
+import { ShieldsService } from '@kb-shields';
 
 @Controller('me')
 @ApiTags('Session User')
 export class SessionUserController {
+  constructor(
+    private readonly shieldsService: ShieldsService
+  ) {}
+
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -26,6 +31,27 @@ export class SessionUserController {
   getSessionUser(@Req() req: Request) {
     return instanceToPlain(new User(req.user), { groups: [ 'self' ] });
   }
+
+  @Get('shield')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiCookieAuth()
+  @ApiOperation({
+    summary: 'Get shield',
+    description: 'Returns the shield for the current user. Requires a valid JWT token'
+  })
+  @ApiOkResponse({
+    description: 'Current user shield',
+    type: 'string'
+  })
+  @Header('Content-Type', 'image/svg+xml')
+  getSessionUserShield(@Req() req: Request) {
+    return this.shieldsService.generate(
+      'achievements',
+      (req.user as User).username
+    );
+  }
+
 
   @Get('logout')
   @UseGuards(JwtAuthGuard)

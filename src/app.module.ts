@@ -15,6 +15,7 @@ import { PullRequestsModule } from './pull-requests/pull-requests.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
 import { DisableInProductionGuard } from '@kb-guards';
+import { ShieldsModule } from '@kb-shields';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { DisableInProductionGuard } from '@kb-guards';
     RepositoriesModule,
     PullRequestsModule,
     OrganizationsModule,
-    WebhooksModule
+    WebhooksModule,
+    ShieldsModule
   ],
   controllers: [ AppController ],
   providers: [
