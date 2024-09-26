@@ -19,10 +19,7 @@ export class WebhooksController {
   @ApiSecurity('bitbucket-webhook')
   @ApiBody({
     schema: {
-      type: 'object',
-      properties: {
-        test: { type: 'string' }
-      }
+      type: 'object'
     }
   })
   bitbucket(
@@ -37,10 +34,7 @@ export class WebhooksController {
   @ApiSecurity('github-webhook')
   @ApiBody({
     schema: {
-      type: 'object',
-      properties: {
-        test: { type: 'string' }
-      }
+      type: 'object'
     }
   })
   github(
@@ -55,10 +49,7 @@ export class WebhooksController {
   @ApiSecurity('gitlab-webhook')
   @ApiBody({
     schema: {
-      type: 'object',
-      properties: {
-        test: { type: 'string' }
-      }
+      type: 'object'
     }
   })
   gitlab(
