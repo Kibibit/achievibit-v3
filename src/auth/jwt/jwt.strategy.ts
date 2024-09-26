@@ -34,10 +34,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   private static extractJWT(req: Request): string | null {
     if (
       req.cookies &&
-      'token' in req.cookies &&
-      req.cookies.user_token.length > 0
+      'kibibit-jwt' in req.cookies &&
+      req.cookies['kibibit-jwt'].length > 0
     ) {
-      return req.cookies.token;
+      return req.cookies['kibibit-jwt'];
     }
     return null;
   }

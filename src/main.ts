@@ -1,3 +1,5 @@
+import cookieParser from 'cookie-parser';
+
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -19,6 +21,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   app.disable('x-powered-by');
+  app.use(cookieParser());
 
   await Documentation.addDocumentation(app);
 
