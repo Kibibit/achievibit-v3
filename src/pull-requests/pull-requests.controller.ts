@@ -2,7 +2,7 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { configService } from '@kb-config';
-import { ApiOkResponsePaginated } from '@kb-decorators';
+import { ApiOkResponsePaginated, DisableInProduction } from '@kb-decorators';
 import { JwtAuthGuard } from '@kb-guards';
 import { PageOptionsModel, PullRequest } from '@kb-models';
 
@@ -24,6 +24,7 @@ export class PullRequestsController {
   @ApiBearerAuth()
   @ApiCookieAuth()
   @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  @DisableInProduction()
   @ApiOkResponsePaginated(PullRequest)
   async getPullRequestsDev(
     @Query() pageOptions: PageOptionsModel
@@ -40,6 +41,7 @@ export class PullRequestsController {
   @ApiBearerAuth()
   @ApiCookieAuth()
   @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  @DisableInProduction()
   async getPullRequestDev(
     @Query('id') id: string
   ) {

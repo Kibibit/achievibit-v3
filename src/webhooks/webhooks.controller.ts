@@ -2,6 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiExcludeEndpoint, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { configService } from '@kb-config';
+import { DisableInProduction } from '@kb-decorators';
 import { BitbucketWebhookGuard, GitHubWebhookGuard, GitLabWebhookGuard } from '@kb-guards';
 
 import { WebhooksService } from './webhooks.service';
@@ -25,7 +26,7 @@ export class WebhooksController {
   bitbucket(
     @Body() body: any
   ) {
-    return 'Bitbucket webhook received';
+    return this.webhooksService.handleBitBucketWebhook(body);
   }
 
   @Post('github')
@@ -40,7 +41,7 @@ export class WebhooksController {
   github(
     @Body() body: any
   ) {
-    return 'GitHub webhook received';
+    return this.webhooksService.handleGitHubWebhook(body);
   }
 
   @Post('gitlab')
@@ -55,12 +56,13 @@ export class WebhooksController {
   gitlab(
     @Body() body: any
   ) {
-    return 'GitLab webhook received';
+    return this.webhooksService.handleGitLabWebhook(body);
   }
 
   @Post('bitbucket/generate-token')
   @ApiOperation({ summary: 'Generate a BitBucket token for testing' })
   @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  @DisableInProduction()
   @ApiBody({ schema: { type: 'object' } })
   generateBitBucketTokenDev(
     @Body() body: any
@@ -71,6 +73,7 @@ export class WebhooksController {
   @Post('github/generate-token')
   @ApiOperation({ summary: 'Generate a GitHub token for testing' })
   @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  @DisableInProduction()
   @ApiBody({ schema: { type: 'object' } })
   generateGitHubTokenDev(
     @Body() body: any
@@ -81,6 +84,7 @@ export class WebhooksController {
   @Post('gitlab/generate-token')
   @ApiOperation({ summary: 'Generate a GitLab token for testing' })
   @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  @DisableInProduction()
   generateGitLabTokenDev() {
     return this.webhooksService.generateGitLabWebhookApiToken();
   }

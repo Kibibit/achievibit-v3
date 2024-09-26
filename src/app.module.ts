@@ -1,5 +1,5 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -14,6 +14,7 @@ import { RepositoriesModule } from './repositories/repositories.module';
 import { PullRequestsModule } from './pull-requests/pull-requests.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
+import { DisableInProductionGuard } from '@kb-guards';
 
 @Module({
   imports: [
@@ -41,6 +42,10 @@ import { WebhooksModule } from './webhooks/webhooks.module';
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor
+    },
+    {
+      provide: APP_GUARD,
+      useClass: DisableInProductionGuard,
     },
     AppService,
     SmeeService

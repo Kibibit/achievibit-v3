@@ -29,4 +29,28 @@ export class WebhooksService {
   generateGitLabWebhookApiToken() {
     return configService.config.GITLAB_WEBHOOK_SECRET;
   }
+
+  handleBitBucketWebhook(body: any) {
+    console.log('BitBucket webhook received');
+
+    return {
+      message: 'Webhook received'
+    };
+  }
+
+  handleGitHubWebhook(body: any) {
+    console.log('GitHub webhook received');
+
+    return {
+      message: 'Webhook received'
+    };
+  }
+
+  handleGitLabWebhook(body: any) {
+    console.log('GitLab webhook received');
+
+    return {
+      message: 'Webhook received'
+    };
+  }
 }

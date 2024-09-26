@@ -9,7 +9,7 @@ const nodeEnv = process.env.NODE_ENV || ENV_DEFAULT;
 
 export class KbConfigService extends ConfigService<AchievibitConfig> {
   logger: any;
-  isDevelopmentMode = nodeEnv !== 'development';
+  isDevelopmentMode = this.config.NODE_ENV !== 'development';
 
   constructor(passedConfig?: Partial<AchievibitConfig>, options: IConfigServiceOptions = {}) {
     super(AchievibitConfig, passedConfig, {
