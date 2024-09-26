@@ -24,7 +24,8 @@
       "@kb-models": ["src/models/index"],
       "@kb-users": ["src/users/index"],
       "@kb-guards": ["src/guards/index"],
-      "@kb-decorators": ["src/decorators/index"]
+      "@kb-decorators": ["src/decorators/index"],
+      "@kb-shields": ["src/shields/index"]
     }
   }
 }
