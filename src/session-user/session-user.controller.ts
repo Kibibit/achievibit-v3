@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { UserSettings } from 'src/models/user-settings.entity';
 
 import { Body, Controller, Get, NotImplementedException, Patch, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@kb-guards';
 import { User } from '@kb-models';
@@ -14,6 +14,7 @@ export class SessionUserController {
   @Get()
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Get current user',
     description: 'Returns the current user. Requires a valid JWT token'
@@ -29,6 +30,7 @@ export class SessionUserController {
   @Get('logout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Logout',
     description: 'Clears the JWT cookie, and invalidates the JWT token'
@@ -41,6 +43,7 @@ export class SessionUserController {
   @Get('settings')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Get current user settings',
     description: 'Returns the current user settings. Requires a valid JWT token'
@@ -56,6 +59,7 @@ export class SessionUserController {
   @Patch('settings')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Update current user settings',
     description: 'Updates the current user settings. Requires a valid JWT token'
@@ -71,6 +75,7 @@ export class SessionUserController {
   @Get('integrations')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Get current user integrations',
     description: 'Will return the currently integrated cloud git systems'
@@ -82,6 +87,7 @@ export class SessionUserController {
   @Get('integrations/:system')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Get current user integration',
     description: 'Will return the currently integrated cloud git system with related repositories'
@@ -93,6 +99,7 @@ export class SessionUserController {
   @Get('integrations/:system/available')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({
     summary: 'Get available repositories',
     description: 'Will return the available repositories for the given cloud git system'

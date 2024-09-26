@@ -5,6 +5,7 @@ import { CreateUser, PageModel, PageOptionsModel, User } from '@kb-models';
 
 import { UsersService } from './users.service';
 import { configService } from '@kb-config';
+import { ApiOkResponsePaginated } from '@kb-decorators';
 
 @Controller('users')
 @ApiTags('Users')
@@ -32,11 +33,7 @@ export class UsersController {
     summary: 'Get all users',
     description: 'Returns a paginated list of all users'
   })
-  @ApiOkResponse({
-    description: 'List of users',
-    type: PageModel<User>,
-    isArray: true
-  })
+  @ApiOkResponsePaginated(User)
   async getUsers(
     @Query() pageOptions: PageOptionsModel,
   ) {

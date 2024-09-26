@@ -1,7 +1,8 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { PageOptionsModel } from '@kb-models';
+import { ApiOkResponsePaginated } from '@kb-decorators';
+import { Organization, PageOptionsModel } from '@kb-models';
 
 import { OrganizationsService } from './organizations.service';
 
@@ -17,6 +18,7 @@ export class OrganizationsController {
     summary: 'Get all repositories',
     description: 'Returns a paginated list of all pull requests'
   })
+  @ApiOkResponsePaginated(Organization)
   async getOrganizations(
     @Query() pageOptions: PageOptionsModel
   ) {
