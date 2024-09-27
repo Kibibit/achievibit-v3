@@ -25,7 +25,7 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
     return {
       type: 'postgres',
 
-      name: 'postgres',
+      // name: 'postgres',
 
       host: this.config.POSTGRES_HOST,
       port: this.config.POSTGRES_PORT,
@@ -33,7 +33,7 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
       password: this.config.POSTGRES_PASSWORD,
       database: this.config.POSTGRES_DATABASE,
 
-      entities: [ 'models/postgres/**/*.entity{.ts,.js}' ],
+      entities: [ '**/*.entity{.ts,.js}' ],
 
       migrationsTableName: 'migration',
 
@@ -43,7 +43,10 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
       //   migrationsDir: 'src/migration'
       // },
 
-      ssl: this.isProductionMode
+      ssl: this.isProductionMode,
+
+      synchronize: true,
+      logging: true
     };
   }
 }

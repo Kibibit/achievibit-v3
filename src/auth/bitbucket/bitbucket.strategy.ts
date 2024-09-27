@@ -1,11 +1,10 @@
 import { Profile, Strategy } from 'passport-bitbucket-oauth2';
-import { SystemEnum } from 'src/models/Integration.entity';
 
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { configService } from '@kb-config';
-import { Integration } from '@kb-models';
+import { Integration, SystemEnum, User, UserSettings } from '@kb-models';
 import { UsersService } from '@kb-users';
 
 @Injectable()
@@ -42,15 +41,23 @@ export class BitBucketStrategy extends PassportStrategy(Strategy) {
         integrations: [ {
           system: SystemEnum.BITBUCKET,
           systemUsername: profile.username,
+          systemAvatar: profile._json.links.avatar.href,
           accessToken: accessToken,
           refreshToken: _refreshToken,
           systemEmails: emails.all
-        } ] as Integration[]
-      });
+        } ] as Integration[],
+        settings: {
+          theme: 'light',
+          timezone: 'auto',
+          avatarSystemOrigin: SystemEnum.GITHUB,
+          dateFormat: 'MM/DD/YYYY'
+        } as UserSettings
+      } as User);
     } else {
       await this.usersService.updateIntegrations(user.username, {
         system: SystemEnum.BITBUCKET,
         systemUsername: profile.username,
+        systemAvatar: profile._json.links.avatar.href,
         accessToken: accessToken,
         refreshToken: _refreshToken,
         systemEmails: emails.all

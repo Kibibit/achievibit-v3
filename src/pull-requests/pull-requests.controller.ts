@@ -47,4 +47,15 @@ export class PullRequestsController {
   ) {
     return await this.pullRequestsService.findById(id);
   }
+
+  @Get('mock')
+  @ApiOperation({
+    summary: 'Create a mock pull request',
+    description: 'Creates a mock pull request'
+  })
+  @ApiExcludeEndpoint(configService.isDevelopmentMode)
+  @DisableInProduction()
+  async createMockPullRequestDev() {
+    return await this.pullRequestsService.createMock();
+  }
 }

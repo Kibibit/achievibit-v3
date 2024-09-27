@@ -22,14 +22,15 @@ import { AppService } from './app.service';
     DevtoolsModule.register({
       http: configService.config.NODE_ENV !== 'production'
     }),
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      url: configService.config.MONGO_URL,
-      database: configService.config.MONGO_DB_NAME,
-      entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
-      synchronize: true,
-      ssl: false
-    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mongodb',
+    //   url: configService.config.MONGO_URL,
+    //   database: configService.config.MONGO_DB_NAME,
+    //   entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
+    //   synchronize: true,
+    //   ssl: false
+    // }),
+    TypeOrmModule.forRoot(configService.getTypeOrmPostgresConfig()),
     AuthModule,
     UsersModule,
     SessionUserModule,

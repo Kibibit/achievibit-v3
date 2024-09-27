@@ -1,10 +1,9 @@
 import { instanceToPlain } from 'class-transformer';
-import { SystemEnum } from 'src/models/Integration.entity';
 
 import { Injectable } from '@nestjs/common';
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 
-import { User } from '@kb-models';
+import { SystemEnum, User } from '@kb-models';
 import { UsersService } from '@kb-users';
 
 @Injectable()

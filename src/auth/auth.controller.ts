@@ -17,7 +17,7 @@ export class AuthController {
     description: [
       'Clears the `kibibit-jwt` cookie. ',
       'This effectively logs out the user. ',
-      '**Note that the JWT token is still valid until it expires.**',
+      '**Note that the JWT token is still valid until it expires.**'
     ].join('')
   })
   logout(@Req() req: Request) {

@@ -1,17 +1,16 @@
 
-import { SystemEnum } from 'src/models/Integration.entity';
-import { MongoRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateUser, PageMetaModel, PageModel, PageOptionsModel, User } from '@kb-models';
+import { CreateUser, PageMetaModel, PageModel, PageOptionsModel, SystemEnum, User } from '@kb-models';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: MongoRepository<User>
+    private readonly usersRepository: Repository<User>
   ) {}
 
   create(user: CreateUser) {
@@ -32,24 +31,12 @@ export class UsersService {
       existingIntegration.accessToken = loginIntegration.accessToken || existingIntegration.accessToken;
       existingIntegration.refreshToken = loginIntegration.refreshToken || existingIntegration.refreshToken;
 
-      return await this.usersRepository.updateOne({
-        username
-      }, {
-        $set: {
-          integrations: user.integrations
-        }
-      });
+      return await this.usersRepository.save(user);
     }
 
     user.integrations.push(loginIntegration);
 
-    return await this.usersRepository.updateOne({
-      username
-    }, {
-      $set: {
-        integrations: user.integrations
-      }
-    });
+    return await this.usersRepository.save(user);
   }
 
   async findAll(

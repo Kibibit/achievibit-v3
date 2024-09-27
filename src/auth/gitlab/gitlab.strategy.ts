@@ -1,11 +1,10 @@
 import { Profile, Strategy } from 'passport-gitlab2';
-import { SystemEnum } from 'src/models/Integration.entity';
 
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { configService } from '@kb-config';
-import { Integration } from '@kb-models';
+import { Integration, SystemEnum, User, UserSettings } from '@kb-models';
 import { UsersService } from '@kb-users';
 
 @Injectable()
@@ -44,18 +43,26 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
         integrations: [ {
           system: SystemEnum.GITLAB,
           systemUsername: profile.username,
+          systemAvatar: profile.avatarUrl,
           accessToken: accessToken,
-          systemEmails: profile.emails,
+          systemEmails: profile.emails.map((email) => email.value),
           refreshToken: _refreshToken
-        } ] as Integration[]
-      });
+        } ] as Integration[],
+        settings: {
+          theme: 'light',
+          timezone: 'auto',
+          avatarSystemOrigin: SystemEnum.GITHUB,
+          dateFormat: 'MM/DD/YYYY'
+        } as UserSettings
+      } as User);
     } else {
       await this.usersService.updateIntegrations(user.username, {
         system: SystemEnum.GITLAB,
         systemUsername: profile.username,
+        systemAvatar: profile.avatarUrl,
         accessToken: accessToken,
         refreshToken: _refreshToken,
-        systemEmails: profile.emails
+        systemEmails: profile.emails.map((email) => email.value)
       });
     }
 
