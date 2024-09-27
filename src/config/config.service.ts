@@ -1,4 +1,6 @@
 /* eslint-disable no-process-env */
+import { join } from 'path';
+
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { ConfigService, IConfigServiceOptions } from '@kibibit/configit';
@@ -37,7 +39,7 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
 
       migrationsTableName: 'migration',
 
-      migrations: [ 'src/migration/*.ts' ],
+      migrations: [ join(this.appRoot, 'src', 'migrations', '*.{ts,js}') ],
 
       // cli: {
       //   migrationsDir: 'src/migration'
