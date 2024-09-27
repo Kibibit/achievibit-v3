@@ -4,8 +4,10 @@
 
 export * from './Integration.entity';
 export * from './organization.entity';
+export * from './pr-status.enum';
 export * from './pull-request.entity';
 export * from './repository.entity';
+export * from './system.enum';
 export * from './user-settings.entity';
 export * from './user.entity';
 export * from './pagination/page-meta.model';

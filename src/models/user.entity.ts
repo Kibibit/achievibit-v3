@@ -4,23 +4,24 @@ import {
   CreateDateColumn,
   Entity,
   Index,
-  ObjectId,
-  ObjectIdColumn
+  JoinColumn,
+  ManyToMany,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 
 import { Integration } from './Integration.entity';
+import { Organization } from './organization.entity';
 import { UserSettings } from './user-settings.entity';
 
   @Entity('users')
 export class User {
-    @ObjectIdColumn()
+    @PrimaryGeneratedColumn('uuid')
     @Expose({ groups: [ 'admin' ] })
-    // @ApiProperty({
-    //   type: ObjectId
-    // })
-      id: ObjectId;
+      id: string;
 
     @CreateDateColumn()
     @Exclude()
@@ -42,29 +43,63 @@ export class User {
     @ApiPropertyOptional()
       email?: string;
 
-    @ObjectIdColumn({
-      name: 'integrations',
-      array: true
-    })
+    @OneToMany(
+      () => Integration,
+      (integration) => integration.user,
+      {
+        cascade: true,
+        eager: true
+      }
+    )
+    @JoinColumn()
     @Type(() => Integration)
     @Transform(
       ({ value }) => (value as Integration[]).map((integration) => integration.system),
       { toPlainOnly: true }
     )
     @ApiProperty({
-      type: Integration,
+      type: () => Integration,
       isArray: true
     })
       integrations: Integration[];
 
-    @Column()
+    @OneToOne(
+      () => UserSettings,
+      (settings) => settings.user,
+      {
+        cascade: true,
+        eager: true
+      }
+    )
+    @JoinColumn()
     @Expose({ groups: [ 'admin', 'self' ] })
     @ApiProperty()
       settings: UserSettings;
 
-    constructor(partial: Partial<User>) {
-      Object.assign(this, partial);
+    @ManyToMany(
+      () => Organization,
+      (organization) => organization.members
+    )
+    @Type(() => Organization)
+    @Transform(
+      ({ value }) => (value as Organization[]).map((organization) => organization.name),
+      { toPlainOnly: true }
+    )
+    @ApiProperty({
+      type: () => Organization,
+      isArray: true
+    })
+      organizations: Organization[];
+
+      @Expose()
+      @ApiProperty()
+    get registered(): boolean {
+      return this.integrations && this.integrations.length > 0;
     }
+
+      constructor(partial: Partial<User>) {
+        Object.assign(this, partial);
+      }
 }
 
 export class CreateUser extends OmitType(User, [ 'id', 'createdAt', 'settings' ] as const) {}

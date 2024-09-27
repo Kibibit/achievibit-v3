@@ -2,13 +2,14 @@ import { Expose } from 'class-transformer';
 import {
   Column,
   Entity,
-  ObjectId,
-  ObjectIdColumn
+  OneToOne,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
 
-import { SystemEnum } from './Integration.entity';
+import { SystemEnum } from './system.enum';
+import { User } from './user.entity';
 
 export enum ThemeEnum {
   LIGHT = 'light',
@@ -17,9 +18,9 @@ export enum ThemeEnum {
 
   @Entity('user-settings')
 export class UserSettings {
-    @ObjectIdColumn()
+    @PrimaryGeneratedColumn('uuid')
     @Expose({ groups: [ 'admin' ] })
-      id: ObjectId;
+      id: string;
 
     @Column()
     @ApiProperty()
@@ -29,13 +30,19 @@ export class UserSettings {
     @ApiProperty()
       dateFormat: string;
 
-    @Column('enum', { enum: SystemEnum })
+    @Column({
+      type: 'enum',
+      enum: SystemEnum
+    })
     @ApiProperty({ enum: SystemEnum })
       avatarSystemOrigin: SystemEnum;
 
     @Column('enum', { enum: ThemeEnum })
     @ApiProperty({ enum: ThemeEnum })
       theme: ThemeEnum;
+
+    @OneToOne(() => User, (user) => user.settings)
+      user: User;
 
     constructor(partial: Partial<UserSettings>) {
       Object.assign(this, partial);

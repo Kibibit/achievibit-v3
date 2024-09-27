@@ -2,64 +2,60 @@ import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
-  ObjectId,
-  ObjectIdColumn
+  PrimaryGeneratedColumn
 } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
 
+import { SystemEnum } from './system.enum';
 import { User } from './user.entity';
-
-export enum SystemEnum {
-    GITHUB = 'github',
-    GITLAB = 'gitlab',
-    BITBUCKET = 'bitbucket'
-  }
 
 @Entity('integrations')
 export class Integration {
-    @ObjectIdColumn()
-    @Expose({ groups: [ 'admin' ] })
-      id: ObjectId;
+  @PrimaryGeneratedColumn('uuid')
+  @Expose({ groups: [ 'admin' ] })
+    id: string;
 
-    @Column('enum', { enum: SystemEnum })
-    @ApiProperty({ enum: SystemEnum })
-      system: SystemEnum;
+  @Column('enum', { enum: SystemEnum })
+  @ApiProperty({ enum: SystemEnum })
+    system: SystemEnum;
 
-    @Column()
-    @ApiProperty()
-      systemEmails: string[];
+  @Column('text', { array: true })
+  @ApiProperty()
+    systemEmails: string[];
 
-    @Column()
-    @ApiProperty()
-      systemUsername: string;
+  @Column()
+  @ApiProperty()
+    systemUsername: string;
 
-    @Column()
-    @ApiProperty()
-      systemAvatar: string;
+  @Column()
+  @ApiProperty()
+    systemAvatar: string;
 
-    @Column('json', { nullable: true })
-    @ApiProperty()
-      organizations: { orgId: string; orgName: string }[];
+  @Column('json', { nullable: true })
+  @ApiProperty()
+    organizations: { orgId: string; orgName: string }[];
 
-    @Column()
-    @Exclude()
-      accessToken: string;
+  @Column()
+  @Exclude()
+    accessToken: string;
 
-    @Column()
-    @Exclude()
-      refreshToken: string;
+  @Column({ nullable: true })
+  @Exclude()
+    refreshToken: string;
 
-    @Column()
-    @Exclude()
-      tokenExpiry: Date;
+  @Column({ nullable: true })
+  @Exclude()
+    tokenExpiry: Date;
 
-    // Relation to the User entity
-    @ManyToOne(() => User, (user) => user.integrations)
-      user: User;
+  // Relation to the User entity
+  @ManyToOne(() => User, (user) => user.integrations)
+  @JoinColumn({ name: 'userId' })
+    user: User;
 
-    constructor(partial: Partial<Integration>) {
-      Object.assign(this, partial);
-    }
+  constructor(partial: Partial<Integration>) {
+    Object.assign(this, partial);
+  }
 }
