@@ -83,4 +83,29 @@ export class AchievibitConfig extends BaseConfig {
   @ConfigVariable()
   @IsString()
     BITBUCKET_WEBHOOK_SECRET: string;
+
+  @ConfigVariable()
+  @IsString()
+  @IsOptional()
+    POSTGRES_HOST: string;
+
+  @ConfigVariable()
+  @IsNumber()
+  @IsOptional()
+    POSTGRES_PORT: number;
+
+  @ConfigVariable()
+  @IsString()
+  @IsOptional()
+    POSTGRES_USER: string;
+
+  @ConfigVariable()
+  @IsString()
+  @IsOptional()
+    POSTGRES_PASSWORD: string;
+
+  @ConfigVariable()
+  @IsString()
+  @IsOptional()
+    POSTGRES_DATABASE: string;
 }

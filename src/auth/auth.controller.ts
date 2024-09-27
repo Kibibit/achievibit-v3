@@ -14,7 +14,11 @@ export class AuthController {
   @ApiCookieAuth()
   @ApiOperation({
     summary: 'Logout',
-    description: 'Clears the JWT cookie, and invalidates the JWT token'
+    description: [
+      'Clears the `kibibit-jwt` cookie. ',
+      'This effectively logs out the user. ',
+      '**Note that the JWT token is still valid until it expires.**',
+    ].join('')
   })
   logout(@Req() req: Request) {
     req.res.clearCookie('kibibit-jwt');

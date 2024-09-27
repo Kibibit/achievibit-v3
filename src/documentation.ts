@@ -47,7 +47,9 @@ export class Documentation {
       `mode-${ configService.config.NODE_ENV }-`,
       `${ configService.isDevelopmentMode ? 'FF5BF8' : '8A2BE2' }`,
       ')\n\n',
-      'The achievibit API description.',
+      'The achievibit API description.\n\n',
+      'Since this swagger shares the same domain as the app, ',
+      'you can use the same cookie for authentication.',
       '\n\n',
       'For the WebSocket API, please visit [achievibit-ws](/api-async)'
     ].join(''))
@@ -100,7 +102,10 @@ export class Documentation {
     SwaggerModule.setup(Documentation.swaggerPath, app, document, {
       customSiteTitle: Documentation.title,
       customCss: `${ customCss }
-[id*="BitbucketController"] .opblock-summary-description:before {
+[id*="BitbucketController"] .opblock-summary-description:before,
+[id*="bitbucket"] .opblock-summary-description:before,
+[id*="BitBucket"] .opblock-summary-description:before,
+[id*="Bitbucket"] .opblock-summary-description:before {
     transform: translateY(3px);
     margin-right: .3em;
     content: '';
@@ -112,7 +117,10 @@ export class Documentation {
     mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
 }
 
-[id*="GithubController"] .opblock-summary-description:before {
+[id*="GithubController"] .opblock-summary-description:before,
+[id*="github"] .opblock-summary-description:before,
+[id*="GitHub"] .opblock-summary-description:before,
+[id*="Github"] .opblock-summary-description:before {
     transform: translateY(3px);
     margin-right: .3em;
     content: '';
@@ -124,7 +132,10 @@ export class Documentation {
     mask-image: url(https://simpleicons.org/icons/github.svg);
 }
 
-[id*="GitlabController"] .opblock-summary-description:before {
+[id*="GitlabController"] .opblock-summary-description:before,
+[id*="gitlab"] .opblock-summary-description:before,
+[id*="GitLab"] .opblock-summary-description:before,
+[id*="Gitlab"] .opblock-summary-description:before {
     transform: translateY(3px);
     margin-right: .3em;
     content: '';

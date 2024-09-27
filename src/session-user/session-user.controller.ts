@@ -2,11 +2,11 @@ import { instanceToPlain } from 'class-transformer';
 import { Request } from 'express';
 import { UserSettings } from 'src/models/user-settings.entity';
 
-import { Body, Controller, Get, Header, NotImplementedException, Patch, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Header, NotImplementedException, Param, Patch, Req, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '@kb-guards';
-import { User } from '@kb-models';
+import { SystemEnum, User } from '@kb-models';
 import { ShieldsService } from '@kb-shields';
 
 @Controller('me')
@@ -118,7 +118,15 @@ export class SessionUserController {
     summary: 'Get current user integration',
     description: 'Will return the currently integrated cloud git system with related repositories'
   })
-  getSessionUserIntegration(@Req() req: Request) {
+  @ApiQuery({
+    name: 'system',
+    enum: SystemEnum,
+    description: 'The cloud git system to get the available repositories for'
+  })
+  getSessionUserIntegration(
+    @Param('system') system: SystemEnum
+  ) {
+    console.log('system', system);
     throw new NotImplementedException();
   }
 
@@ -130,7 +138,15 @@ export class SessionUserController {
     summary: 'Get available repositories',
     description: 'Will return the available repositories for the given cloud git system'
   })
-  getSessionUserAvailableRepositories(@Req() req: Request) {
+  @ApiQuery({
+    name: 'system',
+    enum: SystemEnum,
+    description: 'The cloud git system to get the available repositories for'
+  })
+  getSessionUserAvailableRepositories(
+    @Param('system') system: SystemEnum
+  ) {
+    console.log('system', system);
     throw new NotImplementedException();
   }
 }
