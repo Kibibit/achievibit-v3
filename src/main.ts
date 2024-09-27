@@ -9,6 +9,8 @@ import { configService } from '@kb-config';
 import { AppModule } from './app.module';
 import { Documentation } from './documentation';
 
+import 'reflect-metadata';
+
 bootstrap();
 
 async function bootstrap() {
