@@ -51,7 +51,7 @@ export class Documentation {
       'Since this swagger shares the same domain as the app, ',
       'you can use the same cookie for authentication.',
       '\n\n',
-      'For the WebSocket API, please visit [achievibit-ws](/api-async)'
+      'For the WebSocket API, please visit [achievibit-ws](/api/docs-async)'
     ].join(''))
     .setVersion('1.0')
     .setContact(

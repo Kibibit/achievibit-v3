@@ -3,6 +3,7 @@
  */
 
 export * from './Integration.entity';
+export * from './api.model';
 export * from './organization.entity';
 export * from './pr-status.enum';
 export * from './pull-request.entity';
