@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, MiddlewareConsumer, Module } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,20 +16,18 @@ import { WebhooksModule } from '@kb-webhooks';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     DevtoolsModule.register({
       http: configService.config.NODE_ENV !== 'production'
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'mongodb',
-    //   url: configService.config.MONGO_URL,
-    //   database: configService.config.MONGO_DB_NAME,
-    //   entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
-    //   synchronize: true,
-    //   ssl: false
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(configService.appRoot, 'client'), // Adjust the path to your client build directory
+      exclude: ['/api*'], // Exclude API routes
+    }),
     TypeOrmModule.forRoot(configService.getTypeOrmPostgresConfig()),
     AuthModule,
     UsersModule,

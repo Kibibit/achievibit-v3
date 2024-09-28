@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 import cookieParser from 'cookie-parser';
 
 import { Logger, ValidationPipe } from '@nestjs/common';
@@ -24,6 +26,11 @@ async function bootstrap() {
 
   app.disable('x-powered-by');
   app.use(cookieParser());
+
+  app.useStaticAssets(join(configService.appRoot, 'client'), {
+    // Cache static assets for 1 day
+    maxAge: configService.isDevelopmentMode ? 0 : '1d'
+  });
 
   await Documentation.addDocumentation(app);
 
