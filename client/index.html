@@ -5,16 +5,81 @@
   <title>This is the title of the webpage!</title>
 </head>
 
-<body>
-  <div>
-    <a id="login with GitHub" href="/api/auth/github">Login with GitHub</a>
+<body
+  style="width: 100dvw; height: 100dvh; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #747474;">
+  <div id="user-info" style="
+  opacity: 0;
+  padding: .5em;
+  border: black solid 3px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  margin: 1em;
+  background: white;
+">
+    <img src="" alt="avatar" style="width: 100px;" />
+    <div id="username"></div>
+    <div id="email"></div>
   </div>
-  <div>
-    <a id="login with GitLab" href="/api/auth/gitlab">Login with GitLab</a>
+  <div id="login-container">
+    <div style="margin: 1em">
+      <a id="login with GitHub" href="/api/auth/github">Login with GitHub</a>
+    </div>
+    <div style="margin: 1em">
+      <a id="login with GitLab" href="/api/auth/gitlab">Login with GitLab</a>
+    </div>
+    <div style="margin: 1em">
+      <a id="login with Bitbucket" href="/api/auth/bitbucket">Login with Bitbucket</a>
+    </div>
   </div>
-  <div>
-    <a id="login with Bitbucket" href="/api/auth/bitbucket">Login with Bitbucket</a>
+  <div id="logout-container" style="display: none;">
+    <div style="margin: 1em">
+      <a id="logout" href="/api/me/logout">Logout</a>
+    </div>
   </div>
+  <script>
+    const cookie = document.cookie;
+    // call GET /api/me to get the logged in user
+    (async () => {
+      const response = await fetch('/api/me', {
+        headers: {
+          'Cookie': cookie
+        }
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(data);
+        return;
+      }
+
+      const userInfo = document.getElementById('user-info');
+      const avatar = userInfo.querySelector('img');
+      const username = userInfo.querySelector('#username');
+      const email = userInfo.querySelector('#email');
+
+      avatar.src = data.avatar;
+      username.textContent = data.username;
+      email.textContent = data.email;
+
+      userInfo.style.opacity = 1;
+
+      const loginContainer = document.getElementById('login-container');
+      const logoutContainer = document.getElementById('logout-container');
+
+      if (data.username) {
+        loginContainer.style.display = 'none';
+        logoutContainer.style.display = 'block';
+      } else {
+        loginContainer.style.display = 'block';
+        logoutContainer.style.display = 'none';
+      }
+    })();
+  </script>
 </body>
 
 </html>
