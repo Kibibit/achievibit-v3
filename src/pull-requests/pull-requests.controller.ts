@@ -8,7 +8,7 @@ import { PageOptionsModel, PullRequest } from '@kb-models';
 
 import { PullRequestsService } from './pull-requests.service';
 
-@Controller('prs')
+@Controller('api/prs')
 @ApiTags('Pull Requests')
 export class PullRequestsController {
   constructor(

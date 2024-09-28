@@ -9,7 +9,7 @@ import { JwtAuthGuard } from '@kb-guards';
 import { SystemEnum, User } from '@kb-models';
 import { ShieldsService } from '@kb-shields';
 
-@Controller('me')
+@Controller('api/me')
 @ApiTags('Session User')
 export class SessionUserController {
   constructor(

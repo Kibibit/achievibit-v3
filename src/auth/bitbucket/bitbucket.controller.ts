@@ -8,7 +8,7 @@ import { User } from '@kb-models';
 import { BitBucketAuthGuard } from '../../guards/bitbucket-auth.guard';
 import { JwtService } from '../jwt/jwt.service';
 
-@Controller('auth/bitbucket')
+@Controller('api/auth/bitbucket')
 @ApiTags('Authentication')
 export class BitbucketController {
   constructor(

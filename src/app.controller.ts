@@ -20,7 +20,7 @@ export class AppController {
     // this.smeeService.initializeSmeeClient();
   }
 
-  @Get()
+  @Get('api')
   @ApiOperation({ summary: 'Get API Information' })
   @ApiOkResponse({
     description: 'Returns API info as a JSON',

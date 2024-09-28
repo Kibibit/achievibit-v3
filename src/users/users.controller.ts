@@ -7,7 +7,7 @@ import { CreateUser, PageOptionsModel, User } from '@kb-models';
 
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('api/users')
 @ApiTags('Users')
 export class UsersController {
   constructor(

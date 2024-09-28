@@ -5,7 +5,7 @@ import { ApiBearerAuth, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swa
 
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
-@Controller('auth')
+@Controller('api/auth')
 @ApiTags('Authentication')
 export class AuthController {
   @Get('logout')

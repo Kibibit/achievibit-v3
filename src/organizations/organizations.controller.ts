@@ -6,7 +6,7 @@ import { Organization, PageOptionsModel } from '@kb-models';
 
 import { OrganizationsService } from './organizations.service';
 
-@Controller('orgs')
+@Controller('api/orgs')
 @ApiTags('Organizations')
 export class OrganizationsController {
   constructor(

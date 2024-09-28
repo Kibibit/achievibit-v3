@@ -8,7 +8,7 @@ import { User } from '@kb-models';
 import { GitHubAuthGuard } from '../../guards/github-auth.guard';
 import { JwtService } from '../jwt/jwt.service';
 
-@Controller('auth/github')
+@Controller('api/auth/github')
 @ApiTags('Authentication')
 export class GithubController {
   constructor(

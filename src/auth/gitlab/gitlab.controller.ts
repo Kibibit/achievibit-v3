@@ -8,7 +8,7 @@ import { User } from '@kb-models';
 import { GitLabAuthGuard } from '../../guards/gitlab-auth.guard';
 import { JwtService } from '../jwt/jwt.service';
 
-@Controller('auth/gitlab')
+@Controller('api/auth/gitlab')
 @ApiTags('Authentication')
 export class GitlabController {
   constructor(

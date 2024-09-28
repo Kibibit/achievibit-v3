@@ -7,7 +7,7 @@ import { BitbucketWebhookGuard, GitHubWebhookGuard, GitLabWebhookGuard } from '@
 
 import { WebhooksService } from './webhooks.service';
 
-@Controller('webhooks')
+@Controller('api/webhooks')
 @ApiTags('Webhooks')
 export class WebhooksController {
   constructor(

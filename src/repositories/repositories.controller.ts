@@ -6,7 +6,7 @@ import { PageOptionsModel, Repository } from '@kb-models';
 
 import { RepositoriesService } from './repositories.service';
 
-@Controller('repos')
+@Controller('api/repos')
 @ApiTags('Repositories')
 export class RepositoriesController {
   constructor(
