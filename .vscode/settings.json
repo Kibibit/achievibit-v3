@@ -48,6 +48,20 @@
     "thatkookooguy",
     "typeorm"
   ],
+  "peacock.color": "#ca2f51",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "source.ts meta.class.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts"
+        ],
+        "settings": {
+          "foreground": "#ff0095", // "#FF8800",
+          "fontStyle": "italic bold underline"
+        }
+      }
+    ]
+  },
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#d75571",
     "activityBar.background": "#d75571",
@@ -66,19 +80,5 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#ca2f5199",
     "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#ca2f51",
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": [
-          "source.ts meta.class.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts"
-        ],
-        "settings": {
-          "foreground": "#ff0095", // "#FF8800",
-          "fontStyle": "italic bold underline"
-        }
-      }
-    ]
   }
 }
