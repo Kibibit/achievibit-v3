@@ -1,6 +1,9 @@
-import { ClassSerializerInterceptor, MiddlewareConsumer, Module } from '@nestjs/common';
+import { join } from 'path';
+
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@kb-auth';
@@ -16,8 +19,6 @@ import { WebhooksModule } from '@kb-webhooks';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 
 @Module({
   imports: [
@@ -25,8 +26,10 @@ import { join } from 'path';
       http: configService.config.NODE_ENV !== 'production'
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(configService.appRoot, 'client'), // Adjust the path to your client build directory
-      exclude: ['/api*'], // Exclude API routes
+      // Adjust the path to your client build directory
+      rootPath: join(configService.appRoot, 'client'),
+      // Exclude API routes
+      exclude: [ '/api*' ]
     }),
     TypeOrmModule.forRoot(configService.getTypeOrmPostgresConfig()),
     AuthModule,
