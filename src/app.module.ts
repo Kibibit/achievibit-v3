@@ -1,14 +1,16 @@
 import { join } from 'path';
 
-import { ClassSerializerInterceptor, Module } from '@nestjs/common';
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { ClassSerializerInterceptor, MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@kb-auth';
 import { configService, SmeeService } from '@kb-config';
+import { DbExceptionFilter } from '@kb-filters';
 import { DisableInProductionGuard } from '@kb-guards';
+import { LoggerMiddleware } from '@kb-middleware';
 import { OrganizationsModule } from '@kb-organizations';
 import { PullRequestsModule } from '@kb-pull-requests';
 import { RepositoriesModule } from '@kb-repositories';
@@ -51,8 +53,18 @@ import { AppService } from './app.service';
       provide: APP_GUARD,
       useClass: DisableInProductionGuard
     },
+    {
+      provide: APP_FILTER,
+      useClass: DbExceptionFilter
+    },
     AppService,
     SmeeService
   ]
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}

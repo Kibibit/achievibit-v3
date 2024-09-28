@@ -2,6 +2,7 @@ import { join } from 'path';
 
 import { magenta } from 'colors';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import { WinstonModule } from 'nest-winston';
 
 import { Logger, ValidationPipe } from '@nestjs/common';
@@ -30,9 +31,18 @@ async function bootstrap() {
   );
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  // app.useGlobalInterceptors(new ErrorLoggingInterceptor());
+  // app.useGlobalFilters(new HttpExceptionFilter());
 
   app.disable('x-powered-by');
   app.use(cookieParser());
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false
+    })
+  );
 
   app.useStaticAssets(join(configService.appRoot, 'client'), {
     // Cache static assets for 1 day

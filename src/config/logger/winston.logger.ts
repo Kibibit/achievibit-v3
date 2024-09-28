@@ -83,6 +83,9 @@ const instanceLogger = (process.env.NODE_ENV === 'production') ? prodLogger : de
 export const loggerInstance = createLogger(instanceLogger);
 
 function strictLength(str: string, len: number) {
+  if (str.length >= len) {
+    return str;
+  }
   // ADD SPACES to both sides of the string to keep word centered
   const beforeSpaces = Math.floor((len - str.length) / 2);
   const afterSpaces = len - str.length - beforeSpaces;
