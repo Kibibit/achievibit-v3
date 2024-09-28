@@ -13,6 +13,7 @@ import { configService, loggerInstance } from '@kb-config';
 
 import { AppModule } from './app.module';
 import { Documentation } from './documentation';
+import { logo } from './logo';
 
 import 'reflect-metadata';
 
@@ -20,6 +21,10 @@ bootstrap();
 
 async function bootstrap() {
   const logger = new Logger('bootstrap');
+
+  console.log(logo);
+  console.log('\n');
+
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
     {
