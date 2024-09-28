@@ -1,70 +1,83 @@
 {
-    "eslint.enable": true,
-    "eslint.options": {
-        "overrideConfigFile": "./.eslintrc.js",
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".html"]
-    },
-    "eslint.probe": [
-      "astro",
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-      "html",
-      "mdx",
-      "vue",
-      "markdown",
-      "json",
-      "jsonc"
-    ],
-    "eslint.validate": [
-      "javascript", // ...
-      "html" // Add "html" to enable linting `.html` files.
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "always",
-        "source.fixAll.stylelint": "explicit"
-    },
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.detectIndentation": false,
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false,
-    "stylelint.validate": [ "css", "scss" ],
-    "cSpell.words": [
-      "achievibit",
-      "barrelsby",
-      "commitlint",
-      "configit",
-      "fullname",
-      "Gamification",
-      "kibibit",
-      "nestjs",
-      "Smee",
-      "stylelint",
-      "stylelintrc",
-      "thatkookooguy",
-      "typeorm"
-    ],
-    "workbench.colorCustomizations": {
-      "activityBar.activeBackground": "#d75571",
-      "activityBar.background": "#d75571",
-      "activityBar.foreground": "#e7e7e7",
-      "activityBar.inactiveForeground": "#e7e7e799",
-      "activityBarBadge.background": "#68d44a",
-      "activityBarBadge.foreground": "#15202b",
-      "commandCenter.border": "#e7e7e799",
-      "sash.hoverBorder": "#d75571",
-      "statusBar.background": "#ca2f51",
-      "statusBar.foreground": "#e7e7e7",
-      "statusBarItem.hoverBackground": "#d75571",
-      "statusBarItem.remoteBackground": "#ca2f51",
-      "statusBarItem.remoteForeground": "#e7e7e7",
-      "titleBar.activeBackground": "#ca2f51",
-      "titleBar.activeForeground": "#e7e7e7",
-      "titleBar.inactiveBackground": "#ca2f5199",
-      "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.color": "#ca2f51"
+  "eslint.enable": true,
+  "eslint.options": {
+      "overrideConfigFile": "./.eslintrc.js",
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".html"]
+  },
+  "eslint.probe": [
+    "astro",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "mdx",
+    "vue",
+    "markdown",
+    "json",
+    "jsonc"
+  ],
+  "eslint.validate": [
+    "javascript", // ...
+    "html" // Add "html" to enable linting `.html` files.
+  ],
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always",
+      "source.fixAll.stylelint": "explicit"
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": [ "css", "scss" ],
+  "cSpell.words": [
+    "achievibit",
+    "barrelsby",
+    "commitlint",
+    "configit",
+    "fullname",
+    "Gamification",
+    "kibibit",
+    "nestjs",
+    "Smee",
+    "stylelint",
+    "stylelintrc",
+    "thatkookooguy",
+    "typeorm"
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#d75571",
+    "activityBar.background": "#d75571",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#68d44a",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#d75571",
+    "statusBar.background": "#ca2f51",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#d75571",
+    "statusBarItem.remoteBackground": "#ca2f51",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#ca2f51",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#ca2f5199",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#ca2f51",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "source.ts meta.class.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts"
+        ],
+        "settings": {
+          "foreground": "#ff0095", // "#FF8800",
+          "fontStyle": "italic bold underline"
+        }
+      }
+    ]
+  }
 }
