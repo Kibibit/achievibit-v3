@@ -1,9 +1,13 @@
+import { join } from 'path';
+
 import { bgGreen, bgMagenta, bgRed, bgYellow, green, magenta, red, yellow } from 'colors';
 import { get, isArray, isObject, isString, omit } from 'lodash';
 import { render } from 'prettyjson';
 import { createLogger, format, transports } from 'winston';
 
 import prettyStack from '@kibibit/pretty-stack';
+
+import { configService } from '../config.service';
 
 
 // custom log display format
@@ -40,7 +44,7 @@ const customFormat = format.printf(({ context, level, timestamp, message, stack 
 
 const options = {
   file: {
-    filename: 'error.log',
+    filename: join(configService.appRoot, 'logs', 'error.log'),
     level: 'error'
   },
   console: {
@@ -71,7 +75,7 @@ const prodLogger = {
   transports: [
     new transports.File(options.file),
     new transports.File({
-      filename: 'combine.log',
+      filename: join(configService.appRoot, 'logs', 'combine.log'),
       level: 'info'
     })
   ]
