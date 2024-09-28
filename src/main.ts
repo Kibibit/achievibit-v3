@@ -1,12 +1,14 @@
 import { join } from 'path';
 
+import { magenta } from 'colors';
 import cookieParser from 'cookie-parser';
+import { WinstonModule } from 'nest-winston';
 
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
-import { configService } from '@kb-config';
+import { configService, loggerInstance } from '@kb-config';
 
 import { AppModule } from './app.module';
 import { Documentation } from './documentation';
@@ -19,7 +21,12 @@ async function bootstrap() {
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
-    { snapshot: true }
+    {
+      snapshot: true,
+      logger: WinstonModule.createLogger({
+        instance: loggerInstance
+      })
+    }
   );
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
@@ -40,6 +47,6 @@ async function bootstrap() {
     /\[.*?\]/,
     'localhost'
   );
-  logger.log(`Application is running on: ${ appUrl }`);
-  logger.log(`Running in ${ configService.config.NODE_ENV } mode`);
+  logger.log(`Application is running on: ${ magenta(appUrl) }`);
+  logger.log(`Running in ${ magenta(configService.config.NODE_ENV) } mode`);
 }

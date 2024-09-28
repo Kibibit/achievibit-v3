@@ -4,4 +4,6 @@
 
 export * from './achievibit.config';
 export * from './config.service';
+export * from './logger/logger';
+export * from './logger/winston.logger';
 export * from './smee/smee.service';

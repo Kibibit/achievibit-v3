@@ -47,10 +47,10 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
 
       ssl: this.isProductionMode,
 
-      synchronize: true,
-      logging: true
+      synchronize: true
+      // logging: true
     };
   }
 }
 
-export const configService = new KbConfigService() as KbConfigService;
+export const configService = new KbConfigService();
