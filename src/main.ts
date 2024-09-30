@@ -49,6 +49,8 @@ async function bootstrap() {
     })
   );
 
+  app.enableCors();
+
   app.useStaticAssets(join(configService.appRoot, 'client'), {
     // Cache static assets for 1 day
     maxAge: configService.isDevelopmentMode ? 0 : '1d'

@@ -3,6 +3,7 @@ import { instanceToPlain } from 'class-transformer';
 import { Injectable } from '@nestjs/common';
 import { JwtService as NestJwtService } from '@nestjs/jwt';
 
+import { configService } from '@kb-config';
 import { SystemEnum, User } from '@kb-models';
 import { UsersService } from '@kb-users';
 
@@ -17,7 +18,9 @@ export class JwtService {
     const sanitizedUser = instanceToPlain(new User(user));
 
     return {
-      accessToken: this.nestJwtService.sign(sanitizedUser)
+      accessToken: this.nestJwtService.sign(sanitizedUser, {
+        secret: configService.config.JWT_SECRET
+      })
     };
   }
 

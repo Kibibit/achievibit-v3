@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { configService } from '@kb-config';
 import { User } from '@kb-models';
 
 import { GitHubAuthGuard } from '../../guards/github-auth.guard';
@@ -45,7 +46,14 @@ export class GithubController {
 
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
-    res.cookie('kibibit-jwt', accessToken);
+    res.cookie('kibibit-jwt', accessToken, {
+      httpOnly: true,
+      secure: configService.isProductionMode,
+      sameSite: 'strict'
+    });
+
+    res.redirect('/');
+
     return { access_token: accessToken };
   }
 }

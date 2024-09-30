@@ -1,19 +1,25 @@
 import { instanceToPlain } from 'class-transformer';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { UserSettings } from 'src/models/user-settings.entity';
 
-import { Body, Controller, Get, Header, NotImplementedException, Param, Patch, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Header, NotImplementedException, Param, Patch, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+import { ReqUser } from '@kb-decorators';
 import { JwtAuthGuard } from '@kb-guards';
 import { SystemEnum, User } from '@kb-models';
 import { ShieldsService } from '@kb-shields';
+import { UsersService } from '@kb-users';
+
+import { SessionUserService } from './session-user.service';
 
 @Controller('api/me')
 @ApiTags('Session User')
 export class SessionUserController {
   constructor(
-    private readonly shieldsService: ShieldsService
+    private readonly sessionUserService: SessionUserService,
+    private readonly shieldsService: ShieldsService,
+    private readonly usersService: UsersService
   ) {}
 
   @Get()
@@ -52,7 +58,6 @@ export class SessionUserController {
     );
   }
 
-
   @Get('logout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -61,9 +66,15 @@ export class SessionUserController {
     summary: 'Logout',
     description: 'Clears the JWT cookie, and invalidates the JWT token'
   })
-  logout(@Req() req: Request) {
-    req.res.clearCookie('kibibit-jwt');
-    return { message: 'Logged out' };
+  logout(
+    @Req() req: Request,
+    @Res() res: Response
+  ) {
+    res.clearCookie('kibibit-jwt');
+
+    // redirect to home
+    res.redirect('/');
+    // return { message: 'Logged out' };
   }
 
   @Get('settings')
@@ -130,6 +141,20 @@ export class SessionUserController {
     throw new NotImplementedException();
   }
 
+  @Get('integrations/all/available')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiCookieAuth()
+  @ApiOperation({
+    summary: 'Get available repositories',
+    description: 'Will return the available repositories for all cloud git systems'
+  })
+  async getSessionUserAllAvailableRepositories(@ReqUser() user: User) {
+    const dbUser = await this.usersService.findOne(user.username);
+
+    return await this.sessionUserService.getAllReposAccessibleByUser(dbUser);
+  }
+
   @Get('integrations/:system/available')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -138,15 +163,25 @@ export class SessionUserController {
     summary: 'Get available repositories',
     description: 'Will return the available repositories for the given cloud git system'
   })
-  @ApiQuery({
-    name: 'system',
-    enum: SystemEnum,
-    description: 'The cloud git system to get the available repositories for'
-  })
-  getSessionUserAvailableRepositories(
-    @Param('system') system: SystemEnum
+  // @ApiQuery({
+  //   name: 'system',
+  //   enum: SystemEnum,
+  //   description: 'The cloud git system to get the available repositories for'
+  // })
+  async getSessionUserAvailableRepositories(
+    @Param('system') system: SystemEnum,
+    @ReqUser() user: User
   ) {
     console.log('system', system);
-    throw new NotImplementedException();
+    const dbUser = await this.usersService.findOne(user.username);
+    if (system === SystemEnum.GITLAB) {
+      return await this.sessionUserService.getGitlabReposAccessibleByUser(dbUser);
+    }
+
+    if (system === SystemEnum.BITBUCKET) {
+      return await this.sessionUserService.getBitbucketReposAccessibleByUser(dbUser);
+    }
+
+    return await this.sessionUserService.getGithubReposAccessibleByUser(dbUser);
   }
 }

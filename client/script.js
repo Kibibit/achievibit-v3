@@ -41,7 +41,6 @@ const cookie = document.cookie;
     userInfo.style.display = 'none';
     const reposResponse = await fetch('/api/me/integrations/all/available');
     const reposData = await reposResponse.json();
-    console.log(reposData);
 
     if (!reposResponse.ok) {
       console.error(reposData);
