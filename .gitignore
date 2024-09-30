@@ -1,5 +1,7 @@
 .env.*.json
 
+.pnpm-store
+
 # compiled output
 /dist
 /node_modules
