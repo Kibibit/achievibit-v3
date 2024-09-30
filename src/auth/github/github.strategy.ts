@@ -21,7 +21,8 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
         'user',
         'read:packages',
         'read:project',
-        'read:org'
+        'read:org',
+        'repo'
       ]
     });
   }

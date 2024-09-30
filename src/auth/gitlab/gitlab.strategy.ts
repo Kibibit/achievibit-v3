@@ -15,16 +15,12 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: configService.config.GITLAB_CLIENT_ID,
       clientSecret: configService.config.GITLAB_CLIENT_SECRET,
-      callbackURL: configService.config.GITLAB_CALLBACK_URL
-      // gitlab scopes?
-      // scope: [
-      //   'profile',
-      //   'email',
-      //   'api',
-      //   'read_user',
-      //   'read_repository',
-      //   'write_repository'
-      // ]
+      callbackURL: configService.config.GITLAB_CALLBACK_URL,
+      /*
+        Need the ability to read user profile information,
+        read user projects, and read user email addresses
+      */
+      scope: 'api read_user read_repository email openid profile'
     });
   }
 
@@ -47,6 +43,7 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
           accessToken: accessToken,
           systemEmails: profile.emails.map((email) => email.value),
           refreshToken: _refreshToken
+          // tokenExpiry: new Date()
         } ] as Integration[],
         settings: {
           theme: 'light',
