@@ -4,3 +4,4 @@
 
 export * from './api-ok-response-paginated.decorator';
 export * from './disable-in-production.decorator';
+export * from './req-user.decorator';
