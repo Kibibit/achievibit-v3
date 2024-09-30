@@ -31,4 +31,49 @@ const cookie = document.cookie;
     loginContainer.style.display = 'block';
     logoutContainer.style.display = 'none';
   }
+
+  const showReposContainerElement = document.getElementById('show-repos-container');
+  const showReposLinkElement = showReposContainerElement.querySelector('a');
+  const userReposView = document.getElementById('user-repos-view');
+
+  showReposLinkElement.addEventListener('click', async () => {
+    // hide profile view
+    userInfo.style.display = 'none';
+    const reposResponse = await fetch('/api/me/integrations/all/available');
+    const reposData = await reposResponse.json();
+    console.log(reposData);
+
+    if (!reposResponse.ok) {
+      console.error(reposData);
+      return;
+    }
+
+    userReposView.innerHTML = '';
+    const reposList = document.createElement('ul');
+    reposList.classList.add('kb-repos-list');
+    userReposView.appendChild(reposList);
+
+    reposData.forEach((repo) => {
+      const repoElement = document.createElement('li');
+      repoElement.classList.add('kb-repo');
+      repoElement.classList.add(repo.system);
+      repoElement.classList.add(repo.private ? 'private' : 'public');
+
+      const nameSpan = document.createElement('div');
+      // create a <i class="visibility-icon></i> to put in the beginning of the nameSpan
+      const visibilityIcon = document.createElement('i');
+      visibilityIcon.classList.add('visibility-icon');
+      nameSpan.textContent = repo.name;
+      nameSpan.classList.add('kb-repo-name');
+      nameSpan.append(visibilityIcon);
+      repoElement.appendChild(nameSpan);
+
+      const fullNameSpan = document.createElement('div');
+      fullNameSpan.textContent = repo.full_name;
+      fullNameSpan.classList.add('kb-repo-full-name');
+      repoElement.appendChild(fullNameSpan);
+
+      reposList.appendChild(repoElement);
+    });
+  });
 })();

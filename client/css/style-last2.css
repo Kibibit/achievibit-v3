@@ -6,11 +6,89 @@
   text-transform: lowercase;
 }
 
+#login-container a {
+  display: flex;
+}
+
+#user-repos-view {
+  overflow-y: scroll;
+}
+
+#user-repos-view .kb-repos-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#user-repos-view .kb-repos-list li.kb-repo {
+  /* background: rgba(0, 0, 0, 0.1); */
+  padding: 1em;
+  border-radius: 4px;
+}
+
+li.kb-repo .kb-repo-name {
+  display: flex;
+  align-items: start;
+}
+
+li.kb-repo .kb-repo-name::before {
+  content: '';
+  background-color: white;
+  margin-right: 0.5em;
+  height: 1.2em;
+  aspect-ratio: 1 / 1;
+  display: inline-block;
+}
+
+li.kb-repo .visibility-icon {
+  width: 18px;
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  mask-size: 100% 100%;
+  margin-left: auto;
+}
+
+li.kb-repo.private .visibility-icon {
+  mask-image: url('../private.svg');
+}
+
+li.kb-repo.public .visibility-icon {
+  mask-image: url('../public.svg');
+}
+
+li.kb-repo.gitlab {
+  background-color: #FC6D2680;
+}
+
+li.kb-repo.github {
+  background-color: #18171740;
+}
+
+li.kb-repo.bitbucket {
+  background-color: #0052CC80;
+}
+
+li.kb-repo.github .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/github.svg);
+  /* background-color: #181717; */
+}
+
+li.kb-repo.gitlab .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/gitlab.svg);
+  /* background-color: #FC6D26; */
+}
+
+li.kb-repo.bitbucket .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
+  /* background-color: #0052CC; */
+}
+
 .login,
-#logout-container {
+#logout-container,
+#show-repos-container {
   fill: white;
   color: white;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   padding: 0.5em 1em;
@@ -26,14 +104,17 @@
 }
 
 .login .logo,
-.login .label {
+.login .label,
+#show-repos-container .logo,
+#show-repos-container .label {
   font-size: 14px;
   fill: white;
   color: white;
 }
 
 .login .logo,
-#logout-container .logo {
+#logout-container .logo,
+#show-repos-container .logo {
   width: 20px;
   margin-right: 0.3em;
   height: 20px;
@@ -45,6 +126,11 @@
 
 #logout-container .logo.logout {
   mask-image: url(../logout-svgrepo-com.svg);
+  mask-size: 100% 100%;
+}
+
+#show-repos-container .logo.repos {
+  mask-image: url(../git-branch-svgrepo-com.svg);
   mask-size: 100% 100%;
 }
 
@@ -406,7 +492,8 @@ body .kb-having-trouble:focus:after {
   height: auto;
 }
 
-.kb-profile .actions a {
+.kb-profile .actions a,
+#show-repos-container a {
   fill: white;
   color: white;
   display: flex;
@@ -417,7 +504,8 @@ body .kb-having-trouble:focus:after {
   transition: all 250ms;
 }
 
-.kb-profile .actions a:hover {
+.kb-profile .actions a:hover,
+#show-repos-container a:hover {
   background: rgba(0, 0, 0, 0.1);
 }
 
