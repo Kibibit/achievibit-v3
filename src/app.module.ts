@@ -4,6 +4,7 @@ import { ClassSerializerInterceptor, MiddlewareConsumer, Module, RequestMethod }
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@kb-auth';
@@ -19,6 +20,7 @@ import { ShieldsModule } from '@kb-shields';
 import { UsersModule } from '@kb-users';
 import { WebhooksModule } from '@kb-webhooks';
 
+import { HealthModule } from './health/health.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -33,6 +35,10 @@ import { AppService } from './app.service';
       // Exclude API routes
       exclude: [ '/api*' ]
     }),
+    ThrottlerModule.forRoot([ {
+      ttl: 60000,
+      limit: 25
+    } ]),
     TypeOrmModule.forRoot(configService.getTypeOrmPostgresConfig()),
     AuthModule,
     UsersModule,
@@ -41,7 +47,8 @@ import { AppService } from './app.service';
     PullRequestsModule,
     OrganizationsModule,
     WebhooksModule,
-    ShieldsModule
+    ShieldsModule,
+    HealthModule
   ],
   controllers: [ AppController ],
   providers: [
