@@ -13,10 +13,15 @@ export class SmeeService implements BeforeApplicationShutdown {
 
   initializeSmeeClient() {
     if (configService.config.SMEE_WEBHOOK_PROXY_CHANNEL) {
+      // concat parts of string using node url class to create the target url
+      const targetUrl = new URL(
+        '/api/webhooks/github',
+        configService.config.BASE_BACKEND_URL
+      );
       const smeeSource = `https://smee.kibibit.io/${ configService.config.SMEE_WEBHOOK_PROXY_CHANNEL }`;
       this.smee = new SmeeClient({
         source: smeeSource,
-        target: `http://localhost:${ configService.config.PORT }/webhooks/github`,
+        target: targetUrl.href,
         logger: {
           info: (msg) => this.logger.verbose(msg),
           error: (msg) => this.logger.error(JSON.stringify(msg, null, 2))
@@ -27,8 +32,10 @@ export class SmeeService implements BeforeApplicationShutdown {
     }
   }
 
+
   beforeApplicationShutdown(signal?: string) {
-    console.log('got here');
+    console.log('stopping smee client gracefully', signal);
+
     if (!this.events) {
       return;
     }

@@ -4,6 +4,10 @@ import { BaseConfig, Configuration, ConfigVariable } from '@kibibit/configit';
 
 @Configuration()
 export class AchievibitConfig extends BaseConfig {
+  @ConfigVariable()
+  @IsString()
+    BASE_BACKEND_URL: string;
+
   @ConfigVariable('Server port')
   @IsNumber()
     PORT: number;

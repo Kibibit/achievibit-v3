@@ -39,6 +39,8 @@ async function bootstrap() {
   // app.useGlobalInterceptors(new ErrorLoggingInterceptor());
   // app.useGlobalFilters(new HttpExceptionFilter());
 
+  app.enableShutdownHooks();
+
   app.disable('x-powered-by');
   app.use(cookieParser());
   app.use(
