@@ -58,6 +58,12 @@ async function bootstrap() {
     maxAge: configService.isDevelopmentMode ? 0 : '1d'
   });
 
+  app.useStaticAssets(join(configService.appRoot, 'login-app'), {
+    // Cache static assets for 1 day
+    maxAge: configService.isDevelopmentMode ? 0 : '1d',
+    prefix: '/login'
+  });
+
   await Documentation.addDocumentation(app);
 
   await app.listen(configService.config.PORT);

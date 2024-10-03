@@ -1,0 +1,528 @@
+.kb-message {
+  min-height: 75px;
+}
+
+#email {
+  text-transform: lowercase;
+}
+
+#login-container a {
+  display: flex;
+}
+
+#user-repos-view {
+  overflow-y: scroll;
+}
+
+#user-repos-view .kb-repos-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#user-repos-view .kb-repos-list li.kb-repo {
+  /* background: rgba(0, 0, 0, 0.1); */
+  padding: 1em;
+  border-radius: 4px;
+}
+
+li.kb-repo .kb-repo-name {
+  display: flex;
+  align-items: start;
+}
+
+li.kb-repo .kb-repo-name::before {
+  content: '';
+  background-color: white;
+  margin-right: 0.5em;
+  height: 1.2em;
+  aspect-ratio: 1 / 1;
+  display: inline-block;
+}
+
+li.kb-repo .visibility-icon {
+  width: 18px;
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  mask-size: 100% 100%;
+  margin-left: auto;
+}
+
+li.kb-repo.private .visibility-icon {
+  mask-image: url('../private.svg');
+}
+
+li.kb-repo.public .visibility-icon {
+  mask-image: url('../public.svg');
+}
+
+li.kb-repo.gitlab {
+  background-color: #FC6D2680;
+}
+
+li.kb-repo.github {
+  background-color: #18171740;
+}
+
+li.kb-repo.bitbucket {
+  background-color: #0052CC80;
+}
+
+li.kb-repo.github .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/github.svg);
+  /* background-color: #181717; */
+}
+
+li.kb-repo.gitlab .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/gitlab.svg);
+  /* background-color: #FC6D26; */
+}
+
+li.kb-repo.bitbucket .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
+  /* background-color: #0052CC; */
+}
+
+.login,
+#logout-container,
+#show-repos-container {
+  fill: white;
+  color: white;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  border-radius: 15px;
+  transition: all 250ms;
+  width: 240px;
+  /* background: rgba(0, 0, 0, 0.1); */
+}
+
+.login:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.login .logo,
+.login .label,
+#show-repos-container .logo,
+#show-repos-container .label {
+  font-size: 14px;
+  fill: white;
+  color: white;
+}
+
+.login .logo,
+#logout-container .logo,
+#show-repos-container .logo {
+  width: 20px;
+  margin-right: 0.3em;
+  height: 20px;
+  flex: initial;
+  display: flex;
+  position: relative;
+  background-color: white;
+}
+
+#logout-container .logo.logout {
+  mask-image: url(../logout-svgrepo-com.svg);
+  mask-size: 100% 100%;
+}
+
+#show-repos-container .logo.repos {
+  mask-image: url(../git-branch-svgrepo-com.svg);
+  mask-size: 100% 100%;
+}
+
+.login.github .logo {
+  mask-image: url(https://simpleicons.org/icons/github.svg);
+}
+
+.login.gitlab .logo {
+  mask-image: url(https://simpleicons.org/icons/gitlab.svg);
+}
+
+.login.bitbucket .logo {
+  mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
+}
+
+#login-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+.kb-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: white;
+  padding: 10px;
+  min-width: 20px;
+  height: 35px;
+  z-index: 4;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+#particles-js,
+#particles-js2 {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f25757;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+#particles-js canvas,
+#particles-js2 canvas {
+  filter: url(#goo);
+  display: block;
+  vertical-align: bottom;
+}
+
+#particles-js2 {
+  background-color: transparent;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.red {
+  color: #f25757;
+}
+
+.blue {
+  color: #00A2C9;
+}
+
+.yellow {
+  color: #EEB146;
+}
+
+h1.kibibit-logo {
+  font-family: "Righteous", cursive;
+  letter-spacing: 0.1em;
+  font-size: 1rem;
+  margin-bottom: 0 !important;
+}
+
+h1.achievibit {
+  margin-top: 0 !important;
+  display: flex;
+  align-items: baseline;
+}
+
+.bg-overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.user-bg {
+  z-index: 3;
+}
+
+body {
+  margin: 0;
+  background-color: #F25757;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Comfortaa", cursive;
+  font-size: 14px;
+}
+
+body .button:focus:not(:active) {
+  border-color: #ffdd57;
+  color: #ffdd57;
+  box-shadow: 0 0 0 0.125em rgba(255, 221, 87, 0);
+  box-shadow: 0;
+}
+
+body .kb-having-trouble {
+  position: relative;
+}
+
+body .kb-having-trouble:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.7em;
+  right: -0.7em;
+  content: "";
+  border: 1px solid #ffdd57;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 250ms;
+}
+
+body .kb-having-trouble:focus {
+  outline: none;
+}
+
+body .kb-having-trouble:focus:after {
+  opacity: 1;
+}
+
+.kb-card .symbol {
+  position: absolute;
+  top: 0;
+  width: 4rem;
+  height: 4rem;
+  transform: translate3d(0, -100%, 0);
+}
+
+.kb-card .symbol svg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.kb-card .symbol svg .axe {
+  fill: #EEB146;
+}
+
+.kb-card .symbol svg .fist {
+  fill: white;
+}
+
+.kb-card {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  max-width: 360px;
+  max-height: 460px;
+  background-color: #212121;
+  border-radius: 5px;
+  padding: 40px;
+  overflow-x: hidden;
+  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  transition: all 300ms;
+  overflow-y: hidden;
+  overflow: visible;
+}
+
+.kb-card.transition {
+  border-radius: 100%;
+  max-width: 80px;
+  max-height: 80px;
+  overflow: hidden;
+  background: #EEB146;
+}
+
+.kb-card.transition .loader {
+  opacity: 1;
+}
+
+.kb-card .content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 200ms;
+}
+
+.kb-card #troubles {
+  color: #4285f4;
+  display: inline-block;
+  padding: 10px;
+  padding-left: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.kb-card .splash {
+  background-image: linear-gradient(to bottom, rgba(233, 233, 233, 0) 0%, rgba(233, 233, 233, 0) 62.22%, #e9e9e9 40.22%, rgba(233, 233, 233, 0) 100%);
+  position: relative;
+  left: -42px;
+  width: 404px;
+}
+
+.kb-card .splash svg {
+  transform: scale(-1, 1);
+  width: 50%;
+  max-width: 90vw;
+}
+
+.kb-card .splash #yubikey-identifier {
+  animation-duration: 1s;
+  animation-name: insert;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes insert {
+  0% {
+    transform: translateX(-10px);
+  }
+  20% {
+    transform: translateX(-10px);
+  }
+  80% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.loader {
+  opacity: 0;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 0 solid transparent;
+  border-radius: 50%;
+  transition: all 450ms;
+  background: #EEB146;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  border-radius: 50%;
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: loader-07 1s linear infinite;
+  opacity: 0;
+  background: #f25757;
+}
+
+.loader:before {
+  animation-delay: 1s;
+  background: #00A2C9;
+}
+
+.loader:after {
+  animation-delay: 0.5s;
+}
+
+@keyframes loader-07 {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.kb-login-buttons .button {
+  justify-content: flex-start;
+  transition: all 250ms;
+  height: auto;
+}
+
+.kb-login-buttons .button:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.kb-login-buttons .button i {
+  margin: 0 0.5em 0 0;
+}
+
+.kb-login-buttons .button > div {
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+}
+
+.kb-profile {
+  flex-grow: 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.kb-profile .kb-profile-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kb-profile .kb-profile-avatar img {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 40%;
+  height: auto;
+}
+
+.kb-profile .actions a,
+#show-repos-container a {
+  fill: white;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  border-radius: 15px;
+  transition: all 250ms;
+}
+
+.kb-profile .actions a:hover,
+#show-repos-container a:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.kb-card.with-bg {
+  overflow: hidden;
+}
+
+.kb-card .with-user-bg {
+  position: absolute;
+  top: -1em;
+  left: -1em;
+  right: -1em;
+  bottom: -1em;
+  z-index: -1;
+  background-image: url("https://designshack.net/wp-content/uploads/abstract-background.jpg");
+  background-size: 100vw 100vh;
+  background-position: center;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
