@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { ReqUser } from '@kb-decorators';
 import { User } from '@kb-models';
 
 import { GitLabAuthGuard } from '../../guards/gitlab-auth.guard';
@@ -39,14 +40,19 @@ export class GitlabController {
   })
   @UseGuards(GitLabAuthGuard)
   async gitlabAuthCallback(
+      @ReqUser() user: User,
       @Req() req: Request,
       @Res({ passthrough: true }) res: Response
   ) {
-    const user = req.user as User;
-
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
     res.cookie('kibibit-jwt', accessToken);
-    return { access_token: accessToken };
+
+    // if client is NOT a browser, return the token
+    if (!req.headers.referer) {
+      return { access_token: accessToken };
+    }
+
+    return res.redirect('/');
   }
 }
