@@ -33,7 +33,7 @@ import { AppService } from './app.service';
       // Adjust the path to your client build directory
       rootPath: join(configService.appRoot, 'client'),
       // Exclude API routes
-      exclude: [ '/api*' ]
+      exclude: [ '/api*', '/login*' ]
     }),
     ThrottlerModule.forRoot([ {
       ttl: 60000,
