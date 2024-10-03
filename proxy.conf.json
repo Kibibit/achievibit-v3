@@ -1,0 +1,14 @@
+{
+  "/api": {
+    "target": "http://localhost:3003/",
+    "changeOrigin": true,
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/login": {
+    "target": "http://localhost:3003/",
+    "changeOrigin": true,
+    "secure": false,
+    "logLevel": "debug"
+  },
+}
