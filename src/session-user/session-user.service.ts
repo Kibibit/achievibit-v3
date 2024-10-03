@@ -6,6 +6,7 @@ import { Octokit } from '@octokit/core';
 
 import { Injectable } from '@nestjs/common';
 
+import { GitLabStrategy } from '@kb-auth';
 import { configService, Logger } from '@kb-config';
 import { SystemEnum, User } from '@kb-models';
 import { UsersService } from '@kb-users';
@@ -62,8 +63,6 @@ export class SessionUserService {
   }
 
   async getGitlabReposAccessibleByUser(user: User) {
-    await this.refreshGitlabAccessToken(user);
-
     const gitlabUserIntegration = user
       .integrations
       .find((integration) => integration.system === SystemEnum.GITLAB);
@@ -71,6 +70,8 @@ export class SessionUserService {
     if (!gitlabUserIntegration || !gitlabUserIntegration.accessToken) {
       return [];
     }
+
+    await this.refreshGitlabAccessToken(user);
 
     const gitlabApi = new Gitlab({
       oauthToken: gitlabUserIntegration.accessToken
@@ -99,8 +100,6 @@ export class SessionUserService {
   }
 
   async getBitbucketReposAccessibleByUser(user: User) {
-    await this.refreshBitbucketAccessToken(user);
-
     const bitbucketUserIntegration = user
       .integrations
       .find((integration) => integration.system === SystemEnum.BITBUCKET);
@@ -108,6 +107,8 @@ export class SessionUserService {
     if (!bitbucketUserIntegration || !bitbucketUserIntegration.accessToken) {
       return [];
     }
+
+    await this.refreshBitbucketAccessToken(user);
 
     const bitbucketApi = new Bitbucket({
       auth: {
@@ -254,7 +255,7 @@ export class SessionUserService {
           refresh_token: gitlabUserIntegration.refreshToken,
           client_id: configService.config.GITLAB_CLIENT_ID,
           client_secret: configService.config.GITLAB_CLIENT_SECRET,
-          scope: 'api read_user read_repository email openid profile'
+          scope: GitLabStrategy.SCOPES
         }).toString()
       });
 
