@@ -9,6 +9,15 @@ import { UsersService } from '@kb-users';
 
 @Injectable()
 export class GitHubStrategy extends PassportStrategy(Strategy) {
+  static readonly SCOPES = [
+    'public_profile',
+    'user',
+    'read:packages',
+    'read:project',
+    'read:org',
+    'repo'
+  ];
+
   constructor(
     private readonly usersService: UsersService
   ) {
@@ -16,14 +25,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
       clientID: configService.config.GITHUB_CLIENT_ID,
       clientSecret: configService.config.GITHUB_CLIENT_SECRET,
       callbackURL: configService.config.GITHUB_CALLBACK_URL,
-      scope: [
-        'public_profile',
-        'user',
-        'read:packages',
-        'read:project',
-        'read:org',
-        'repo'
-      ]
+      scope: GitHubStrategy.SCOPES
     });
   }
 

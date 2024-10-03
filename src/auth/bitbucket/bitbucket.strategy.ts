@@ -9,6 +9,11 @@ import { UsersService } from '@kb-users';
 
 @Injectable()
 export class BitBucketStrategy extends PassportStrategy(Strategy) {
+  static readonly SCOPES = [
+    'account',
+    'email'
+  ];
+
   constructor(
     private readonly usersService: UsersService
   ) {
@@ -17,10 +22,7 @@ export class BitBucketStrategy extends PassportStrategy(Strategy) {
       clientSecret: configService.config.BITBUCKET_CLIENT_SECRET,
       callbackURL: configService.config.BITBUCKET_CALLBACK_URL,
       // bitbucket scopes?
-      scope: [
-        'account',
-        'email'
-      ]
+      scope: BitBucketStrategy.SCOPES
     });
   }
 

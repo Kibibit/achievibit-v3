@@ -9,6 +9,15 @@ import { UsersService } from '@kb-users';
 
 @Injectable()
 export class GitLabStrategy extends PassportStrategy(Strategy) {
+  static readonly SCOPES = [
+    'api',
+    'read_user',
+    'read_repository',
+    'email',
+    'openid',
+    'profile'
+  ].join(' ');
+
   constructor(
     private readonly usersService: UsersService
   ) {
@@ -20,7 +29,7 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
         Need the ability to read user profile information,
         read user projects, and read user email addresses
       */
-      scope: 'api read_user read_repository email openid profile'
+      scope: GitLabStrategy.SCOPES
     });
   }
 
