@@ -14,8 +14,4 @@ export class AppService {
   getLoggedInUser() {
     return this.http.get('/api/me');
   }
-
-  getUserRepos() {
-    return this.http.get('/api/me/integrations/all/available');
-  }
 }

@@ -1,63 +1,12 @@
-.kb-repo {
-  padding: 1em;
-  margin: 1em;
-  border-radius: 4px;
-}
-
-.kb-repo .kb-repo-name {
-  display: flex;
-  agn-items: start;
-}
-
-.kb-repo .kb-repo-name::before {
-  content: '';
-  background-color: white;
+.logo {
+  height: 30px;
   margin-right: 0.5em;
-  height: 1.2em;
-  aspect-ratio: 1 / 1;
-  display: inne-block;
 }
 
-.kb-repo .visibility-icon {
-  width: 18px;
-  aspect-ratio: 1 / 1;
-  background-color: white;
-  mask-size: 100% 100%;
-  margin-left: auto;
+.menu {
+  margin: 1em;
 }
 
-.kb-repo.private .visibility-icon {
-  mask-image: url('/assets/private.svg');
-}
-
-.kb-repo.public .visibility-icon {
-  mask-image: url('/assets/public.svg');
-}
-
-.kb-repo.gitlab {
-  background-color: #FC6D2680;
-}
-
-.kb-repo.github {
-  background-color: #18171740;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.kb-repo.bitbucket {
-  background-color: #0052CC80;
-}
-
-.kb-repo.github .kb-repo-name::before {
-  mask-image: url(https://simpleicons.org/icons/github.svg);
-  /* background-color: #181717; */
-}
-
-.kb-repo.gitlab .kb-repo-name::before {
-  mask-image: url(https://simpleicons.org/icons/gitlab.svg);
-  /* background-color: #FC6D26; */
-}
-
-.kb-repo.bitbucket .kb-repo-name::before {
-  mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
-  /* background-color: #0052CC; */
+main {
+  position: relative;
 }

@@ -1,0 +1,112 @@
+:host {
+  position: static;
+
+  > div {
+    position: static;
+  }
+}
+
+progress {
+  position: absolute;
+  top: 0;
+  // left: 1em;
+  // width: calc(100% - 2em);
+  visibility: hidden;
+  left: 0;
+  right: 0;
+  border-radius: 0;
+}
+
+progress.loading {
+  visibility: visible;
+}
+
+.kb-repos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.settings-container {
+  label {
+    font-weight: bold;
+  }
+}
+
+.kb-user-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 1em;
+  }
+}
+
+.kb-repo {
+  padding: 1em;
+  margin: 1em;
+  border-radius: 4px;
+  width: 350px;
+}
+
+.kb-repo .kb-repo-name {
+  display: flex;
+  agn-items: start;
+}
+
+.kb-repo .kb-repo-name::before {
+  content: '';
+  background-color: white;
+  margin-right: 0.5em;
+  height: 1.2em;
+  aspect-ratio: 1 / 1;
+  display: inne-block;
+}
+
+.kb-repo .visibility-icon {
+  width: 18px;
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  mask-size: 100% 100%;
+  margin-left: auto;
+}
+
+.kb-repo.private .visibility-icon {
+  mask-image: url('/assets/private.svg');
+}
+
+.kb-repo.public .visibility-icon {
+  mask-image: url('/assets/public.svg');
+}
+
+.kb-repo.gitlab {
+  background-color: #FC6D2680;
+}
+
+.kb-repo.github {
+  background-color: #18171740;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.kb-repo.bitbucket {
+  background-color: #0052CC80;
+}
+
+.kb-repo.github .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/github.svg);
+  /* background-color: #181717; */
+}
+
+.kb-repo.gitlab .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/gitlab.svg);
+  /* background-color: #FC6D26; */
+}
+
+.kb-repo.bitbucket .kb-repo-name::before {
+  mask-image: url(https://simpleicons.org/icons/bitbucket.svg);
+  /* background-color: #0052CC; */
+}

@@ -1,51 +1,46 @@
 <header>
   <nav>
-    <button class="circle transparent">
+    <!-- <button class="circle transparent">
       <i>menu</i>
-    </button>
-    <h5 class="max center-align">achievibit</h5>
+    </button> -->
+    <h5 class="max">
+      <a [routerLink]="['/']" class="logo">
+        <img src="https://kibibit.io/kibibit-assets/logo-achi.svg" class="logo">
+        achievibit
+      </a>
+    </h5>
     <button class="circle transparent" *ngIf="loggedInUser">
       <img class="responsive" [src]="loggedInUser.avatar">
+      <menu class="left no-wrap">
+        <a class="row" [routerLink]="['/profile']">
+          <i class="material-symbols-outlined">
+            person
+          </i>
+          <span>Your Profile</span>
+        </a>
+        <a class="row" [routerLink]="['/profile/integrations']">
+          <i class="material-symbols-outlined">
+            integration_instructions
+          </i>
+          <span>Integrations</span>
+        </a>
+        <a class="row" [routerLink]="['/profile/settings']">
+          <i class="material-symbols-outlined">
+            settings
+          </i>
+          <span>Settings</span>
+        </a>
+        <hr class="small">
+        <a class="row">
+          <i class="material-symbols-outlined">
+            logout
+          </i>
+          <span>Sign out</span>
+        </a>
+      </menu>
     </button>
   </nav>
 </header>
-<main class="main">
-  <div class="content">
-    <div>
-      <div class="tabs">
-        <a class="active">GitHub</a>
-        <a>GitLab</a>
-        <a>BitBucket</a>
-      </div>
-      <div class="page padding active">
-        <h5>GitHub Repos</h5>
-        <div class="kb-repo" *ngFor="let repo of userRepos" [class.private]="repo.private"
-          [class.public]="!repo.private" [class.github]="repo.system === 'github'"
-          [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
-          <div class="kb-repo-name">
-            {{ repo.name }}
-            <i class="visibility-icon"></i>
-          </div>
-          <div>{{ repo.full_name }}</div>
-        </div>
-      </div>
-      <div class="page padding">
-        <h5>Tab 2</h5>
-      </div>
-      <div class="page padding">
-        <h5>Tab 3</h5>
-      </div>
-    </div>
-  </div>
+<main class="responsive padding">
+  <router-outlet />
 </main>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
-<router-outlet />
