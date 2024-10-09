@@ -104,6 +104,10 @@ export class UserProfileComponent {
     });
   }
 
+  installGithubApp() {
+    this.userProfileService.installGithubApp();
+  }
+
   private checkIfAllDataLoaded() {
     if (this.user && this.userGithubRepos && this.userGitlabRepos && this.userBitbucketRepos) {
       this.isLoading = false;

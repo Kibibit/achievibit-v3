@@ -31,6 +31,12 @@
         <a [class.active]="activeIntegrationsTab === 'bitbucket'" (click)="activeIntegrationsTab = 'bitbucket'">BitBucket</a>
       </div>
       <div class="page padding" [class.active]="activeIntegrationsTab === 'github'">
+        <button
+          class="large-elevate small"
+          (click)="installGithubApp()"
+        >
+          Install\Update GitHub App
+        </button>
         <div class="kb-repos-container">
           <div *ngIf="userGithubRepos.length === 0" class="no-repos">
             <ng-container *ngIf="user?.integrations?.includes('github'); else suggestIntegrateGithub">
@@ -73,7 +79,7 @@
             <button (click)="installWebhookOnRepo(repo.full_name, 'gitlab')" *ngIf="!repo.integrated">
               <span>Install</span>
             </button>
-            <button (click)="installWebhookOnRepo(repo.full_name, 'gitlab')" *ngIf="repo.integrated">
+            <button (click)="uninstallWebhookOnRepo(repo.full_name, 'gitlab')" *ngIf="repo.integrated">
               <span>Uninstall</span>
             </button>
           </div>
@@ -107,7 +113,7 @@
             <button (click)="installWebhookOnRepo(repo.full_name, 'bitbucket')" *ngIf="!repo.integrated">
               <span>Install</span>
             </button>
-            <button (click)="installWebhookOnRepo(repo.full_name, 'bitbucket')" *ngIf="repo.integrated">
+            <button (click)="uninstallWebhookOnRepo(repo.full_name, 'bitbucket')" *ngIf="repo.integrated">
               <span>Uninstall</span>
             </button>
           </div>

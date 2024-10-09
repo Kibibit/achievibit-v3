@@ -1,5 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+// import { WebhooksService } from '@kibibit/achievibit-angular-sdk';
 import { map, Observable, of, shareReplay } from 'rxjs';
 
 @Injectable({
@@ -14,8 +16,15 @@ export class UserProfileService {
   private timeoutDuration = 60000;
 
   constructor(
-    private http: HttpClient
+    @Inject(DOCUMENT) private document: Document,
+    private http: HttpClient,
+    // private webhooksService: WebhooksService
   ) { }
+
+  installGithubApp() {
+    const appName = 'achievibit-beta';
+    this.document.location.href = `https://github.com/apps/${ appName }/installations/new`;
+  }
 
   getUserRepos(system: string) {
     switch (system) {
