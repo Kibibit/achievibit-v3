@@ -11,6 +11,7 @@ import { RepositoriesService } from './repositories.service';
     TypeOrmModule.forFeature([ Repository ])
   ],
   providers: [ RepositoriesService ],
-  controllers: [ RepositoriesController ]
+  controllers: [ RepositoriesController ],
+  exports: [ RepositoriesService ]
 })
 export class RepositoriesModule {}

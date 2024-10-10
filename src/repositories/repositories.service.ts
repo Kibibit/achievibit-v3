@@ -1,9 +1,9 @@
-import { MongoRepository } from 'typeorm';
+import { MongoRepository, W } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateRepository, PageMetaModel, PageModel, PageOptionsModel, Repository } from '@kb-models';
+import { CreateRepository, PageMetaModel, PageModel, PageOptionsModel, Repository, SystemEnum } from '@kb-models';
 
 @Injectable()
 export class RepositoriesService {
@@ -17,9 +17,11 @@ export class RepositoriesService {
   }
 
   async findAll(
-    pageOptions: PageOptionsModel
+    pageOptions: PageOptionsModel,
+    where: any = {}
   ) {
     const [ entities, itemCount ] = await this.reposRepository.findAndCount({
+      where,
       // Sorting by createdAt field
       order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,
@@ -34,6 +36,13 @@ export class RepositoriesService {
   async findById(name: string) {
     return await this.reposRepository.findOne({
       where: { name }
+    });
+  }
+
+  async deleteRepo(fullname: string, system: SystemEnum) {
+    return await this.reposRepository.delete({
+      fullname,
+      system
     });
   }
 }
