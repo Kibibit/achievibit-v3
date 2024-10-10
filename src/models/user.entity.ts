@@ -16,6 +16,7 @@ import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 import { Integration } from './Integration.entity';
 import { Organization } from './organization.entity';
 import { UserSettings } from './user-settings.entity';
+import { Achievement } from './achievement.entity';
 
   @Entity('users')
 export class User {
@@ -42,6 +43,11 @@ export class User {
     @Index({ unique: true })
     @ApiPropertyOptional()
       email?: string;
+
+    @Column({ default: false })
+    @Expose({ groups: [ 'admin', 'self' ] })
+    @ApiProperty()
+      isOnboarded: boolean;
 
     @OneToMany(
       () => Integration,
@@ -91,8 +97,24 @@ export class User {
     })
       organizations: Organization[];
 
-      @Expose()
-      @ApiProperty()
+    @OneToMany(
+      () => Achievement,
+      (achievement) => achievement.user,
+      {
+        cascade: true,
+        eager: true
+      }
+    )
+    @JoinColumn()
+    @Type(() => Achievement)
+    @ApiProperty({
+      type: () => Achievement,
+      isArray: true
+    })
+      achievements: Achievement[];
+
+    @Expose()
+    @ApiProperty()
     get registered(): boolean {
       return this.integrations && this.integrations.length > 0;
     }

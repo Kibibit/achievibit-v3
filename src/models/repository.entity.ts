@@ -69,7 +69,13 @@ export class Repository {
     () => Organization,
     (organization) => organization.repositories
   )
-  readonly organization: Organization;
+  readonly organization?: Organization;
+
+  @Column({
+    default: false
+  })
+  @ApiProperty()
+  readonly private?: boolean;
 
   constructor(partial: Partial<Repository>) {
     Object.assign(this, partial);
