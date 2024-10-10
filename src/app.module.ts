@@ -21,6 +21,7 @@ import { UsersModule } from '@kb-users';
 import { WebhooksModule } from '@kb-webhooks';
 
 import { HealthModule } from './health/health.module';
+import { SystemsModule } from './systems/systems.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -48,7 +49,8 @@ import { AppService } from './app.service';
     OrganizationsModule,
     WebhooksModule,
     ShieldsModule,
-    HealthModule
+    HealthModule,
+    SystemsModule
   ],
   controllers: [ AppController ],
   providers: [
@@ -65,7 +67,7 @@ import { AppService } from './app.service';
       useClass: DbExceptionFilter
     },
     AppService,
-    SmeeService
+    // SmeeService
   ]
 })
 export class AppModule {
