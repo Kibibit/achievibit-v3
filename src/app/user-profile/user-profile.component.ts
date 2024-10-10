@@ -7,7 +7,7 @@ import { UserProfileService } from './user-profile.service';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [RouterOutlet, NgIf, NgFor],
+  imports: [NgIf, NgFor],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -26,74 +26,75 @@ export class UserProfileComponent {
   ) {}
 
   ngOnInit(): void {
-    const loggedInUserObs = this
+    this.getProfileInfo();
+    this.getGithubRepos();
+    this.getGitlabRepos();
+    this.getBitbucketRepos();
+  }
+
+  getBitbucketRepos() {
+    return this
       .userProfileService
-      .getLoggedInUser();
-
-    const userGithubReposObs = this
-      .userProfileService
-      .getUserRepos('github');
-
-    const userGitlabReposObs = this
-      .userProfileService
-      .getUserRepos('gitlab');
-
-    const userBitbucketReposObs = this
-      .userProfileService
-      .getUserRepos('bitbucket');
-
-    loggedInUserObs
-      .subscribe((user) => {
-        this.user = user;
-
-        this.checkIfAllDataLoaded();
-      });
-
-    userGithubReposObs
-      .subscribe((repos) => {
-        this.userGithubRepos = repos as any[];
-
-        this.checkIfAllDataLoaded();
-      });
-
-    userGitlabReposObs
-      .subscribe((repos) => {
-        this.userGitlabRepos = repos as any[];
-
-        this.checkIfAllDataLoaded();
-      });
-
-    userBitbucketReposObs
+      .getUserRepos('bitbucket')
       .subscribe((repos) => {
         this.userBitbucketRepos = repos as any[];
 
         this.checkIfAllDataLoaded();
       });
+  }
 
-    // Combine the two observables to get the user and their repos
-    // combineLatest([
-    //   loggedInUserObs,
-    //   userGithubReposObs,
-    //   userGitlabReposObs,
-    //   userBitbucketReposObs
-    // ])
-    //   .subscribe(([
-    //     user,
-    //     githubRepos,
-    //     gitlabRepos,
-    //     bitbucketRepos
-    //   ]) => {
-    //     this.user = user;
-    //     this.userGithubRepos = githubRepos as any[];
-    //     this.userGitlabRepos = gitlabRepos as any[];
-    //     this.userBitbucketRepos = bitbucketRepos as any[];
-    //   });
+  getGitlabRepos() {
+    return this
+      .userProfileService
+      .getUserRepos('gitlab')
+      .subscribe((repos) => {
+        this.userGitlabRepos = repos as any[];
+
+        this.checkIfAllDataLoaded();
+      });
+  }
+
+  getGithubRepos() {
+    return this
+      .userProfileService
+      .getUserRepos('github')
+      .subscribe((repos) => {
+        this.userGithubRepos = repos as any[];
+
+        this.checkIfAllDataLoaded();
+      });
+  }
+
+  getProfileInfo() {
+    return this
+    .userProfileService
+    .getLoggedInUser()
+    .subscribe((user) => {
+        this.user = user;
+
+        this.checkIfAllDataLoaded();
+      });
   }
 
   installWebhookOnRepo(repoFullName: string, system: string) {
     this.userProfileService.installWebhookOnRepo(repoFullName, system)
     .subscribe((result) => {
       console.log('Webhook installed on repo', result);
+
+      // refresh the repos
+      if (system === 'github') {
+        return this.getGithubRepos();
+      }
+      
+      if (system === 'gitlab') {
+        return this.getGitlabRepos();
+      }
+      
+      if (system === 'bitbucket') {
+        return this.getBitbucketRepos();
+      }
+
+      return;
     });
   }
 
@@ -101,6 +102,21 @@ export class UserProfileComponent {
     this.userProfileService.uninstallWebhookOnRepo(repoFullName, system)
     .subscribe((result) => {
       console.log('Webhook uninstalled from repo', result);
+
+      // refresh the repos
+      if (system === 'github') {
+        return this.getGithubRepos();
+      }
+
+      if (system === 'gitlab') {
+        return this.getGitlabRepos();
+      }
+
+      if (system === 'bitbucket') {
+        return this.getBitbucketRepos();
+      }
+
+      return;
     });
   }
 
