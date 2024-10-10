@@ -5,9 +5,9 @@ import { SmeeService } from '@kb-config';
 @Injectable()
 export class AppService {
   constructor(
-    smeeService: SmeeService
+    // smeeService: SmeeService
   ) {
-    smeeService.initializeSmeeClient();
+    // smeeService.initializeSmeeClient();
   }
 
   getHello(): string {
