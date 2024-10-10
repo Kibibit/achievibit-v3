@@ -70,14 +70,6 @@ export class AchievibitConfig extends BaseConfig {
 
   @ConfigVariable()
   @IsString()
-    MONGO_URL: string;
-
-  @ConfigVariable()
-  @IsString()
-    MONGO_DB_NAME: string;
-
-  @ConfigVariable()
-  @IsString()
     GITHUB_WEBHOOK_SECRET: string;
 
   @ConfigVariable()
@@ -112,4 +104,12 @@ export class AchievibitConfig extends BaseConfig {
   @IsString()
   @IsOptional()
     POSTGRES_DATABASE: string;
+
+  @ConfigVariable()
+  // @IsString()
+    GITHUB_APP_ID: string;
+
+  @ConfigVariable()
+  @IsString()
+    GITHUB_APP_CLIENT_SECRET: string;
 }
