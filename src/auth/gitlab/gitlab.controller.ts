@@ -46,7 +46,12 @@ export class GitlabController {
   ) {
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
-    res.cookie('kibibit-jwt', accessToken);
+    res.cookie('kibibit-jwt', accessToken, {
+      httpOnly: true,
+      secure: true,       // Cookie only sent over HTTPS
+      sameSite: 'none',   // Cookie sent on cross-site requests
+      maxAge: 3600000,    // Cookie expiration time
+    });
 
     // if client is NOT a browser, return the token
     if (!req.headers.referer) {

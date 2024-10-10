@@ -48,8 +48,9 @@ export class GithubController {
 
     res.cookie('kibibit-jwt', accessToken, {
       httpOnly: true,
-      secure: configService.isProductionMode,
-      sameSite: 'strict'
+      secure: true,       // Cookie only sent over HTTPS
+      sameSite: 'none',   // Cookie sent on cross-site requests
+      maxAge: 3600000,    // Cookie expiration time
     });
 
     // if client is NOT a browser, return the token
@@ -57,6 +58,6 @@ export class GithubController {
       return { access_token: accessToken };
     }
 
-    return res.redirect('/');
+    return res.redirect('https://achievibit.thatkook.ooguy.com/');
   }
 }
