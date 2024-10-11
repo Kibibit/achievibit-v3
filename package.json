@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve client --host 0.0.0.0",
+    "start:dev": "ng serve client --host 0.0.0.0",
     "start:backend": "ng serve client-for-backend --host 0.0.0.0",
     "build": "ng build client",
-    "build:backend": "ng build client-for-backend",
+    "build:prod": "ng build client-for-backend",
     "watch": "ng build client --watch --configuration development",
     "test": "ng test"
   },
