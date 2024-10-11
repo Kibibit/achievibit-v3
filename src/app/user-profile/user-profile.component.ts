@@ -1,17 +1,16 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import { UserProfileService } from './user-profile.service';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [ NgIf, NgFor ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
   userGithubRepos: any[] = [];
   userGitlabRepos: any[] = [];
   userBitbucketRepos: any[] = [];
@@ -67,9 +66,9 @@ export class UserProfileComponent {
 
   getProfileInfo() {
     return this
-    .userProfileService
-    .getLoggedInUser()
-    .subscribe((user) => {
+      .userProfileService
+      .getLoggedInUser()
+      .subscribe((user) => {
         this.user = user;
 
         this.checkIfAllDataLoaded();
@@ -78,46 +77,46 @@ export class UserProfileComponent {
 
   installWebhookOnRepo(repoFullName: string, system: string) {
     this.userProfileService.installWebhookOnRepo(repoFullName, system)
-    .subscribe((result) => {
-      console.log('Webhook installed on repo', result);
+      .subscribe((result) => {
+        console.log('Webhook installed on repo', result);
 
-      // refresh the repos
-      if (system === 'github') {
-        return this.getGithubRepos();
-      }
-      
-      if (system === 'gitlab') {
-        return this.getGitlabRepos();
-      }
-      
-      if (system === 'bitbucket') {
-        return this.getBitbucketRepos();
-      }
+        // refresh the repos
+        if (system === 'github') {
+          return this.getGithubRepos();
+        }
 
-      return;
-    });
+        if (system === 'gitlab') {
+          return this.getGitlabRepos();
+        }
+
+        if (system === 'bitbucket') {
+          return this.getBitbucketRepos();
+        }
+
+        return;
+      });
   }
 
   uninstallWebhookOnRepo(repoFullName: string, system: string) {
     this.userProfileService.uninstallWebhookOnRepo(repoFullName, system)
-    .subscribe((result) => {
-      console.log('Webhook uninstalled from repo', result);
+      .subscribe((result) => {
+        console.log('Webhook uninstalled from repo', result);
 
-      // refresh the repos
-      if (system === 'github') {
-        return this.getGithubRepos();
-      }
+        // refresh the repos
+        if (system === 'github') {
+          return this.getGithubRepos();
+        }
 
-      if (system === 'gitlab') {
-        return this.getGitlabRepos();
-      }
+        if (system === 'gitlab') {
+          return this.getGitlabRepos();
+        }
 
-      if (system === 'bitbucket') {
-        return this.getBitbucketRepos();
-      }
+        if (system === 'bitbucket') {
+          return this.getBitbucketRepos();
+        }
 
-      return;
-    });
+        return;
+      });
   }
 
   installGithubApp() {

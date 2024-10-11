@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
-import { KeyboardInputComponent } from './keyboard-input/keyboard-input.component';
+
 import { HomeComponent } from './home/home.component';
+import { KeyboardInputComponent } from './keyboard-input/keyboard-input.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const routes: Routes = [

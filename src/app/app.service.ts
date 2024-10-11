@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AppService {
-  user: any
+  user: any;
 
   constructor(
     private http: HttpClient

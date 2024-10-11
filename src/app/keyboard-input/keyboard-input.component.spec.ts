@@ -8,10 +8,10 @@ describe('KeyboardInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [KeyboardInputComponent]
+      imports: [ KeyboardInputComponent ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(KeyboardInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

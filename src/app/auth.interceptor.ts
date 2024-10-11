@@ -1,8 +1,7 @@
+import { catchError, tap } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, tap } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const document: Document = inject(DOCUMENT);
@@ -17,7 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       //   throw new HttpResponseBodyFormatError();
       // }
     }),
-    catchError(error => {
+    catchError((error) => {
       let errorMessage: string;
 
       // Handle network connection errors specifically

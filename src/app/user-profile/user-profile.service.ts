@@ -1,8 +1,8 @@
+// import { WebhooksService } from '@kibibit/achievibit-angular-sdk';
+import { map, Observable, of, shareReplay } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-// import { WebhooksService } from '@kibibit/achievibit-angular-sdk';
-import { map, Observable, of, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class UserProfileService {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private http: HttpClient,
+    private http: HttpClient
     // private webhooksService: WebhooksService
   ) { }
 
@@ -97,7 +97,7 @@ export class UserProfileService {
       case 'github':
         this.$userGithubRepos = this
           .http
-          .get(`/api/me/integrations/${system}/available`)
+          .get(`/api/me/integrations/${ system }/available`)
           .pipe(
             map((repos: any) => {
               return repos;
@@ -111,7 +111,7 @@ export class UserProfileService {
       case 'gitlab':
         this.$userGitlabRepos = this
           .http
-          .get(`/api/me/integrations/${system}/available`)
+          .get(`/api/me/integrations/${ system }/available`)
           .pipe(
             map((repos: any) => {
               return repos;
@@ -125,7 +125,7 @@ export class UserProfileService {
       case 'bitbucket':
         this.$userBitbucketRepos = this
           .http
-          .get(`/api/me/integrations/${system}/available`)
+          .get(`/api/me/integrations/${ system }/available`)
           .pipe(
             map((repos: any) => {
               return repos;
@@ -143,7 +143,7 @@ export class UserProfileService {
   installWebhookOnRepo(repoFullName: string, system: string) {
     const escapedRepoFullName = encodeURIComponent(repoFullName);
 
-    const url = `/api/me/install/${ system }/${escapedRepoFullName}`;
+    const url = `/api/me/install/${ system }/${ escapedRepoFullName }`;
 
     return this
       .http
@@ -158,7 +158,7 @@ export class UserProfileService {
   uninstallWebhookOnRepo(repoFullName: string, system: string) {
     const escapedRepoFullName = encodeURIComponent(repoFullName);
 
-    const url = `/api/me/install/${ system }/${escapedRepoFullName}`;
+    const url = `/api/me/install/${ system }/${ escapedRepoFullName }`;
 
     return this
       .http
