@@ -112,4 +112,9 @@ export class AchievibitConfig extends BaseConfig {
   @ConfigVariable()
   @IsString()
     GITHUB_APP_CLIENT_SECRET: string;
+
+  @ConfigVariable()
+  @IsOptional()
+  @IsBoolean()
+    SYNCHRONIZE_DATABASE: boolean;
 }

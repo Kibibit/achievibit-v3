@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { magenta } from 'colors';
+import { magenta, yellow } from 'colors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import { WinstonModule } from 'nest-winston';
@@ -74,4 +74,8 @@ async function bootstrap() {
   );
   logger.log(`Application is running on: ${ magenta(appUrl) }`);
   logger.log(`Running in ${ magenta(configService.config.NODE_ENV) } mode`);
+
+  if (configService.config.NODE_ENV === 'devcontainer') {
+    logger.verbose(`Client Proxy is running on: ${ yellow('http://localhost:10101') }`);
+  }
 }

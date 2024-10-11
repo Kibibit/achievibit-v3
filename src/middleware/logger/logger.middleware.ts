@@ -16,7 +16,7 @@ export class LoggerMiddleware implements NestMiddleware {
       // context: 'REQUEST: ' + req.method
       // context: 'REQUEST: ' + this.methodColor(req.method)
       // client: this.requestIp(req)
-      context: `REQUEST: ${ this.requestIp(req).replace('::1', 'localhost') }`,
+      context: `REQUEST: ${ this.requestIp(req).replace('::1', 'localhost').replace('::ffff:127.0.0.1', 'localhost') }`,
       sessionId: req.sessionID,
       username: (req.user as User)?.username
     };

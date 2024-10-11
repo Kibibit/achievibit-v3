@@ -47,7 +47,7 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
 
       ssl: this.isProductionMode,
 
-      synchronize: true
+      synchronize: this.config.SYNCHRONIZE_DATABASE
       // logging: true
     };
   }
