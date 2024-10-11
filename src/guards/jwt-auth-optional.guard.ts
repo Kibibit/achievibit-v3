@@ -1,8 +1,9 @@
+import * as jwt from 'jsonwebtoken';
+
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+
 import { configService } from '@kb-config';
 import { UsersService } from '@kb-users';
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JwtAuthOptionalGuard implements CanActivate {

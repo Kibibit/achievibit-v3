@@ -4,11 +4,11 @@ import { Injectable } from '@nestjs/common';
 
 import { Logger } from '@kb-config';
 import { Order, SystemEnum, User } from '@kb-models';
+import { RepositoriesService } from '@kb-repositories';
 
 import { BitbucketService } from '../systems/bitbucket/bitbucket.service';
 import { GithubService } from '../systems/github/github.service';
 import { GitlabService } from '../systems/gitlab/gitlab.service';
-import { RepositoriesService } from '@kb-repositories';
 
 @Injectable()
 export class SessionUserService {

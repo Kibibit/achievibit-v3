@@ -1,6 +1,6 @@
-import { omit } from 'lodash';
 import { parse } from 'dotenv';
 import { readJsonSync, writeFileSync } from 'fs-extra';
+import { omit } from 'lodash';
 
 class EnvService {
   fromJson(object: Record<string, unknown>) {

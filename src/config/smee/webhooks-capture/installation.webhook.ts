@@ -1,4 +1,5 @@
-import { WebhookEvent, InstallationEvent } from "@octokit/webhooks-types";
+import { WebhookEvent } from '@octokit/webhooks-types';
+
 import { GitHubWebhookEvent } from './github-webhook-mock.type';
 
 

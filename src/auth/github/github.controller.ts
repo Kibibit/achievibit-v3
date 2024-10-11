@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { configService } from '@kb-config';
 import { ReqUser } from '@kb-decorators';
 import { User } from '@kb-models';
 
@@ -48,9 +47,9 @@ export class GithubController {
 
     res.cookie('kibibit-jwt', accessToken, {
       httpOnly: true,
-      secure: true,       // Cookie only sent over HTTPS
-      sameSite: 'none',   // Cookie sent on cross-site requests
-      maxAge: 3600000,    // Cookie expiration time
+      secure: true, // Cookie only sent over HTTPS
+      sameSite: 'none', // Cookie sent on cross-site requests
+      maxAge: 3600000 // Cookie expiration time
     });
 
     // if client is NOT a browser, return the token

@@ -13,10 +13,10 @@ import {
 
 import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
 
+import { Achievement } from './achievement.entity';
 import { Integration } from './Integration.entity';
 import { Organization } from './organization.entity';
 import { UserSettings } from './user-settings.entity';
-import { Achievement } from './achievement.entity';
 
   @Entity('users', {
     comment: [
@@ -125,9 +125,9 @@ export class User {
       return this.integrations && this.integrations.length > 0;
     }
 
-      constructor(partial: Partial<User>) {
-        Object.assign(this, partial);
-      }
+    constructor(partial: Partial<User>) {
+      Object.assign(this, partial);
+    }
 }
 
 export class CreateUser extends OmitType(User, [ 'id', 'createdAt', 'settings' ] as const) {}

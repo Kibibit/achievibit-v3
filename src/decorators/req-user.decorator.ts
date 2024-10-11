@@ -1,6 +1,8 @@
-import { configService } from '@kb-config';
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
+
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+
+import { configService } from '@kb-config';
 
 // Custom decorator to fetch req.user and pass it to the controller method
 export const ReqUser = createParamDecorator(

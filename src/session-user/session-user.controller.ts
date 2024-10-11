@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { UserSettings } from 'src/models/user-settings.entity';
 import { Octokit } from '@octokit/core';
 
-import { Body, Controller, Delete, Get, Header, NotImplementedException, Param, Patch, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotImplementedException, Param, Patch, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { ReqUser } from '@kb-decorators';
@@ -14,7 +14,6 @@ import { ShieldsService } from '@kb-shields';
 import { UsersService } from '@kb-users';
 
 import { SessionUserService } from './session-user.service';
-import axios from 'axios';
 
 @Controller('api/me')
 @ApiTags('Session User')

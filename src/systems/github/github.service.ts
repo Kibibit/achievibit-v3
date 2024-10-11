@@ -1,13 +1,13 @@
-import { map } from 'rxjs';
+import { join } from 'path';
+
+import { readFileSync } from 'fs-extra';
+import * as jwt from 'jsonwebtoken';
 import { Octokit } from '@octokit/core';
 
 import { Injectable } from '@nestjs/common';
 
-import { SystemEnum, User } from '@kb-models';
 import { configService } from '@kb-config';
-import * as jwt from 'jsonwebtoken';
-import { readFileSync } from 'fs-extra';
-import { join, resolve } from 'path';
+import { SystemEnum, User } from '@kb-models';
 import { RepositoriesService } from '@kb-repositories';
 import { UsersService } from '@kb-users';
 
@@ -28,7 +28,7 @@ export class GithubService {
     // Load your private key from the .pem file
     this.privateKey = readFileSync(
       join(configService.appRoot, 'achievibit-beta.private-key.pem'),
-      'utf8',
+      'utf8'
     );
   }
 
@@ -37,11 +37,11 @@ export class GithubService {
 
     const payload = {
       // Issued at time
-      iat: now,      
-      // Expiration time (10 minutes maximum)       
+      iat: now,
+      // Expiration time (10 minutes maximum)
       exp: now + 600,
       // GitHub App's identifier
-      iss: configService.config.GITHUB_APP_ID      
+      iss: configService.config.GITHUB_APP_ID
     };
 
     const token = jwt.sign(
@@ -57,7 +57,7 @@ export class GithubService {
    * After being redirected back to the app from the
    * GitHub App installation flow, we need to exchange
    * the temporary code for an access token.
-   * 
+   *
    * Then, we want to store the repository in the db
    * with the access token and the owning user.
    */
@@ -108,9 +108,9 @@ export class GithubService {
         url: repo.html_url,
         owner: user,
         // organization:  ? installationDetails.account.login : null,
-        system: SystemEnum.GITHUB,
+        system: SystemEnum.GITHUB
         // private: repo.private
-      })
+      });
     }
 
     return repos.repositories.map((repo) => repo.full_name);
@@ -119,17 +119,17 @@ export class GithubService {
   async getInstallationDetails(installationId: number): Promise<any> {
     const jwtToken = this.generateGithubAppJwt();
 
-    const response = await fetch(`https://api.github.com/app/installations/${installationId}`, {
+    const response = await fetch(`https://api.github.com/app/installations/${ installationId }`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${jwtToken}`,
-        Accept: 'application/vnd.github+json',
-      },
+        Authorization: `Bearer ${ jwtToken }`,
+        Accept: 'application/vnd.github+json'
+      }
     });
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`Failed to get installation details: ${error}`);
+      throw new Error(`Failed to get installation details: ${ error }`);
     }
 
     const data = await response.json();
@@ -140,14 +140,14 @@ export class GithubService {
     const response = await fetch('https://api.github.com/installation/repositories', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${installationAccessToken}`,
+        Authorization: `Bearer ${ installationAccessToken }`,
         Accept: 'application/vnd.github+json'
-      },
+      }
     });
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`Failed to get repositories: ${error}`);
+      throw new Error(`Failed to get repositories: ${ error }`);
     }
 
     const data = await response.json();

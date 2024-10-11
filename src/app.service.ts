@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-import { SmeeService } from '@kb-config';
 
 @Injectable()
 export class AppService {

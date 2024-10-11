@@ -6,8 +6,8 @@ import { Injectable } from '@nestjs/common';
 import { GitLabStrategy } from '@kb-auth';
 import { configService, Logger } from '@kb-config';
 import { Order, SystemEnum, User } from '@kb-models';
-import { UsersService } from '@kb-users';
 import { RepositoriesService } from '@kb-repositories';
+import { UsersService } from '@kb-users';
 
 @Injectable()
 export class GitlabService {
@@ -69,7 +69,7 @@ export class GitlabService {
     const newRepository = await this.repositoriesService.create({
       name: repo,
       fullname: repoFullName,
-      url: `https://gitlab.com/${repoFullName}`,
+      url: `https://gitlab.com/${ repoFullName }`,
       owner: user,
       system: SystemEnum.GITLAB
     });

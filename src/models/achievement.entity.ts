@@ -1,28 +1,22 @@
-import { Exclude, Expose, Transform, Type } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
-  OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 
-import { ApiProperty, ApiPropertyOptional, OmitType } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 
-import { Integration } from './Integration.entity';
 import { Organization } from './organization.entity';
-import { UserSettings } from './user-settings.entity';
-import { User } from './user.entity';
 import { Repository } from './repository.entity';
+import { User } from './user.entity';
 
 @Entity('achievements', {
-  comment: 'Holds the achievements of the users. This is a log of the achievements that the user has earned.',
+  comment: 'Holds the achievements of the users. This is a log of the achievements that the user has earned.'
 })
 export class Achievement {
   @PrimaryGeneratedColumn('uuid')
@@ -48,7 +42,7 @@ export class Achievement {
     user: User;
 
   @ManyToOne(
-    () => Organization,
+    () => Organization
     // (user) => user.achievements,
   )
   @JoinColumn({ name: 'organizationId' })
@@ -56,7 +50,7 @@ export class Achievement {
     organization?: Organization;
 
   @ManyToOne(
-    () => Repository,
+    () => Repository
     // (user) => user.achievements,
   )
   @JoinColumn({ name: 'repositoryId' })

@@ -1,4 +1,4 @@
-import { MongoRepository, W } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

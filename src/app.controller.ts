@@ -6,7 +6,7 @@ import { chain } from 'lodash';
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
-import { configService, SmeeService } from '@kb-config';
+import { configService } from '@kb-config';
 import { ApiInfo } from '@kb-models';
 
 import { AppService } from './app.service';
