@@ -29,7 +29,13 @@ export interface IReviewComment {
   commit: string;
 }
 
-  @Entity('pull-requests')
+  @Entity('pull-requests', {
+    comment: [
+      'This table contains pull requests that are eligible for achievements ',
+      'and are currently being processed. pull requests are short-lived and ',
+      'are deleted after they are merged, closed, or on a schedule.'
+    ].join('')
+  })
 export class PullRequest {
   @PrimaryGeneratedColumn('uuid')
   @Expose({ groups: [ 'admin' ] })

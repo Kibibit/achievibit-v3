@@ -18,7 +18,13 @@ import { Organization } from './organization.entity';
 import { UserSettings } from './user-settings.entity';
 import { Achievement } from './achievement.entity';
 
-  @Entity('users')
+  @Entity('users', {
+    comment: [
+      'The users table contains the users of the application. ',
+      'a user can be someone who logged in using OAuth, or an unregistered user ',
+      'who got an achievement through a pull request on an integrated repository.'
+    ].join('')
+  })
 export class User {
     @PrimaryGeneratedColumn('uuid')
     @Expose({ groups: [ 'admin' ] })

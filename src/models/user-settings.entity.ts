@@ -16,7 +16,11 @@ export enum ThemeEnum {
   DARK = 'dark'
 }
 
-  @Entity('user-settings')
+  @Entity('user-settings', {
+    comment: [
+      'The user settings are used to customize the user experience.'
+    ].join('')
+  })
 export class UserSettings {
     @PrimaryGeneratedColumn('uuid')
     @Expose({ groups: [ 'admin' ] })

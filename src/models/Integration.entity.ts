@@ -12,7 +12,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { SystemEnum } from './system.enum';
 import { User } from './user.entity';
 
-@Entity('integrations')
+@Entity('integrations', {
+  comment: [
+    'The integrations table contains the user integrations with git systems. ',
+    'This table represents the OAuth2 integrations with the git systems.'
+  ].join('')
+})
 export class Integration {
   @PrimaryGeneratedColumn('uuid')
   @Expose({ groups: [ 'admin' ] })

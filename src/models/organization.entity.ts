@@ -18,7 +18,13 @@ import { Repository } from './repository.entity';
 import { SystemEnum } from './system.enum';
 import { User } from './user.entity';
 
-  @Entity('organizations')
+  @Entity('organizations', {
+    comment: [
+      'The organizations table contains the organizations that the users are',
+      'part of. The organizations are used to group repositories, users, and ',
+      'achievements together.'
+    ].join('')
+  })
 export class Organization {
   @PrimaryGeneratedColumn('uuid')
   @Expose({ groups: [ 'admin' ] })
