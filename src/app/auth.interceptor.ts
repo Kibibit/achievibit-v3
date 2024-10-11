@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       // }
     }),
     catchError((error) => {
-      let errorMessage: string;
+      // let errorMessage: string;
 
       // Handle network connection errors specifically
       // if (checkNoNetworkConnection(error)) {

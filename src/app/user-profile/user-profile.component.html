@@ -1,23 +1,23 @@
 <div>
   <progress class="orange-text" [class.loading]="isLoading"></progress>
   <nav class="tabbed small">
-    <a [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'">
+    <a tabindex="0" [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'" (keyup)="activeTab = 'overview'">
       <i>info</i>
       <span>Overview</span>
     </a>
-    <a [class.active]="activeTab === 'integrations'" (click)="activeTab = 'integrations'">
+    <a tabindex="0" [class.active]="activeTab === 'integrations'" (click)="activeTab = 'integrations'" (keyup)="activeTab = 'integrations'">
       <i>style</i>
       <span>Integrations</span>
     </a>
-    <a [class.active]="activeTab === 'settings'" (click)="activeTab = 'settings'">
+    <a tabindex="0" [class.active]="activeTab === 'settings'" (click)="activeTab = 'settings'" (keyup)="activeTab = 'settings'">
       <i>settings</i>
       <span>Settings</span>
     </a>
   </nav>
   <div class="page padding" [class.active]="activeTab === 'overview'">
     <h5>Overview</h5>
-    <div class="kb-user-info-container" *ngIf="user">
-      <img class="kb-user-avatar" [src]="user.avatar" />
+    <div *ngIf="user" class="kb-user-info-container">
+      <img class="kb-user-avatar" alt="user avatar" [src]="user.avatar" />
       <div class="username">{{ user.username }}</div>
       <div class="email">{{ user.email }}</div>
     </div>
@@ -26,13 +26,14 @@
     <h5>Repositories</h5>
     <div>
       <div class="tabs">
-        <a [class.active]="activeIntegrationsTab === 'github'" (click)="activeIntegrationsTab = 'github'">GitHub</a>
-        <a [class.active]="activeIntegrationsTab === 'gitlab'" (click)="activeIntegrationsTab = 'gitlab'">GitLab</a>
-        <a [class.active]="activeIntegrationsTab === 'bitbucket'" (click)="activeIntegrationsTab = 'bitbucket'">BitBucket</a>
+        <a tabindex="0" [class.active]="activeIntegrationsTab === 'github'" (click)="activeIntegrationsTab = 'github'" (keyup)="activeIntegrationsTab = 'github'">GitHub</a>
+        <a tabindex="0" [class.active]="activeIntegrationsTab === 'gitlab'" (click)="activeIntegrationsTab = 'gitlab'" (keyup)="activeIntegrationsTab = 'gitlab'">GitLab</a>
+        <a tabindex="0" [class.active]="activeIntegrationsTab === 'bitbucket'" (click)="activeIntegrationsTab = 'bitbucket'" (keyup)="activeIntegrationsTab = 'bitbucket'">BitBucket</a>
       </div>
       <div class="page padding" [class.active]="activeIntegrationsTab === 'github'">
         <button
           class="large-elevate small"
+          type="button"
           (click)="installGithubApp()"
         >
           Install\Update GitHub App
@@ -46,7 +47,7 @@
               <a href="/api/auth/github">Integrate GitLab</a> to see your repositories
             </ng-template>
           </div>
-          <div class="kb-repo" *ngFor="let repo of userGithubRepos" [class.private]="repo.private"
+          <div *ngFor="let repo of userGithubRepos" class="kb-repo" [class.private]="repo.private"
             [class.public]="!repo.private" [class.github]="repo.system === 'github'"
             [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
             <div class="kb-repo-name">
@@ -68,7 +69,7 @@
             </ng-template>
           </div>
 
-          <div class="kb-repo" *ngFor="let repo of userGitlabRepos" [class.private]="repo.private"
+          <div *ngFor="let repo of userGitlabRepos" class="kb-repo" [class.private]="repo.private"
             [class.public]="!repo.private" [class.github]="repo.system === 'github'"
             [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
             <div class="kb-repo-name">
@@ -76,10 +77,10 @@
               <i class="visibility-icon"></i>
             </div>
             <div>{{ repo.full_name }}</div>
-            <button (click)="installWebhookOnRepo(repo.full_name, 'gitlab')" *ngIf="!repo.integrated">
+            <button *ngIf="!repo.integrated" type="button" (click)="installWebhookOnRepo(repo.full_name, 'gitlab')">
               <span>Install</span>
             </button>
-            <button (click)="uninstallWebhookOnRepo(repo.full_name, 'gitlab')" *ngIf="repo.integrated">
+            <button *ngIf="repo.integrated" type="button" (click)="uninstallWebhookOnRepo(repo.full_name, 'gitlab')">
               <span>Uninstall</span>
             </button>
           </div>
@@ -96,8 +97,8 @@
             </ng-template>
           </div>
 
-          <div class="kb-repo"
-            *ngFor="let repo of userBitbucketRepos"
+          <div *ngFor="let repo of userBitbucketRepos"
+            class="kb-repo"
             [class.private]="repo.private"
             [class.public]="!repo.private"
             [class.integrated]="repo.integrated"
@@ -110,10 +111,10 @@
               <i class="visibility-icon"></i>
             </div>
             <div>{{ repo.full_name }}</div>
-            <button (click)="installWebhookOnRepo(repo.full_name, 'bitbucket')" *ngIf="!repo.integrated">
+            <button *ngIf="!repo.integrated" type="button" (click)="installWebhookOnRepo(repo.full_name, 'bitbucket')">
               <span>Install</span>
             </button>
-            <button (click)="uninstallWebhookOnRepo(repo.full_name, 'bitbucket')" *ngIf="repo.integrated">
+            <button *ngIf="repo.integrated" type="button" (click)="uninstallWebhookOnRepo(repo.full_name, 'bitbucket')">
               <span>Uninstall</span>
             </button>
           </div>
@@ -123,21 +124,21 @@
   </div>
   <div class="page padding" [class.active]="activeTab === 'settings'">
     <h5>Settings</h5>
-    <div class="settings-container" *ngIf="user?.settings">
+    <div *ngIf="user?.settings" class="settings-container">
       <div class="timezone">
-        <label>Timezone</label>
+        <span>Timezone</span>
         {{ user?.settings?.timezone }}
       </div>
       <div class="date-format"></div>
-        <label>Date Format</label>
+        <span>Date Format</span>
         {{ user?.settings?.dateFormat }}
       </div>
       <div class="theme">
-        <label>Theme</label>
+        <span>Theme</span>
         {{ user?.settings?.theme }}
       </div>
       <div class="avatar-system-origin">
-        <label>Avatar System Origin</label>
+        <span>Avatar System Origin</span>
         {{ user?.settings?.avatarSystemOrigin }}
       </div>
   </div>

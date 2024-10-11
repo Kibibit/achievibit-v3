@@ -4,13 +4,13 @@
       <i>menu</i>
     </button> -->
     <h5 class="max">
-      <a [routerLink]="['/']" class="logo">
-        <img src="https://kibibit.io/kibibit-assets/logo-achi.svg" class="logo">
+      <a class="logo" [routerLink]="['/']">
+        <img src="https://kibibit.io/kibibit-assets/logo-achi.svg" class="logo" alt="achievibit logo">
         achievibit
       </a>
     </h5>
-    <button class="circle transparent" *ngIf="loggedInUser">
-      <img class="responsive" [src]="loggedInUser.avatar">
+    <button *ngIf="loggedInUser" class="circle transparent" type="button">
+      <img class="responsive" alt="user avatar" [src]="loggedInUser.avatar">
       <menu class="left no-wrap">
         <a class="row" [routerLink]="['/profile']">
           <i class="material-symbols-outlined">

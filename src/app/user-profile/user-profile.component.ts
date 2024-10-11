@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from './user-profile.service';
 
 @Component({
-  selector: 'app-user-profile',
+  selector: 'kb-user-profile',
   standalone: true,
   imports: [ NgIf, NgFor ],
   templateUrl: './user-profile.component.html',

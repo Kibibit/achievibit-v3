@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-keyboard-input',
+  selector: 'kb-keyboard-input',
   standalone: true,
   imports: [],
   templateUrl: './keyboard-input.component.html',

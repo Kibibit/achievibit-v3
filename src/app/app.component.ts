@@ -6,7 +6,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppService } from './app.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'kb-root',
   standalone: true,
   imports: [ RouterOutlet, NgIf, NgFor, RouterLink ],
   templateUrl: './app.component.html',
