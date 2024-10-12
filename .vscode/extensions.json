@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "cweijan.vscode-postgresql-client2",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "johnpapa.vscode-peacock",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}

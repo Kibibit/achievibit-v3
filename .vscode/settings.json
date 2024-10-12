@@ -1,0 +1,180 @@
+{
+  "files.associations": {
+    "*.json": "json"
+  },
+  "workbench.colorTheme": "Andromeda Bordered",
+  "indentRainbow.indicatorStyle": "light",
+  "indentRainbow.colors": [
+    "rgba(255,255,64,0.3)",
+    "rgba(127,255,127,0.3)",
+    "rgba(255,127,255,0.3)",
+    "rgba(79,236,236,0.3)"
+  ],
+  "indentRainbow.lightIndicatorStyleLineWidth": 2,
+  "gitlens.statusBar.enabled": false,
+  "peacock.showColorInStatusBar": false,
+  "gitlens.graph.statusBar.enabled": false,
+  "gitlens.statusBar.pullRequests.enabled": false,
+  "gitlens.mode.statusBar.enabled": false,
+  "gitlens.launchpad.indicator.enabled": false,
+  "eslint.enable": true,
+  "eslint.options": {
+      "overrideConfigFile": "./.eslintrc.js",
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".html"]
+  },
+  "eslint.probe": [
+    "astro",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "mdx",
+    "vue",
+    "markdown",
+    "json",
+    "jsonc"
+  ],
+  "eslint.validate": [
+    "javascript", // ...
+    "html" // Add "html" to enable linting `.html` files.
+  ],
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always",
+      "source.fixAll.stylelint": "explicit"
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": [ "css", "scss" ],
+  "cSpell.words": [
+    "achievibit",
+    "adpyke",
+    "autoimport",
+    "azuretools",
+    "barrelsby",
+    "codeandstuff",
+    "codegen",
+    "codesnap",
+    "codetour",
+    "commitlint",
+    "configit",
+    "cweijan",
+    "dbaeumer",
+    "devcontainer",
+    "eamodio",
+    "fullname",
+    "Gamification",
+    "gitbeaker",
+    "johnpapa",
+    "kibibit",
+    "kohler",
+    "nestjs",
+    "Onboarded",
+    "pagelen",
+    "proxying",
+    "resave",
+    "ritwickdey",
+    "Smee",
+    "steoates",
+    "stylelint",
+    "stylelintrc",
+    "thatkookooguy",
+    "timestamptz",
+    "typeorm",
+    "vivaxy",
+    "wayou"
+  ],
+  "peacock.color": "#ca2f51",
+  "peacock.remoteColor": "#8b2039",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "source.ts meta.class.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts"
+        ],
+        "settings": {
+          "foreground": "#ff0095", // "#FF8800",
+          "fontStyle": "italic bold underline"
+        }
+      }
+    ]
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#d75571",
+    "activityBar.background": "#d75571",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#68d44a",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#d75571",
+    "statusBar.background": "#ca2f51",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#d75571",
+    "statusBarItem.remoteBackground": "#ca2f51",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#ca2f51",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#ca2f5199",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "todohighlight.isEnable": true,
+  // "todohighlight.keywordsPattern": "TODO:|FIXME:|\\(([^\\)]+)\\)",
+  // "todohighlight.keywordsPattern": "(TODO|FIXME|WARNING|INFO)(@\\w+?)?:",
+  "todohighlight.keywords": [
+    {
+      "text": "TODO:",
+      "regex": {
+          "pattern": "TODO(@\\w+?)?:" // this allows for TODO: or TODO(Bob): etc.
+      },
+      "color": "purple",
+      "backgroundColor": "rgba(255, 221, 87, .8)",
+      "overviewRulerColor": "rgba(255, 221, 87, .8)",
+      "fontWeight": "bold",
+      "borderRadius": "2px",
+      "isWholeLine": false,
+    },
+    {
+      "text": "INFO:", // without a defined regex pattern this is the string that will be matched
+      "color": "green",
+      "backgroundColor": "rgba(0,0,0,0)", // INFO: setting the last parameter to zero (alpha channel) disables the background colour
+      "border": "none",
+      "isWholeLine": false
+    },
+    {
+      "text": "WARNING:", 
+      // "before": {
+      //     "contentText": "⚠️" // adds text before the highlight
+      // }, 
+      // "after": {
+      //     "contentText": "⚠️" // adds text after the highlight
+      // },
+      "color": "red",
+      "border": "1px solid red",
+      "borderRadius": "2px", // NOTE: use borderRadius along with `border` or you will see nothing change
+      "backgroundColor": "rgba(0,0,0,.2)",
+      "diagnosticSeverity": "warning" // Set diagnostic severity to `none`, `information`, `warning` or `error`
+    }
+  ],
+  "todohighlight.include": [
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.html",
+        "**/*.php",
+        "**/*.css",
+        "**/*.scss",
+        "**/*.md",
+        "**/*.mmd",
+        "**/*.markdown",
+        "**/*.mdown",
+        "**/*.txt",
+        "**/*.rb",
+        "**/*.go"
+    ]
+}

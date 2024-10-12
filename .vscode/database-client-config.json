@@ -1,0 +1,46 @@
+{
+    "database": {
+        "1728612840015": {
+            "host": "db",
+            "port": 5432,
+            "user": "devuser",
+            "password": "dbclient_a$F3DP8Vhlln7kPcASiEZWUw==",
+            "dbType": "PostgreSQL",
+            "database": "achievibit",
+            "name": "achievibit-devcontainer",
+            "advance": {
+                "hideSystemSchema": true,
+                "groupingTables": false
+            },
+            "treeFeatures": [],
+            "timezone": "+00:00",
+            "useConnectionString": false,
+            "usingSSH": false,
+            "useSocksProxy": false,
+            "useHTTPProxy": false,
+            "athena": {},
+            "bigQuery": {},
+            "global": false,
+            "savePassword": "Forever",
+            "readonly": false,
+            "sort": 13,
+            "group": "kibibit-dev",
+            "useSSL": false,
+            "fs": {
+                "encoding": "utf8",
+                "showHidden": true
+            },
+            "dm": {
+                "usingServiceName": false
+            },
+            "httpAuth": {
+                "authType": "none"
+            },
+            "key": "1728612840015",
+            "connectionKey": "database.connections",
+            "isJdbc": false,
+            "requiredAuth": true
+        }
+    },
+    "$schema": "https://cdn.database-client.com/dbclient/schema.json"
+}
