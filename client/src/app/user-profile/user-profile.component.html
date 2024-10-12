@@ -1,0 +1,145 @@
+<div>
+  <progress class="orange-text" [class.loading]="isLoading"></progress>
+  <nav class="tabbed small">
+    <a tabindex="0" [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'" (keyup)="activeTab = 'overview'">
+      <i>info</i>
+      <span>Overview</span>
+    </a>
+    <a tabindex="0" [class.active]="activeTab === 'integrations'" (click)="activeTab = 'integrations'" (keyup)="activeTab = 'integrations'">
+      <i>style</i>
+      <span>Integrations</span>
+    </a>
+    <a tabindex="0" [class.active]="activeTab === 'settings'" (click)="activeTab = 'settings'" (keyup)="activeTab = 'settings'">
+      <i>settings</i>
+      <span>Settings</span>
+    </a>
+  </nav>
+  <div class="page padding" [class.active]="activeTab === 'overview'">
+    <h5>Overview</h5>
+    <div *ngIf="user" class="kb-user-info-container">
+      <img class="kb-user-avatar" alt="user avatar" [src]="user.avatar" />
+      <div class="username">{{ user.username }}</div>
+      <div class="email">{{ user.email }}</div>
+    </div>
+  </div>
+  <div class="page padding" [class.active]="activeTab === 'integrations'">
+    <h5>Repositories</h5>
+    <div>
+      <div class="tabs">
+        <a tabindex="0" [class.active]="activeIntegrationsTab === 'github'" (click)="activeIntegrationsTab = 'github'" (keyup)="activeIntegrationsTab = 'github'">GitHub</a>
+        <a tabindex="0" [class.active]="activeIntegrationsTab === 'gitlab'" (click)="activeIntegrationsTab = 'gitlab'" (keyup)="activeIntegrationsTab = 'gitlab'">GitLab</a>
+        <a tabindex="0" [class.active]="activeIntegrationsTab === 'bitbucket'" (click)="activeIntegrationsTab = 'bitbucket'" (keyup)="activeIntegrationsTab = 'bitbucket'">BitBucket</a>
+      </div>
+      <div class="page padding" [class.active]="activeIntegrationsTab === 'github'">
+        <button
+          class="large-elevate small"
+          type="button"
+          (click)="installGithubApp()"
+        >
+          Install\Update GitHub App
+        </button>
+        <div class="kb-repos-container">
+          <div *ngIf="userGithubRepos.length === 0" class="no-repos">
+            <ng-container *ngIf="user?.integrations?.includes('github'); else suggestIntegrateGithub">
+              No repositories found
+            </ng-container>
+            <ng-template #suggestIntegrateGithub>
+              <a href="/api/auth/github">Integrate GitLab</a> to see your repositories
+            </ng-template>
+          </div>
+          <div *ngFor="let repo of userGithubRepos" class="kb-repo" [class.private]="repo.private"
+            [class.public]="!repo.private" [class.github]="repo.system === 'github'"
+            [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
+            <div class="kb-repo-name">
+              {{ repo.name }}
+              <i class="visibility-icon"></i>
+            </div>
+            <div>{{ repo.full_name }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="page padding" [class.active]="activeIntegrationsTab === 'gitlab'">
+        <div class="kb-repos-container">
+          <div *ngIf="userGitlabRepos.length === 0" class="no-repos">
+            <ng-container *ngIf="user?.integrations?.includes('gitlab'); else suggestIntegrateGitlab">
+              No repositories found
+            </ng-container>
+            <ng-template #suggestIntegrateGitlab>
+              <a href="/api/auth/gitlab">Integrate GitLab</a> to see your repositories
+            </ng-template>
+          </div>
+
+          <div *ngFor="let repo of userGitlabRepos" class="kb-repo" [class.private]="repo.private"
+            [class.public]="!repo.private" [class.github]="repo.system === 'github'"
+            [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
+            <div class="kb-repo-name">
+              {{ repo.name }}
+              <i class="visibility-icon"></i>
+            </div>
+            <div>{{ repo.full_name }}</div>
+            <button *ngIf="!repo.integrated" type="button" (click)="installWebhookOnRepo(repo.full_name, 'gitlab')">
+              <span>Install</span>
+            </button>
+            <button *ngIf="repo.integrated" type="button" (click)="uninstallWebhookOnRepo(repo.full_name, 'gitlab')">
+              <span>Uninstall</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="page padding" [class.active]="activeIntegrationsTab === 'bitbucket'">
+        <div class="kb-repos-container">
+          <div *ngIf="userBitbucketRepos.length === 0" class="no-repos">
+            <ng-container *ngIf="user?.integrations?.includes('bitbucket'); else suggestIntegrateBitbucket">
+              No repositories found
+            </ng-container>
+            <ng-template #suggestIntegrateBitbucket>
+              <a href="/api/auth/bitbucket">Integrate GitLab</a> to see your repositories
+            </ng-template>
+          </div>
+
+          <div *ngFor="let repo of userBitbucketRepos"
+            class="kb-repo"
+            [class.private]="repo.private"
+            [class.public]="!repo.private"
+            [class.integrated]="repo.integrated"
+            [class.github]="repo.system === 'github'"
+            [class.bitbucket]="repo.system === 'bitbucket'"
+            [class.gitlab]="repo.system === 'gitlab'"
+          >
+            <div class="kb-repo-name">
+              {{ repo.name }}
+              <i class="visibility-icon"></i>
+            </div>
+            <div>{{ repo.full_name }}</div>
+            <button *ngIf="!repo.integrated" type="button" (click)="installWebhookOnRepo(repo.full_name, 'bitbucket')">
+              <span>Install</span>
+            </button>
+            <button *ngIf="repo.integrated" type="button" (click)="uninstallWebhookOnRepo(repo.full_name, 'bitbucket')">
+              <span>Uninstall</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page padding" [class.active]="activeTab === 'settings'">
+    <h5>Settings</h5>
+    <div *ngIf="user?.settings" class="settings-container">
+      <div class="timezone">
+        <span>Timezone</span>
+        {{ user?.settings?.timezone }}
+      </div>
+      <div class="date-format"></div>
+        <span>Date Format</span>
+        {{ user?.settings?.dateFormat }}
+      </div>
+      <div class="theme">
+        <span>Theme</span>
+        {{ user?.settings?.theme }}
+      </div>
+      <div class="avatar-system-origin">
+        <span>Avatar System Origin</span>
+        {{ user?.settings?.avatarSystemOrigin }}
+      </div>
+  </div>
+</div>
