@@ -15,7 +15,8 @@
     "sdk:node": "swagger-codegen generate -i http://localhost:3003/api/docs-json -l typescript-axios -o ./sdks/node --additional-properties npmName=@kibibit/achievibit-server-node-sdk && npm run post:sdk:node",
     "sdk:angular": "swagger-codegen generate -i http://localhost:3003/api/docs-json -l typescript-angular -o ./sdks/angular -c ./angular-sdk-options.json",
     "sdk:angular:build": "ng-packagr -p ./sdks/angular/ng-package.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "create-github-oauth": "ts-node ./scripts/create-github-oauth.script.ts",
+    "create-github-app": "ts-node ./scripts/create-github-app.script.ts"
   },
   "author": "thatkookooguy <neilkalman@gmail.com>",
   "license": "MIT",
