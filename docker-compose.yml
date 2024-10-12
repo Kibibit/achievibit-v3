@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3069:3003'
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=docker
+    env_file:
+      - .env
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=achievibit
+      - POSTGRES_PASSWORD=a123456789
+      - POSTGRES_DB=achievibit
+      # - POSTGRES_PORT=5436
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

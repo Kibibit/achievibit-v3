@@ -1,0 +1,9 @@
+packages:
+  - 'client'
+  - 'server'
+
+link-workspace-packages: true
+shared-workspace-lockfile: true
+
+config:
+  packageImportMethod: copy

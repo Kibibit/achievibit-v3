@@ -1,0 +1,6 @@
+{
+  "npmName": "@kibibit/achievibit-angular-sdk",
+  "npmVersion": "0.0.1",
+  "snapshot": true,
+  "ngVersion": "17.3.0"
+}
