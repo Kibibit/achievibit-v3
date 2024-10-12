@@ -16,7 +16,9 @@ import { chromium } from '@playwright/test';
   // open browser
   const browser = await chromium.launch({
     headless: false,
-    slowMo: 1000
+    slowMo: 1000,
+    // Required for running inside containers
+    args: [ '--no-sandbox', '--disable-setuid-sandbox' ]
   });
   const page = await browser.newPage();
   page.setDefaultTimeout(240000);

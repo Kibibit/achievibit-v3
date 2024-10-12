@@ -1,5 +1,5 @@
 {
-  "name": "achievibit-dev-container",
+  "name": "achievibit-devcontainer",
   "dockerComposeFile": "docker-compose.dev.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
@@ -43,7 +43,7 @@
       }
 		}
 	},
-  "postCreateCommand": "pnpm install",
+  "postCreateCommand": "pnpm install --force",
   "remoteEnv": {
     "NODE_ENV": "devcontainer",
     "PUPPETEER_SKIP_DOWNLOAD": "false",
