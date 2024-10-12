@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@kb-auth": ["src/auth/index"],
+      "@kb-config": ["src/config/index"],
+      "@kb-decorators": ["src/decorators/index"],
+      "@kb-filters": ["src/filters/index"],
+      "@kb-guards": ["src/guards/index"],
+      "@kb-interceptors": ["src/interceptors/index"],
+      "@kb-middleware": ["src/middleware/index"],
+      "@kb-models": ["src/models/index"],
+      "@kb-organizations": ["src/organizations/index"],
+      "@kb-pull-requests": ["src/pull-requests/index"],
+      "@kb-repositories": ["src/repositories/index"],
+      "@kb-session-user": ["src/session-user/index"],
+      "@kb-shields": ["src/shields/index"],
+      "@kb-users": ["src/users/index"],
+      "@kb-webhooks": ["src/webhooks/index"]
+    }
+  }
+}
