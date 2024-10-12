@@ -17,6 +17,7 @@ RUN mkdir -p /pnpm-store
 # 5. zsh and oh-my-zsh: required for the terminal to work properly
 # 6. locales: required for character encoding support
 # 7. procps: provides ps command
+# 8. requirements to run playwright
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -58,6 +59,12 @@ COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install
+
+# Install Playwright dependencies (this ensures browsers can run correctly)
+RUN pnpm exec playwright install-deps
+
+# Install Playwright browsers
+RUN pnpm exec playwright install
 
 # Expose the application's port
 EXPOSE 3003
