@@ -6,19 +6,23 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService, IConfigServiceOptions } from '@kibibit/configit';
 
 import { AchievibitConfig } from './achievibit.config';
+import { Logger } from './logger/logger';
 
 const ENV_DEFAULT = 'development';
 
 const nodeEnv = process.env.NODE_ENV || ENV_DEFAULT;
 
 export class KbConfigService extends ConfigService<AchievibitConfig> {
-  logger: any;
+  logger = new Logger('ConfigService');
   isDevelopmentMode = this.config.NODE_ENV !== 'development';
   isProductionMode = this.config.NODE_ENV === 'production';
 
   constructor(passedConfig?: Partial<AchievibitConfig>, options: IConfigServiceOptions = {}) {
     super(AchievibitConfig, passedConfig, {
-      skipSchema: nodeEnv !== 'development',
+      skipSchema: ![
+        'development',
+        'devcontainer'
+      ].includes(nodeEnv),
       ...options
     });
   }
@@ -50,6 +54,30 @@ export class KbConfigService extends ConfigService<AchievibitConfig> {
       synchronize: this.config.SYNCHRONIZE_DATABASE
       // logging: true
     };
+  }
+
+  public isGithubOauthConfigured() {
+    return this.config.GITHUB_CLIENT_ID &&
+      this.config.GITHUB_CLIENT_SECRET &&
+      this.config.GITHUB_CALLBACK_URL;
+  }
+
+  public isGitlabOauthConfigured() {
+    return this.config.GITLAB_CLIENT_ID &&
+      this.config.GITLAB_CLIENT_SECRET &&
+      this.config.GITLAB_CALLBACK_URL;
+  }
+
+  public isBitbucketOauthConfigured() {
+    return this.config.BITBUCKET_CLIENT_ID &&
+      this.config.BITBUCKET_CLIENT_SECRET &&
+      this.config.BITBUCKET_CALLBACK_URL;
+  }
+
+  public isNoOauthConfigured() {
+    return !this.isGithubOauthConfigured() &&
+      !this.isGitlabOauthConfigured() &&
+      !this.isBitbucketOauthConfigured();
   }
 }
 
