@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      # Exclude node_modules directories
+      - /workspace/node_modules
+      - /workspace/client/node_modules
+      - /workspace/server/node_modules
+    command: sleep infinity
+    ports:
+      - '10102:3003'
+      - '10101:10101'
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DATABASE: achievibit
+      PUPPETEER_SKIP_DOWNLOAD: false
+      HUSKY: 1
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      DATABASE_PORT: 5432
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: achievibit
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

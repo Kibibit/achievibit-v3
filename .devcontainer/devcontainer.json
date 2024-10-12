@@ -1,0 +1,72 @@
+{
+  "name": "achievibit-dev-container",
+  "dockerComposeFile": "docker-compose.dev.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "features": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+        "johnpapa.vscode-peacock",
+        "wayou.vscode-todo-highlight",
+        "steoates.autoimport",
+        "adpyke.codesnap",
+        "streetsidesoftware.code-spell-checker",
+        "vsls-contrib.codetour",
+        "vivaxy.vscode-conventional-commits",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker-hebrew",
+        "wix.vscode-import-cost",
+        "ritwickdey.LiveServer",
+        "ms-vsliveshare.vsliveshare",
+        "codeandstuff.package-json-upgrade",
+        "christian-kohler.path-intellisense",
+        "Bruce.rona",
+        "jock.svg",
+        "ms-vscode.js-debug",
+        "cweijan.vscode-postgresql-client2",
+        "dbaeumer.vscode-eslint",
+        "stylelint.vscode-stylelint",
+        "GitHub.vscode-pull-request-github",
+        "EliverLara.andromeda",
+        "cweijan.dbclient-jdbc",
+        "Angular.ng-template",
+        "kisstkondoros.vscode-codemetrics",
+        "github.vscode-github-actions",
+        "formulahendry.auto-rename-tag",
+        "donjayamanne.githistory",
+        "oderwat.indent-rainbow"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/zsh"
+      }
+		}
+	},
+  "postCreateCommand": "pnpm install",
+  "remoteEnv": {
+    "NODE_ENV": "devcontainer",
+    "PUPPETEER_SKIP_DOWNLOAD": "false",
+    "HUSKY": "1"
+  },
+  "runServices": [
+    "db"
+  ],
+  "shutdownAction": "stopCompose",
+  "portsAttributes": {
+    "8000": {
+      "label": "unknown",
+      "onAutoForward": "ignore"
+    },
+    "37346": {
+      "label": "unknown",
+      "onAutoForward": "ignore"
+    },
+    "10102": {
+      "label": "Backend"
+    },
+    "10101": {
+      "label": "Client + Proxy"
+    }
+  }
+}
