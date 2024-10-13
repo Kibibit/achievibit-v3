@@ -1,0 +1,81 @@
+{
+  "name": "kb-achievements",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf lib",
+    "build": "tsc",
+    "build:prod": "npm run build",
+    "generate-barrels": "barrelsby --delete -d ./src -l top -q --exclude spec.ts",
+    "lint": "eslint -c ./.eslintrc.js \"{src,apps,libs,test}/**/*.ts\"",
+    "lint:fix": "eslint -c ./.eslintrc.js \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --coverage --watch --verbose",
+    "test:cov": "jest --coverage --verbose"
+  },
+  "author": "thatkookooguy <neilkalman@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.13",
+    "@types/luxon": "^3.4.2",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "jest": "^29.7.0",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "node_modules"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s",
+      "!**/index.ts",
+      "!**/dev-tools/**/*.(t|j)s"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-stare",
+        {
+          "resultDir": "../test-results/achievements",
+          "reportTitle": "jest-stare!",
+          "additionalResultsProcessors": [
+            "jest-junit"
+          ],
+          "coverageLink": "./coverage/lcov-report/index.html"
+        }
+      ]
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover",
+      "html"
+    ],
+    "coverageDirectory": "../../test-results/achievements/coverage",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "luxon": "^3.5.0"
+  }
+}
