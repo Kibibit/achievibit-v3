@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dontYellAtMe achievement should be granted to PR creator if both reasons 1`] = `
-Object {
+{
   "avatar": "images/achievements/dontYellAtMe.achievement.jpg",
   "description": "You've used ALL CAPS and 3 or more exclamation marks in your Pull Request title",
   "name": "Don't Yell At Me!!!",
@@ -11,7 +11,7 @@ Object {
 `;
 
 exports[`dontYellAtMe achievement should be granted to PR creator if more than 2 '!' 1`] = `
-Object {
+{
   "avatar": "images/achievements/dontYellAtMe.achievement.jpg",
   "description": "You've used 3 or more exclamation marks in your Pull Request title",
   "name": "Don't Yell At Me!!!",
@@ -21,7 +21,7 @@ Object {
 `;
 
 exports[`dontYellAtMe achievement should be granted to PR creator if title is all caps 1`] = `
-Object {
+{
   "avatar": "images/achievements/dontYellAtMe.achievement.jpg",
   "description": "You've used ALL CAPS in your Pull Request title",
   "name": "Don't Yell At Me!!!",

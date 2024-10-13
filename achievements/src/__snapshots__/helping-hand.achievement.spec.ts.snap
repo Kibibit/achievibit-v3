@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`helpingHand achievement should add indication if more than one PR reviewer 1`] = `
-Object {
+{
   "avatar": "images/achievements/helpingHandManInBlack.achievement.jpg",
   "description": "Your reviewers reviewer, 2nd committed to your Pull Request",
   "name": "Helping Hand",
@@ -11,7 +11,7 @@ Object {
 `;
 
 exports[`helpingHand achievement should add indication if more than one PR reviewer 2`] = `
-Object {
+{
   "avatar": "images/achievements/helpingHandHelloThere.achievement.jpg",
   "description": "You've committed to creator's Pull Request you are reviewing",
   "name": "Helping Hand",
@@ -21,7 +21,7 @@ Object {
 `;
 
 exports[`helpingHand achievement should add indication if more than one PR reviewer 3`] = `
-Object {
+{
   "avatar": "images/achievements/helpingHandHelloThere.achievement.jpg",
   "description": "You've committed to creator's Pull Request you are reviewing",
   "name": "Helping Hand",
@@ -31,7 +31,7 @@ Object {
 `;
 
 exports[`helpingHand achievement should be granted if PR reviewer added commit 1`] = `
-Object {
+{
   "avatar": "images/achievements/helpingHandManInBlack.achievement.jpg",
   "description": "Your reviewer reviewer committed to your Pull Request",
   "name": "Helping Hand",
@@ -41,7 +41,7 @@ Object {
 `;
 
 exports[`helpingHand achievement should be granted if PR reviewer added commit 2`] = `
-Object {
+{
   "avatar": "images/achievements/helpingHandHelloThere.achievement.jpg",
   "description": "You've committed to creator's Pull Request you are reviewing",
   "name": "Helping Hand",

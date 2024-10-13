@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`neverGoFullRetard achievement should be granted for all supported files 1`] = `
-Object {
+{
   "avatar": "images/achievements/neverGoFullRetard.achievement.png",
   "description": "merged a pull request containing only pictures. pretty!",
   "name": "never go full retard",
@@ -11,7 +11,7 @@ Object {
 `;
 
 exports[`neverGoFullRetard achievement should be granted to creator and reviewers 1`] = `
-Object {
+{
   "avatar": "images/achievements/neverGoFullRetard.achievement.png",
   "description": "merged a pull request containing only pictures. pretty!",
   "name": "never go full retard",

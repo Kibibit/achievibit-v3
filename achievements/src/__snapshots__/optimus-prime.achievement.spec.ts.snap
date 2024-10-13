@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`optimusPrime achievement should be granted to PR creator if PR number is prime 1`] = `
-Object {
+{
   "avatar": "images/achievements/optimusPrime.achievement.jpeg",
   "description": "Pull requests with prime numbers are very rare! yours was 3",
   "name": "optimus prime",
