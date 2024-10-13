@@ -1,4 +1,5 @@
 packages:
+  - 'achievements'
   - 'client'
   - 'server'
 

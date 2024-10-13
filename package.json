@@ -9,6 +9,7 @@
     "lint:styles:fix": "stylelint \"projects/design-system/src/**/*.scss\" --config .stylelintrc.js --fix",
     "start:dev": "pnpm -r --parallel run start:dev",
     "build:prod": "pnpm -r --parallel run build:prod",
+    "build": "pnpm -r --parallel run build",
     "\n# SDK GENERATION SCRIPTS:": "",
     "bump-version": "npm version --no-git-tag-version patch",
     "post:sdk:node": "npm run bump-version && node ./scripts/copy-to-sdk.mjs && cd ./sdks/node && npm install --package-lock-only",
