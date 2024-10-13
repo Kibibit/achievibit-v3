@@ -6,7 +6,7 @@ import inquirer from 'inquirer';
 import { chromium, Page } from '@playwright/test';
 
 (async () => {
-  const questions: any = [
+  const githubAnswers = await inquirer.prompt([
     {
       type: 'input',
       name: 'username',
@@ -17,9 +17,7 @@ import { chromium, Page } from '@playwright/test';
       name: 'password',
       message: 'Enter your github password'
     }
-  ];
-
-  const githubAnswers = await inquirer.prompt(questions);
+  ]);
 
   const baseUrl = 'http://localhost:10101';
   const homepageUrl = baseUrl;
