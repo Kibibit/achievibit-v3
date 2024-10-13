@@ -15,8 +15,7 @@
     "sdk:node": "swagger-codegen generate -i http://localhost:3003/api/docs-json -l typescript-axios -o ./sdks/node --additional-properties npmName=@kibibit/achievibit-server-node-sdk && npm run post:sdk:node",
     "sdk:angular": "swagger-codegen generate -i http://localhost:3003/api/docs-json -l typescript-angular -o ./sdks/angular -c ./angular-sdk-options.json",
     "sdk:angular:build": "ng-packagr -p ./sdks/angular/ng-package.json",
-    "create-github-oauth": "ts-node ./scripts/create-github-oauth.script.ts",
-    "create-github-app": "ts-node ./scripts/create-github-app.script.ts"
+    "create:github": "ts-node ./scripts/create-github.script.ts"
   },
   "author": "thatkookooguy <neilkalman@gmail.com>",
   "license": "MIT",
@@ -36,6 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
     "angular-eslint": "^18.3.1",
+    "colors": "^1.4.0",
     "eslint": "^8.57.1",
     "eslint-plugin-attribute-formatting": "link:plugins/eslint-plugin-attribute-formatting",
     "eslint-plugin-import": "^2.30.0",

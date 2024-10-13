@@ -27,7 +27,7 @@ export class GithubService {
   ) {
     // Load your private key from the .pem file
     this.privateKey = readFileSync(
-      join(configService.appRoot, 'achievibit-beta.private-key.pem'),
+      join(configService.appRoot, 'keys', 'private-key.pem'),
       'utf8'
     );
   }
