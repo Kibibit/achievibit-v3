@@ -49,5 +49,6 @@
       "description": "Using pnpm allows us to have a single command in the root `package.json` in order to run all commands with the same name in the projects defined in the pnpm workspace.\n\nLet's run both client and server applications using the following command.\n\nYou can click on it to run it in a terminal:\n\n>> pnpm run start:dev\n\nYou should see a prefix of `server start:dev` and `client start:dev` to separate the printed lines for each project:\n![server-prefix](./screenshots/tour-terminal-server-prefix.png)\n\n![client-prefix](./screenshots/tour-terminal-client-prefix.png)\n\nEventually, you should see an error about missing application configuration variables. Or secrets. whatever you want to call them:\n![app-config-error](./screenshots/tour-terminal-secrets-error.png)",
       "line": 10
     }
-  ]
+  ],
+  "isPrimary": true
 }
