@@ -87,8 +87,10 @@ describe('meeseek achievement', () => {
     const pullRequest = new PullRequest();
 
     pullRequest.description = [
-      '[awesomeresolves #1]', // should not be recognized
-      '[resolves #2resolves #3]', // should not be recognized
+      // should not be recognized
+      '[awesomeresolves #1]',
+      // should not be recognized
+      '[resolves #2resolves #3]',
       'resolves #3nice!',
       '[resolves #4]',
       '[resolves #5]',
@@ -105,8 +107,10 @@ describe('meeseek achievement', () => {
       const pullRequest = new PullRequest();
 
       pullRequest.description = [
-        '[close #1]', // should not be recognized
-        '[close #2]', // should not be recognized
+        // should not be recognized
+        '[close #1]',
+        // should not be recognized
+        '[close #2]',
         '[close #3]',
         '[close #4]',
         '[close #5]'
@@ -121,8 +125,10 @@ describe('meeseek achievement', () => {
       const pullRequest = new PullRequest();
 
       pullRequest.description = [
-        '[closes #1]', // should not be recognized
-        '[closes #2]', // should not be recognized
+        // should not be recognized
+        '[closes #1]',
+        // should not be recognized
+        '[closes #2]',
         '[closes #3]',
         '[closes #4]',
         '[closes #5]'
@@ -137,8 +143,10 @@ describe('meeseek achievement', () => {
       const pullRequest = new PullRequest();
 
       pullRequest.description = [
-        '[closed #1]', // should not be recognized
-        '[closed #2]', // should not be recognized
+        // should not be recognized
+        '[closed #1]',
+        // should not be recognized
+        '[closed #2]',
         '[closed #3]',
         '[closed #4]',
         '[closed #5]'
@@ -153,8 +161,10 @@ describe('meeseek achievement', () => {
       const pullRequest = new PullRequest();
 
       pullRequest.description = [
-        '[fix #1]', // should not be recognized
-        '[fix #2]', // should not be recognized
+        // should not be recognized
+        '[fix #1]',
+        // should not be recognized
+        '[fix #2]',
         '[fix #3]',
         '[fix #4]',
         '[fix #5]'
@@ -169,8 +179,10 @@ describe('meeseek achievement', () => {
       const pullRequest = new PullRequest();
 
       pullRequest.description = [
-        '[fixes #1]', // should not be recognized
-        '[fixes #2]', // should not be recognized
+        // should not be recognized
+        '[fixes #1]',
+        // should not be recognized
+        '[fixes #2]',
         '[fixes #3]',
         '[fixes #4]',
         '[fixes #5]'

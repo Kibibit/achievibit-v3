@@ -32,8 +32,10 @@ function atLeast80PrecentCommitsFailedBuild(pullRequest) {
     const TRAVIS_PUSH = 'continuous-integration/travis-ci/push';
     const prBuildStatus = commit.statuses[TRAVIS_PR];
     const pushBuildStatus = commit.statuses[TRAVIS_PUSH];
-    if ((prBuildStatus && isEqual(prBuildStatus.state, 'error')) ||
-			(pushBuildStatus && isEqual(pushBuildStatus.state, 'error'))) {
+    if (
+      (prBuildStatus && isEqual(prBuildStatus.state, 'error')) ||
+      (pushBuildStatus && isEqual(pushBuildStatus.state, 'error'))
+    ) {
       failedCommits++;
     }
   });

@@ -1,3 +1,4 @@
+/* eslint-disable no-undefined */
 import { defineConfig, devices } from '@playwright/test';
 
 /**

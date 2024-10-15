@@ -6,7 +6,7 @@ export const neverGoFullRetard: IAchievement = {
   name: 'never go full retard',
   check: function(pullRequest, shall) {
     if (pullRequest.files && pullRequest.files.length > 0 &&
-			every(pullRequest.files, isAnImage)) {
+      every(pullRequest.files, isAnImage)) {
       const achieve: IUserAchievement = {
         avatar: 'images/achievements/neverGoFullRetard.achievement.png',
         name: 'never go full retard',
@@ -24,11 +24,11 @@ export const neverGoFullRetard: IAchievement = {
 
 function isAnImage(file: any) {
   return typeof file === 'object' && file.name &&
-		(endsWith(file.name, '.png') ||
-			endsWith(file.name, '.jpg') ||
-			endsWith(file.name, '.jpeg') ||
-			endsWith(file.name, '.ico') ||
-			endsWith(file.name, '.svg') ||
-			endsWith(file.name, '.gif') ||
-			endsWith(file.name, '.icns'));
+    (endsWith(file.name, '.png') ||
+      endsWith(file.name, '.jpg') ||
+      endsWith(file.name, '.jpeg') ||
+      endsWith(file.name, '.ico') ||
+      endsWith(file.name, '.svg') ||
+      endsWith(file.name, '.gif') ||
+      endsWith(file.name, '.icns'));
 }

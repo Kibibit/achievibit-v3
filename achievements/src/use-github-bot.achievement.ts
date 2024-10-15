@@ -11,8 +11,8 @@ export const githubBot: IAchievement = {
       }
     });
     if (pullRequest.commits &&
-			pullRequest.commits.length > 0 &&
-			isComitterGitHubWebFlow) {
+      pullRequest.commits.length > 0 &&
+      isComitterGitHubWebFlow) {
       const achieve: IUserAchievement = {
         avatar: 'images/achievements/useGithubBot.achievement.jpeg',
         name: 'Why not bots?',

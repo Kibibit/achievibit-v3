@@ -61,7 +61,8 @@ describe('usedAllReactionsInComment achievement', () => {
     const pullRequest = new PullRequest();
 
     pullRequest.inlineComments = [ createQualifiedComment() ];
-    pullRequest.inlineComments[0].reactions.pop(); // remove 1 reaction
+    // remove 1 reaction
+    pullRequest.inlineComments[0].reactions.pop();
 
     usedAllReactionsInComment.check(pullRequest, testShall);
     expect(testShall.grantedAchievements).toBeUndefined();

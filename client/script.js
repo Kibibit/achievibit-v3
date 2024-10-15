@@ -1,5 +1,6 @@
 // should be empty because httpOnly cookie is used
-const cookie = document.cookie;
+// const cookie = document.cookie;
+
 // call GET /api/me to get the logged in user
 (async () => {
   const response = await fetch('/api/me');
