@@ -5,7 +5,7 @@ import { IAchievement, IUserAchievement } from './achievement.abstract';
 export const breakingBad: IAchievement = {
   name: 'Breaking Bad',
   check: function(pullRequest, shall) {
-    if (atLeast80PrecentCommitsFailedBuild(pullRequest)) {
+    if (atLeast80PercentCommitsFailedBuild(pullRequest)) {
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/breakingBad.achievement.jpg',
         name: 'Breaking Bad',
@@ -24,7 +24,7 @@ export const breakingBad: IAchievement = {
   }
 };
 
-function atLeast80PrecentCommitsFailedBuild(pullRequest) {
+function atLeast80PercentCommitsFailedBuild(pullRequest) {
   let failedCommits = 0;
   const totalCommits = pullRequest.commits.length;
   forEach(pullRequest.commits, function(commit) {
