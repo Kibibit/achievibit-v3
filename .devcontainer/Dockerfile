@@ -61,10 +61,10 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
 # Install Playwright dependencies (this ensures browsers can run correctly)
-RUN pnpm exec playwright install-deps
+# RUN pnpm exec playwright install-deps
 
 # Install Playwright browsers
-RUN pnpm exec playwright install
+# RUN pnpm exec playwright install
 
 # Expose the application's port
 EXPOSE 3003
