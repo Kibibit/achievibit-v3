@@ -1,0 +1,53 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Introduction",
+  "steps": [
+    {
+      "title": "Introduction",
+      "description": "## Welcome to the achievibit code base\n\nWelcome! This tour will go through some basic folder and files that are important to understand the overall structure of the project.\n\nEnjoy!"
+    },
+    {
+      "directory": "client",
+      "description": "The client folder holds the angular 17 client application.\n\nWhen built in development mode, the application is built into client/dist.\n\nfor production, the client application is being built into server/client to let the server serve the client instead of running 2 servers (one to serve the client, and one for the backend)"
+    },
+    {
+      "directory": "server",
+      "description": "The server folder holds the nestjs server application.\n\nIt holds both achievibit's API, and serves client applications, and deals with websockets\n- **achievibit's API:** All API endpoints are prefixed with `/api` to separate the server routing and the client routing based on the url\n- **Serves client applications:** The server serves (as static assets) 2 client side applications:\n  - **The Login App:** Resides inside `/server/login-app` and holds the login page and related assets. This is separated from the actual angular application both for security and conviniency (since the login and oauth might be shared later on for other kibibit products so it's simple to have a simple vanilla login application)\n  - **achievibit's client application:** Holds the homepage, user profile, user settings, repositories, and organizations. There are some areas that are public and shows only public data, while others (like user settings) which might change based on if the user is logged in or not"
+    },
+    {
+      "directory": "scripts",
+      "description": "Scripts holds either dev scripts (that might be used in the `package.json`), or helpful scripts for pre-development like creating the necassery assets on github, bitbucket, and gitlab"
+    },
+    {
+      "directory": "achievements",
+      "description": "The achievements projects holds all achievements that achievibit checks when a pull request is merged. This was separated into a different project (instead of being part of the server) for several reasons:\n- **Easier to find:** We want to encourage outside contributors that want to write achievements. Making the folder easy to find with only relevant files to write achivements is easier than looking for code in a big projects with a lot of code that isn't relevant to what you're trying to achieve\n- **Easier to go over:** We want the server side to import all available achievements and loop over them. It's easier with an index file (to export everything from a single file). Having it as a separate package allows us to add commands to generate that file regardless of the server side application needs\n- **Easier to test:** Since achievements are isolated from the actual server application, mocking and testing them is much simpler and only relays on interfaces for inputs of each achievement's function"
+    },
+    {
+      "directory": "e2e",
+      "description": "The E2E folder should hold the End-to-End tests of the application. Currently, this folder is a placeholder to create those tests later on.\n\nThe E2E project is based on playwright"
+    },
+    {
+      "directory": ".devcontainer",
+      "description": "the `.devcontainer` folder allows developers to run the application almost without any manual setup.\nIt basically holds a dockerfile and docker-compose to run an isolated container for development, and a postgres database available for the container.\n\nWhen opening the project in vscode, it will offer the develop to re-open it in a container, and will setup everything for you including installing vscode extensions needed for development.\n\nThe same goes for GitHub codespaces. A development environment of the project can be sped up on github codespaces using the same rules defined inside the `.devcontainer` folder. allowing developers to start contributing a lot faster, regardless of their operating system."
+    },
+    {
+      "file": "pnpm-workspace.yaml",
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 4,
+          "character": 13
+        }
+      },
+      "description": "This monorepo uses pnpm to manage all the individual projects.\nThere are 3 projects defined currently. achievements, client, and server (later on, e2e will be another project)."
+    },
+    {
+      "file": "package.json",
+      "description": "Using pnpm allows us to have a single command in the root `package.json` in order to run all commands with the same name in the projects defined in the pnpm workspace.\n\nLet's run both client and server applications using the following command.\n\nYou can click on it to run it in a terminal:\n\n>> pnpm run start:dev\n\nYou should see a prefix of `server start:dev` and `client start:dev` to separate the printed lines for each project:\n![server-prefix](./screenshots/tour-terminal-server-prefix.png)\n\n![client-prefix](./screenshots/tour-terminal-client-prefix.png)\n\nEventually, you should see an error about missing application configuration variables. Or secrets. whatever you want to call them:\n![app-config-error](./screenshots/tour-terminal-secrets-error.png)",
+      "line": 10
+    }
+  ]
+}
