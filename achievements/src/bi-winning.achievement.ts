@@ -7,7 +7,6 @@ export const biWinning: IAchievement = {
   check: function(pullRequest, shall) {
     if (!isEmpty(pullRequest.commits) &&
       every(pullRequest.commits, allStatusesPassed)) {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/biWinning.achievement.jpg',
         name: 'BI-WINNING!',

@@ -5,11 +5,9 @@ import { IAchievement, IUserAchievement } from './achievement.abstract';
 export const drClaw: IAchievement = {
   name: 'Dr. Claw',
   check: function(pullRequest, shall) {
-
     const coveragePercentageDecreased = coverageDecreased(pullRequest);
 
     if (coveragePercentageDecreased) {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/drClaw.achievement.gif',
         name: 'Dr. Claw',
@@ -28,7 +26,7 @@ export const drClaw: IAchievement = {
 
 function coverageDecreased(pullRequest) {
   const lastCoverageUpdate = findLast(pullRequest.comments,
-    ['author.username', 'coveralls']);
+    [ 'author.username', 'coveralls' ]);
 
   const lastCoverageUpdateMessage = get(lastCoverageUpdate, 'message');
   const getDecreasedPercentageRegexp = /Coverage decreased \((.*?)\)/g;
@@ -37,5 +35,4 @@ function coverageDecreased(pullRequest) {
   const percentageNumberOnly = replace(percentageString, /[-%]/g, '');
 
   return parseInt(percentageNumberOnly, 10) >= 2 ? percentageString : false;
-
 }

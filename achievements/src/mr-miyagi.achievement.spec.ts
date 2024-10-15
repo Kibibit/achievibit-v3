@@ -90,6 +90,4 @@ describe('mrMiyagi achievement', () => {
     expect(testShall.grantedAchievements.creator.description)
       .toContain(pullRequest.creator.username + '-san');
   });
-
-
 });

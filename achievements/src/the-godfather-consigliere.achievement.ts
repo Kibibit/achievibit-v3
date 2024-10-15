@@ -6,7 +6,6 @@ export const theGodfatherConsigliere: IAchievement = {
   name: 'The Godfather Consigliere',
   check: function(pullRequest, shall) {
     if (result(pullRequest, 'organization.username') === 'Kibibit') {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/theGodfatherConsigliere.achievement.jpg',
         name: 'The Godfather Consigliere',

@@ -11,7 +11,6 @@ export const doubleReview: IAchievement = {
       username: pullRequest.creator.username
     });
     if (reviewers && reviewers.length === 2) {
-
       const achieve: IUserAchievement = {
         avatar: 'images/achievements/doubleReview.achievement.gif',
         name: 'We\'re ready, master',

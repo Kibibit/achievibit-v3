@@ -3,7 +3,7 @@ import { IAchievement } from './achievement.abstract';
 export const labelBabyJunior: IAchievement = {
   name: 'Label Baby Junior',
   check: function(pullRequest, shall) {
-    if (isManyLabels(pullRequest))  {
+    if (isManyLabels(pullRequest)) {
       const achievement = {
         avatar: 'images/achievements/labelBabyJunior.achievement.jpg',
         name: 'The Label Maker',

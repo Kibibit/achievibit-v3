@@ -5,11 +5,9 @@ import { IAchievement, IUserAchievement } from './achievement.abstract';
 export const inspectorGadget: IAchievement = {
   name: 'Inspector Gadget',
   check: function(pullRequest, shall) {
-
     const coveragePercentageIncreased = coverageIncreased(pullRequest);
 
     if (coveragePercentageIncreased) {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/inspectorGadget.achievement.jpg',
         name: 'Inspector Gadget',
@@ -31,7 +29,7 @@ export const inspectorGadget: IAchievement = {
 
 function coverageIncreased(pullRequest) {
   const lastCoverageUpdate = findLast(pullRequest.comments,
-    ['author.username', 'coveralls']);
+    [ 'author.username', 'coveralls' ]);
 
   const lastCoverageUpdateMessage = get(lastCoverageUpdate, 'message');
   const getIncreasedPercentageRegexp = /Coverage increased \((.*?)\)/g;
@@ -40,5 +38,4 @@ function coverageIncreased(pullRequest) {
   const percentageNumberOnly = replace(percentageString, /[+%]/g, '');
 
   return parseInt(percentageNumberOnly, 10) >= 2 ? percentageString : false;
-
 }

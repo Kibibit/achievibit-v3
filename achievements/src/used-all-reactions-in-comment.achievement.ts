@@ -33,7 +33,7 @@ function getCommentAuthorsWithAllReactions(pullRequest) {
   const authors = map(allComments, 'author.username');
   const AllCommentsReactions = map(allComments, 'reactions');
 
-    // also add pull request description reactions
+  // also add pull request description reactions
   authors.push(pullRequest.creator.username);
   AllCommentsReactions.push(pullRequest.reactions);
 
@@ -43,14 +43,13 @@ function getCommentAuthorsWithAllReactions(pullRequest) {
 }
 
 function reactionsWithoutAuthor(reactions, author) {
-  return map(reject(reactions, ['user.username', author]), 'reaction');
+  return map(reject(reactions, [ 'user.username', author ]), 'reaction');
 }
 
 function getOnlyUniqueReactionsWithoutAuthors(AllCommentsReactions, authors) {
   forEach(AllCommentsReactions, function(reactions, index) {
     AllCommentsReactions[index] =
             uniq(reactionsWithoutAuthor(reactions, authors[index]));
-
   });
 }
 

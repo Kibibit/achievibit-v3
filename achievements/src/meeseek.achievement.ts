@@ -6,7 +6,6 @@ export const meeseek: IAchievement = {
   name: 'I\'m Mr. Meeseeks! Look at me!',
   check: function(pullRequest, shall) {
     if (checkIfResolvesManyIssues(pullRequest)) {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/meeseek.achievement.gif',
         name: 'I\'m Mr. Meeseeks! Look at me!',
@@ -31,7 +30,7 @@ function checkIfResolvesManyIssues(pullRequest) {
   const keywordsRegexString =
     '(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved) \\#(\\d+)';
 
-    const keywordsWithPrefix = new RegExp([
+  const keywordsWithPrefix = new RegExp([
     '\\w',
     keywordsRegexString
   ].join(''), 'g');
@@ -46,7 +45,7 @@ function checkIfResolvesManyIssues(pullRequest) {
     .replace(keywordsWithPrefix, '')
     .replace(keywordsWithSuffix, '');
 
-	//these keywords resolve issues in github
+  // these keywords resolve issues in github
   const resolveIssueRegex = new RegExp(keywordsRegexString, 'g');
 
   // check uniqueness by bug number only
@@ -55,6 +54,6 @@ function checkIfResolvesManyIssues(pullRequest) {
     (keyword: string) => keyword.replace(/^\D+/g, '')
   );
 
-	//resolved more than 3 issue in on pull request
+  // resolved more than 3 issue in on pull request
   return result && result.length > 3;
 }

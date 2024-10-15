@@ -6,7 +6,6 @@ export const member: IAchievement = {
   name: 'Member?',
   check: function(pullRequest, shall) {
     if (isWaitingLongTime(pullRequest)) {
-
       const achieve = {
         avatar: 'images/achievements/member.achievement.jpg',
         name: 'Member pull request #' + pullRequest.number + '?',

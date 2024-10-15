@@ -148,6 +148,4 @@ describe('drClaw achievement', () => {
     expect(testShallBiggerFirst.grantedAchievements.creator.description)
       .toContain('-6.2');
   });
-
-
 });

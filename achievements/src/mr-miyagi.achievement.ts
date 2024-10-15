@@ -5,9 +5,7 @@ import { IAchievement, IUserAchievement } from './achievement.abstract';
 export const mrMiyagi: IAchievement = {
   name: 'Mr Miyagi',
   check: function(pullRequest, shall) {
-
     if (isCoverageTurened100(pullRequest)) {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/mrMiyagi.achievement.jpg',
         name: 'Mr Miyagi',
@@ -33,7 +31,7 @@ export const mrMiyagi: IAchievement = {
 
 function isCoverageTurened100(pullRequest) {
   const lastCoverageUpdate = findLast(pullRequest.comments,
-    ['author.username', 'coveralls']);
+    [ 'author.username', 'coveralls' ]);
 
   const lastCoverageUpdateMessage = get(lastCoverageUpdate, 'message');
   const getTotalPercentageRegexp = /Coverage increased \(.*?\) to (.*?%)/g;
@@ -41,5 +39,4 @@ function isCoverageTurened100(pullRequest) {
   const totalCoverageString = get(match, 1);
 
   return totalCoverageString === '100.0%';
-
 }

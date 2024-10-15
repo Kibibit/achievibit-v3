@@ -1,5 +1,5 @@
-import { cuttingEdge } from './cutting-edges.achievement';
 import { PullRequest, Shall } from './dev-tools/mocks';
+import { cuttingEdge } from './cutting-edges.achievement';
 
 describe('Cutting Edges achievement', () => {
   it('should not be granted if pull request is not merged', () => {

@@ -6,7 +6,6 @@ export const breakingBad: IAchievement = {
   name: 'Breaking Bad',
   check: function(pullRequest, shall) {
     if (atLeast80PrecentCommitsFailedBuild(pullRequest)) {
-
       const achievement: IUserAchievement = {
         avatar: 'images/achievements/breakingBad.achievement.jpg',
         name: 'Breaking Bad',

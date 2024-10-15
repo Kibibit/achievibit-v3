@@ -6,7 +6,6 @@ export const dontYellAtMe: IAchievement = {
     const reason = isCreatorJustMean(pullRequest);
 
     if (reason) {
-
       const achieve: IUserAchievement = {
         avatar: 'images/achievements/dontYellAtMe.achievement.jpg',
         name: 'Don\'t Yell At Me!!!',
@@ -34,11 +33,11 @@ function isCreatorJustMean(pullRequest) {
       reason += 'ALL CAPS';
       comboPotential = ' and ';
     }
-    
+
     if (isOverExclamation) {
       reason += comboPotential + '3 or more exclamation marks';
     }
   }
-  
+
   return reason;
 }

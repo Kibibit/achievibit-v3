@@ -52,6 +52,6 @@ describe('doubleReview achievement', function() {
     expect(testShall.grantedAchievements.reviewer).toBeDefined();
     expect(testShall.grantedAchievements.reviewer).toMatchSnapshot();
     expect(testShall.grantedAchievements.reviewerTwo).toBeDefined();
-    expect(testShall.grantedAchievements.reviewerTwo).toMatchSnapshot()
+    expect(testShall.grantedAchievements.reviewerTwo).toMatchSnapshot();
   });
 });

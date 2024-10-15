@@ -7,7 +7,6 @@ export const neverGoFullRetard: IAchievement = {
   check: function(pullRequest, shall) {
     if (pullRequest.files && pullRequest.files.length > 0 &&
 			every(pullRequest.files, isAnImage)) {
-
       const achieve: IUserAchievement = {
         avatar: 'images/achievements/neverGoFullRetard.achievement.png',
         name: 'never go full retard',

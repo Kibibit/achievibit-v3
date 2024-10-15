@@ -8,7 +8,6 @@ export const helpingHand: IAchievement = {
     const committedReviewers = reviewersWhoCommittedToPullRequest(pullRequest);
 
     if (!isEmpty(committedReviewers)) {
-
       const isMultipleCommittedReviewers =
         committedReviewers.length > 1 ? 's ' : ' ';
 
@@ -52,7 +51,7 @@ function reviewersWhoCommittedToPullRequest(pullRequest) {
 
   forEach(pullRequest.commits, function(commit) {
     if (commit.author.username !== pullRequest.creator.username &&
-      find(pullRequest.reviewers, {username: commit.author.username})) {
+      find(pullRequest.reviewers, { username: commit.author.username })) {
       committedReviewers.push(commit.author);
     }
   });

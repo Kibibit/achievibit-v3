@@ -75,37 +75,37 @@ describe('reactionOnEveryComment achievement', () => {
 });
 
 class PullRequest {
-    id = 'test';
-    url = 'url';
-    number = 3;
-    comments: any[];
-    creator = {
-      username: 'creator'
-    };
-    reactions = [
-      {
-        reaction: '-1',
-        user: {
-          username: 'someone'
-        }
+  id = 'test';
+  url = 'url';
+  number = 3;
+  comments: any[];
+  creator = {
+    username: 'creator'
+  };
+  reactions = [
+    {
+      reaction: '-1',
+      user: {
+        username: 'someone'
       }
-    ];
-    inlineComments = [
-      {
-        reactions: [
-          {
-            reaction: '-1',
-            user: {
-              username: 'someone'
-            }
-          },
-          {
-            reaction: '+1',
-            user: {
-              username: 'someoneElse'
-            }
+    }
+  ];
+  inlineComments = [
+    {
+      reactions: [
+        {
+          reaction: '-1',
+          user: {
+            username: 'someone'
           }
-        ]
-      }
-    ];
+        },
+        {
+          reaction: '+1',
+          user: {
+            username: 'someoneElse'
+          }
+        }
+      ]
+    }
+  ];
 }

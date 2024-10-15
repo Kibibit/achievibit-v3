@@ -14,7 +14,6 @@ export const reactionOnEveryComment: IAchievement = {
       every([ pullRequest ], haveReactions);
 
     if (doesCommentsExist && isReactionOnEverything) {
-
       shall.grant(pullRequest.creator.username, {
         avatar: 'images/achievements/reactionOnEveryComment.achievement.png',
         name: 'royal flush',
@@ -25,7 +24,6 @@ export const reactionOnEveryComment: IAchievement = {
         ].join(''),
         relatedPullRequest: pullRequest.id
       });
-
     }
   }
 };
