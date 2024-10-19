@@ -57,6 +57,6 @@ export class GithubController {
       return { access_token: accessToken };
     }
 
-    return res.redirect('https://achievibit.thatkook.ooguy.com/');
+    return res.redirect('/');
   }
 }
