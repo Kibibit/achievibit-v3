@@ -24,6 +24,7 @@ import { HealthModule } from './health/health.module';
 import { SystemsModule } from './systems/systems.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -50,7 +51,8 @@ import { AppService } from './app.service';
     WebhooksModule,
     ShieldsModule,
     HealthModule,
-    SystemsModule
+    SystemsModule,
+    TasksModule
   ],
   controllers: [ AppController ],
   providers: [
