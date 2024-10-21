@@ -170,6 +170,14 @@ export class AchievibitConfig extends BaseConfig {
     GITHUB_APP_ID: string;
 
   @ConfigVariable([
+    'You can find this in your GitHub App settings.',
+    'Create a GitHub App at https://github.com/settings/apps'
+  ].join(' '))
+  @IsString()
+  @IsOptional()
+    GITHUB_APP_CLIENT_ID: string;
+
+  @ConfigVariable([
     'Used to authenticate your GitHub App with GitHub.',
     'Create a GitHub App at https://github.com/settings/apps'
   ].join(' '))
