@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "NodeNext",
     "declaration": true,
+    "moduleResolution": "NodeNext",
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -33,7 +34,9 @@
       "@kb-session-user": ["src/session-user/index"],
       "@kb-shields": ["src/shields/index"],
       "@kb-users": ["src/users/index"],
-      "@kb-webhooks": ["src/webhooks/index"]
+      "@kb-webhooks": ["src/webhooks/index"],
+      "@kb-systems": ["src/systems/index"],
+      "@kb-tasks": ["src/tasks/index"]
     }
   }
 }
