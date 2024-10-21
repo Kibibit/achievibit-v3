@@ -32,6 +32,57 @@ export class GithubService {
     );
   }
 
+  async getAppInstallationRepositories(installation: any) {
+    const { createAppAuth } = await import('@octokit/auth-app');
+
+    const octokit = new Octokit({
+      authStrategy: createAppAuth,
+      auth: {
+        appId: configService.config.GITHUB_APP_ID,
+        privateKey: this.privateKey,
+        installationId: installation.id
+      }
+    });
+
+    // get installation access token
+    const { token } = await octokit.auth({
+      type: 'installation'
+    }) as any;
+
+    const installationOctokit = new Octokit({
+      auth: token
+    });
+
+    const { data } = await installationOctokit.request(`GET /installation/repositories`, {
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+        accept: 'application/vnd.github+json',
+        per_page: 100
+      }
+    });
+
+    return data;
+  }
+
+  async getAppInstallations(): Promise<any> {
+    const { createAppAuth } = await import('@octokit/auth-app');
+    const octokit = new Octokit({
+      authStrategy: createAppAuth,
+      auth: {
+        appId: configService.config.GITHUB_APP_ID,
+        privateKey: this.privateKey,
+      },
+    });
+    
+    return await octokit.request('GET /app/installations', {
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+        accept: 'application/vnd.github+json',
+        per_page: 100
+      }
+    })
+  }
+
   private generateGithubAppJwt(): string {
     const now = Math.floor(Date.now() / 1000); // Current time in seconds
 
