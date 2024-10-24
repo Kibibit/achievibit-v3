@@ -13,14 +13,14 @@ export class TasksService {
     private readonly githubService: GithubService
   ) {}
 
-  @Timeout(5000)
+  // @Timeout(5000)
   async handleTimeout() {
     this.logger.debug(bgBlue.white.bold(' ~= Start syncing Github App installations =~ '));
     const githubSyncLogger = new Logger('GithubSyncTask');
     await this.syncGithubAppInstallations(githubSyncLogger);
   }
 
-  @Cron(CronExpression.EVERY_12_HOURS)
+  // @Cron(CronExpression.EVERY_12_HOURS)
   handleCron() {
     this.logger.debug('Called when the current second is 45');
   }
