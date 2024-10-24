@@ -1,7 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Headers } from '@nestjs/common';
 import { ApiBody, ApiExcludeEndpoint, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
-import { configService } from '@kb-config';
+import { configService, Logger } from '@kb-config';
 import { DisableInProduction } from '@kb-decorators';
 import { BitbucketWebhookGuard, GitHubWebhookGuard, GitLabWebhookGuard } from '@kb-guards';
 
@@ -10,6 +10,8 @@ import { WebhooksService } from './webhooks.service';
 @Controller('api/webhooks')
 @ApiTags('Webhooks')
 export class WebhooksController {
+  private readonly logger = new Logger(WebhooksController.name);
+
   constructor(
     private readonly webhooksService: WebhooksService
   ) {}
@@ -39,9 +41,11 @@ export class WebhooksController {
     }
   })
   github(
-    @Body() body: any
+    @Body() body: any,
+    @Headers('X-GitHub-Event') eventType: string
   ) {
-    return this.webhooksService.handleGitHubWebhook(body);
+    // event type: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
+    return this.webhooksService.handleGitHubWebhook(eventType, body);
   }
 
   @Post('gitlab')
