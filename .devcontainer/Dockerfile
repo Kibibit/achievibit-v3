@@ -9,6 +9,9 @@ ENV PNPM_HOME=/pnpm-store
 ENV PNPM_STORE_PATH=/pnpm-store
 RUN mkdir -p /pnpm-store
 
+# Add the pnpm store to the PATH
+ENV PATH=$PNPM_HOME:$PATH
+
 # Install additional dependencies
 # 1. git: required for pnpm to install packages from git repositories
 # 2. curl: required for pnpm to install packages from URLs
