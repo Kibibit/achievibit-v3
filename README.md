@@ -52,7 +52,28 @@ WIP: V3
 1. Open the project in vscode
 2. Click on `Reopen in devcontainer` notification, or open command prompt (CMD+SHIFT+p) and run `Reopen in devcontainer`
 3. After the project is reopened, approve the `pnpm i` command run (replacing node_modules)
-4. Run `pnpm run start:dev` to run the app in dev mode
+4. you need a configuration file for the server to run. You can create a `server/.env.devcontainer.achievibit.json` file with the following content:
+   ```json
+   {
+      "$schema": ".schemas/achievibit.env.schema.json",
+      "BASE_BACKEND_URL": "http://localhost:3003",
+      "PORT": 3003,
+      "JWT_SECRET": "development-mode",
+      "GITHUB_WEBHOOK_SECRET": "development-mode",
+      "GITLAB_WEBHOOK_SECRET": "development-mode",
+      "BITBUCKET_WEBHOOK_SECRET": "development-mode",
+      "SYNCHRONIZE_DATABASE": true,
+      "SMEE_WEBHOOK_PROXY_CHANNEL": "<unique-channel-name>",
+   }
+   ```
+      
+   Besides these, you'll need to create the following assets:
+    - GitHub OAuth app
+    - GitHub App
+    - Bitbucket OAuth app
+    - GitLab OAuth app
+   and fill in the `server/.env.devcontainer.achievibit.json` file with the relevant information.
+5. Run `pnpm run start:dev` to run the app in dev mode
 
 ### vscode included extensions:
 | Extension | Description |
