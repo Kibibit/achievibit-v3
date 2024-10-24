@@ -16,17 +16,7 @@ export class AppController {
   private readonly logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService
-    // private readonly smeeService: SmeeService
-  ) {
-    // this.smeeService.initializeSmeeClient();
-
-  if (configService.config.SYNCHRONIZE_DATABASE) {
-    this.logger.warn([
-      'Database synchronization is turned on.',
-      'This should only be used in development'
-    ].join(' '));
-  }
-  }
+  ) {}
 
   @Get('api')
   @ApiOperation({ summary: 'Get API Information' })

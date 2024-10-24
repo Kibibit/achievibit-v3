@@ -1,8 +1,9 @@
 import SmeeClient from 'smee-client';
 
-import { BeforeApplicationShutdown, Injectable, Logger } from '@nestjs/common';
+import { BeforeApplicationShutdown, Injectable } from '@nestjs/common';
 
-import { configService } from '@kb-config';
+import { configService, Logger } from '@kb-config';
+import { noop } from 'lodash';
 
 @Injectable()
 export class SmeeService implements BeforeApplicationShutdown {
@@ -16,16 +17,24 @@ export class SmeeService implements BeforeApplicationShutdown {
       // concat parts of string using node url class to create the target url
       const targetUrl = new URL(
         '/api/webhooks/github',
-        configService.config.BASE_BACKEND_URL
+        `http://localhost:${ configService.config.PORT }`
       );
       const smeeSource = `https://smee.kibibit.io/${ configService.config.SMEE_WEBHOOK_PROXY_CHANNEL }`;
+      this.logger.verbose('Starting smee client', {
+        source: smeeSource,
+        target: targetUrl.href
+      });
       this.smee = new SmeeClient({
         source: smeeSource,
         target: targetUrl.href,
         logger: {
-          info: (msg) => this.logger.verbose(msg),
-          error: (msg) => this.logger.error(JSON.stringify(msg, null, 2))
+          info: noop,
+          error: noop
         }
+        // logger: {
+        //   info: (msg) => this.logger.verbose(msg),
+        //   error: (msg) => this.logger.error(msg)
+        // }
       });
 
       this.events = this.smee.start();
@@ -34,7 +43,7 @@ export class SmeeService implements BeforeApplicationShutdown {
 
 
   beforeApplicationShutdown(signal?: string) {
-    console.log('stopping smee client gracefully', signal);
+    this.logger.verbose('stopping smee client gracefully');
 
     if (!this.events) {
       return;

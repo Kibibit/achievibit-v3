@@ -8,7 +8,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@kb-auth';
-import { configService } from '@kb-config';
+import { configService, SmeeService } from '@kb-config';
 import { DbExceptionFilter } from '@kb-filters';
 import { DisableInProductionGuard } from '@kb-guards';
 import { LoggerMiddleware } from '@kb-middleware';
@@ -68,8 +68,8 @@ import { TasksModule } from './tasks/tasks.module';
       provide: APP_FILTER,
       useClass: DbExceptionFilter
     },
-    AppService
-    // SmeeService
+    AppService,
+    SmeeService
   ]
 })
 export class AppModule {
