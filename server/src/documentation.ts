@@ -162,6 +162,12 @@ export class Documentation {
     mask-image: url(https://simpleicons.org/icons/devdotto.svg);
 }
 
+.swagger-ui.swagger-container {
+  min-height: calc(100dvh - 81.5px);
+  display: flex;
+  flex-direction: column;
+}
+
 .swagger-ui .opblock .opblock-summary-description {
   padding: 1em 1em 1em 0;
 }
@@ -176,8 +182,37 @@ export class Documentation {
 .swagger-ui .opblock-control-arrow {
   width: 50px;
 }
+
+.swagger-ui .topbar .kb-tabs {
+  display: flex;
+  font-size: 0.7em;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 1.7em 0;
+  text-align: center;
+}
+
+.swagger-ui .topbar .kb-tabs a {
+  display: block;
+  font-family: 'Comfortaa';
+  font-weight: 100;
+  cursor: pointer;
+  padding-top: 0.5em;
+}
+
+.swagger-ui .topbar .kb-tabs a.active {
+  color: #FF5BF8;
+  font-weight: 900;
+}
+
+.swagger-ui .topbar .topbar-wrapper a::before {
+  content: 'Dev Center';
+}
       `.trim(),
-      customJs: '//kibibit.io/kibibit-assets/swagger/swagger.js',
+      customJs: [
+        '//kibibit.io/kibibit-assets/swagger/swagger.js',
+        '/login/swagger-tabs.js'
+      ],
       swaggerOptions: {
         docExpansion: 'none',
         apisSorter: 'alpha',
