@@ -3,6 +3,7 @@ import * as crypto from 'crypto';
 import { Injectable } from '@nestjs/common';
 
 import { configService, Logger } from '@kb-config';
+import { GitHubEvent } from './engines/github.event';
 
 @Injectable()
 export class WebhooksService {
@@ -43,48 +44,49 @@ export class WebhooksService {
     body: Record<string, any>
   ) {
     // event type: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
-    if (eventType === 'installation' && body.action === 'created') {
+    const event = new GitHubEvent(eventType, body);
+    if (event.isInstallationCreated) {
       this.logger.debug('GitHub App installation created');
       return;
     }
 
-    if (eventType === 'installation' && body.action === 'deleted') {
+    if (event.isInstallationDeleted) {
       this.logger.debug('GitHub App installation deleted');
       // return this.webhooksService.handleGitHubAppInstallationDeleted(body);
       return;
     }
 
-    if (eventType === 'installation_repositories' && body.action === 'added') {
+    if (event.isInstallationRepositoriesAdded) {
       this.logger.debug('GitHub App installation repositories added');
       // return this.webhooksService.handleGitHubAppInstallationRepositories(body);
       return;
     }
 
-    if (eventType === 'installation_repositories' && body.action === 'removed') {
+    if (event.isInstallationRepositoriesRemoved) {
       this.logger.debug('GitHub App installation repositories removed');
       // return this.webhooksService.handleGitHubAppInstallationRepositoriesRemoved(body);
       return;
     }
 
-    if (eventType === 'push') {
+    if (event.isPush) {
       this.logger.debug('GitHub push event');
       // return this.webhooksService.handleGitHubPush(body);
       return;
     }
 
-    if (eventType === 'pull_request') {
+    if (event.isPullRequest) {
       this.logger.debug('GitHub pull request event');
       // return this.webhooksService.handleGitHubPullRequest(body);
       return;
     }
 
-    if (eventType === 'pull_request_review') {
+    if (event.isPullRequestReview) {
       this.logger.debug('GitHub pull request review event');
       // return this.webhooksService.handleGitHubPullRequestReview(body);
       return;
     }
 
-    if (eventType === 'pull_request_review_comment') {
+    if (event.isPullRequestReviewComment) {
       this.logger.debug('GitHub pull request review comment event');
       // return this.webhooksService.handleGitHubPullRequestReviewComment(body);
       return;
