@@ -64,7 +64,7 @@ ENV HUSKY_SKIP_HOOKS=true
 RUN pnpm install
 
 # Expose the application's port
-EXPOSE 3003
+EXPOSE 10102
 
 # Start the server application
 CMD ["pnpm", "start:prod"]

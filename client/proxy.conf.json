@@ -1,14 +1,14 @@
 {
   "/api": {
-    "target": "http://localhost:3003/",
+    "target": "http://localhost:10102/",
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"
   },
   "/login": {
-    "target": "http://localhost:3003/",
+    "target": "http://localhost:10102/",
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"
-  },
+  }
 }

@@ -4,7 +4,7 @@ services:
   app:
     build: .
     ports:
-      - '3069:3003'
+      - '80:10102'
     depends_on:
       - db
     environment:

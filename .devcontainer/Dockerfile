@@ -70,7 +70,7 @@ RUN pnpm install
 # RUN pnpm exec playwright install
 
 # Expose the application's port
-EXPOSE 3003
+EXPOSE 10102
 
 # Default command
 CMD ["sleep", "infinity"]

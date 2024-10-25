@@ -56,8 +56,8 @@ WIP: V3
    ```json
    {
       "$schema": ".schemas/achievibit.env.schema.json",
-      "BASE_BACKEND_URL": "http://localhost:3003",
-      "PORT": 3003,
+      "BASE_BACKEND_URL": "http://localhost:10102",
+      "PORT": 10102,
       "JWT_SECRET": "development-mode",
       "GITHUB_WEBHOOK_SECRET": "development-mode",
       "GITLAB_WEBHOOK_SECRET": "development-mode",

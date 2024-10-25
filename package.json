@@ -13,8 +13,8 @@
     "\n# SDK GENERATION SCRIPTS:": "",
     "bump-version": "npm version --no-git-tag-version patch",
     "post:sdk:node": "npm run bump-version && node ./scripts/copy-to-sdk.mjs && cd ./sdks/node && npm install --package-lock-only",
-    "sdk:node": "swagger-codegen generate -i http://localhost:3003/api/docs-json -l typescript-axios -o ./sdks/node --additional-properties npmName=@kibibit/achievibit-server-node-sdk && npm run post:sdk:node",
-    "sdk:angular": "swagger-codegen generate -i http://localhost:3003/api/docs-json -l typescript-angular -o ./sdks/angular -c ./angular-sdk-options.json",
+    "sdk:node": "swagger-codegen generate -i http://localhost:10102/api/docs-json -l typescript-axios -o ./sdks/node --additional-properties npmName=@kibibit/achievibit-server-node-sdk && npm run post:sdk:node",
+    "sdk:angular": "swagger-codegen generate -i http://localhost:10102/api/docs-json -l typescript-angular -o ./sdks/angular -c ./angular-sdk-options.json",
     "sdk:angular:build": "ng-packagr -p ./sdks/angular/ng-package.json",
     "create:github": "ts-node ./scripts/create-github.script.ts"
   },

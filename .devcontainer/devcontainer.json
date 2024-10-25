@@ -58,8 +58,8 @@
   "shutdownAction": "stopCompose",
   "portsAttributes": {
     "8000": {
-      "label": "unknown",
-      "onAutoForward": "ignore"
+      "label": "nestjs-devtools",
+      "onAutoForward": "silent"
     },
     "37346": {
       "label": "unknown",
