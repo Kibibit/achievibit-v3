@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 
+import { configService, Logger } from '@kb-config';
 import { UsersModule } from '@kb-users';
 
 import { BitbucketModule } from './bitbucket/bitbucket.module';
 import { GithubModule } from './github/github.module';
 import { GitlabModule } from './gitlab/gitlab.module';
 import { AuthController } from './auth.controller';
-import { configService, Logger } from '@kb-config';
 
 const logger = new Logger('AuthModule');
 

@@ -3,6 +3,7 @@ import * as crypto from 'crypto';
 import { Injectable } from '@nestjs/common';
 
 import { configService, Logger } from '@kb-config';
+
 import { GitHubEvent } from './engines/github.event';
 
 @Injectable()

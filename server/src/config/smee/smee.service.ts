@@ -1,9 +1,9 @@
+import { noop } from 'lodash';
 import SmeeClient from 'smee-client';
 
 import { BeforeApplicationShutdown, Injectable } from '@nestjs/common';
 
 import { configService, Logger } from '@kb-config';
-import { noop } from 'lodash';
 
 @Injectable()
 export class SmeeService implements BeforeApplicationShutdown {

@@ -1,5 +1,6 @@
-import { configService, Logger, SmeeService } from '@kb-config';
 import { Injectable } from '@nestjs/common';
+
+import { configService, Logger, SmeeService } from '@kb-config';
 
 
 @Injectable()

@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksService } from './tasks.service';
+
 import { SystemsModule } from '@kb-systems';
+
+import { TasksService } from './tasks.service';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
     SystemsModule
   ],
-  providers: [TasksService]
+  providers: [ TasksService ]
 })
 export class TasksModule {}

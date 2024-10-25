@@ -1,9 +1,10 @@
+import { bgBlue, bgYellow } from 'colors';
+import { pad } from 'lodash';
+
+import { Injectable } from '@nestjs/common';
+
 import { Logger } from '@kb-config';
 import { GithubService } from '@kb-systems';
-import { Injectable } from '@nestjs/common';
-import { Cron, CronExpression, Interval, Timeout } from '@nestjs/schedule';
-import { bgBlue, bgCyan, rainbow, bgYellow } from 'colors';
-import { pad } from 'lodash';
 
 @Injectable()
 export class TasksService {
@@ -29,21 +30,21 @@ export class TasksService {
     logger: Logger = this.logger
   ) {
     try {
-    const installations = await this.githubService.getAppInstallations();
+      const installations = await this.githubService.getAppInstallations();
 
-    if (installations?.data?.length === 0) {
-      logger.verbose('No installations found');
-      return;
-    }
+      if (installations?.data?.length === 0) {
+        logger.verbose('No installations found');
+        return;
+      }
 
-    for (const installation of installations.data) {
-      const installationReposLean = await this.syncGithubAppInstallation(
-        installation,
-        logger
-      );
-    }
+      for (const installation of installations.data) {
+        const installationReposLean = await this.syncGithubAppInstallation(
+          installation,
+          logger
+        );
+      }
 
-    return installations;
+      return installations;
     } catch (error) {
       this.logger.error(error);
     }

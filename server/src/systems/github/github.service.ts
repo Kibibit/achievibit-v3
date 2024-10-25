@@ -53,7 +53,7 @@ export class GithubService {
       auth: token
     });
 
-    const { data } = await installationOctokit.request(`GET /installation/repositories`, {
+    const { data } = await installationOctokit.request('GET /installation/repositories', {
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
         accept: 'application/vnd.github+json',
@@ -70,17 +70,17 @@ export class GithubService {
       authStrategy: createAppAuth,
       auth: {
         appId: configService.config.GITHUB_APP_ID,
-        privateKey: this.privateKey,
-      },
+        privateKey: this.privateKey
+      }
     });
-    
+
     return await octokit.request('GET /app/installations', {
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
         accept: 'application/vnd.github+json',
         per_page: 100
       }
-    })
+    });
   }
 
   private generateGithubAppJwt(): string {

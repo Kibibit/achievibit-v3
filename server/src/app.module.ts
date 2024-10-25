@@ -26,6 +26,7 @@ import { SystemsModule } from './systems/systems.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -53,7 +54,8 @@ import { AppService } from './app.service';
     ShieldsModule,
     HealthModule,
     SystemsModule,
-    TasksModule
+    TasksModule,
+    EventsModule
   ],
   controllers: [ AppController ],
   providers: [
@@ -70,8 +72,7 @@ import { AppService } from './app.service';
       useClass: DbExceptionFilter
     },
     AppService,
-    SmeeService,
-    EventsGateway
+    SmeeService
   ]
 })
 export class AppModule {

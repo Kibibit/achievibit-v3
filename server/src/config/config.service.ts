@@ -5,8 +5,8 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { ConfigService, IConfigServiceOptions } from '@kibibit/configit';
 
-import { AchievibitConfig } from './achievibit.config';
 import { Logger } from './logger/logger';
+import { AchievibitConfig } from './achievibit.config';
 
 const ENV_DEFAULT = 'development';
 
