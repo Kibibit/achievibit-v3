@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { readJSON } from 'fs-extra';
+import { readFileSync, readJSON } from 'fs-extra';
 import { chain } from 'lodash';
 
 import { Controller, Get } from '@nestjs/common';
@@ -53,9 +53,14 @@ export class AppController {
       smeeUrl: this.appService.smeeUrl,
       showSwaggerUi: true,
       showSwaggerJson: false,
-      showAsyncDocs: true,
+      showAsyncDocs: false,
       showSmeeClient: this.appService.smeeUrl ? true : false,
       showNestjsDevTools: true
     };
+  }
+
+  @Get('/socket.io')
+  getSocketIo() {
+    return readFileSync(join(configService.appRoot, './socket-io.js'), 'utf8');
   }
 }

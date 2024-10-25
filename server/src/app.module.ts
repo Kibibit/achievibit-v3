@@ -20,11 +20,12 @@ import { ShieldsModule } from '@kb-shields';
 import { UsersModule } from '@kb-users';
 import { WebhooksModule } from '@kb-webhooks';
 
+import { EventsGateway } from './events/events.gateway';
 import { HealthModule } from './health/health.module';
 import { SystemsModule } from './systems/systems.module';
+import { TasksModule } from './tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ import { TasksModule } from './tasks/tasks.module';
       // Adjust the path to your client build directory
       rootPath: join(configService.appRoot, 'client'),
       // Exclude API routes
-      exclude: [ '/api*', '/login*' ]
+      exclude: [ '/api*', '/login*', '/socket.io*' ]
     }),
     ThrottlerModule.forRoot([ {
       ttl: 60000,
@@ -69,7 +70,8 @@ import { TasksModule } from './tasks/tasks.module';
       useClass: DbExceptionFilter
     },
     AppService,
-    SmeeService
+    SmeeService,
+    EventsGateway
   ]
 })
 export class AppModule {
