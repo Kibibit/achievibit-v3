@@ -38,7 +38,11 @@ export class SmeeService implements BeforeApplicationShutdown {
       });
 
       this.events = this.smee.start();
+
+      return smeeSource;
     }
+
+    return null;
   }
 
 

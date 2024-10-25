@@ -45,4 +45,17 @@ export class AppController {
 
     return details;
   }
+
+  @Get('api/swagger')
+  @ApiOperation({ summary: 'Get Smee URL' })
+  getSmeeUrl() {
+    return {
+      smeeUrl: this.appService.smeeUrl,
+      showSwaggerUi: true,
+      showSwaggerJson: false,
+      showAsyncDocs: true,
+      showSmeeClient: this.appService.smeeUrl ? true : false,
+      showNestjsDevTools: true
+    };
+  }
 }

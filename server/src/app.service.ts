@@ -5,11 +5,12 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
+  readonly smeeUrl: string;
 
   constructor(
     smeeService: SmeeService
   ) {
-    smeeService.initializeSmeeClient();
+    this.smeeUrl = smeeService.initializeSmeeClient();
 
     if (configService.config.SYNCHRONIZE_DATABASE) {
       this.logger.verbose([
