@@ -100,16 +100,16 @@ document.addEventListener('DOMContentLoaded', function() {
       allTabsHtml.push('<a id="smee">webhooks proxy</a>');
     }
 
-    if (showNestjsDevTools) {
-      allTabsHtml.push('<a id="nestjs-devtools">NestJs DevTools</a>');
-    }
-
     if (true) {
       allTabsHtml.push('<a id="socket-io-admin">Sockets</a>');
     }
 
     if (showAsyncDocs) {
       allTabsHtml.push('<a id="async">Async Docs</a>');
+    }
+
+    if (showNestjsDevTools) {
+      allTabsHtml.push('<a id="nestjs-devtools">NestJs DevTools</a>');
     }
 
     tabs.innerHTML = allTabsHtml.join('');
