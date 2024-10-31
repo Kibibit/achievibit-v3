@@ -36,7 +36,8 @@
         "github.vscode-github-actions",
         "formulahendry.auto-rename-tag",
         "donjayamanne.githistory",
-        "oderwat.indent-rainbow"
+        "oderwat.indent-rainbow",
+        "Postman.postman-for-vscode"
       ],
       "settings": {
         "terminal.integrated.shell.linux": "/bin/zsh"
