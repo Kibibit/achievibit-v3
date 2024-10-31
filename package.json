@@ -16,7 +16,8 @@
     "sdk:node": "swagger-codegen generate -i http://localhost:10102/api/docs-json -l typescript-axios -o ./sdks/node --additional-properties npmName=@kibibit/achievibit-server-node-sdk && npm run post:sdk:node",
     "sdk:angular": "swagger-codegen generate -i http://localhost:10102/api/docs-json -l typescript-angular -o ./sdks/angular -c ./angular-sdk-options.json",
     "sdk:angular:build": "ng-packagr -p ./sdks/angular/ng-package.json",
-    "create:github": "ts-node ./scripts/create-github.script.ts"
+    "create:github": "ts-node ./scripts/create-github.script.ts",
+    "e2e:ui": "xvfb-run playwright test --ui --ui-port=10103"
   },
   "author": "thatkookooguy <neilkalman@gmail.com>",
   "license": "MIT",
