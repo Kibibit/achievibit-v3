@@ -1,4 +1,5 @@
 {
+  "jest.runMode": "on-demand",
   "files.autoSave": "off",
   "files.associations": {
     "*.json": "json"
