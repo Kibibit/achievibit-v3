@@ -21,6 +21,7 @@ ENV PATH=$PNPM_HOME:$PATH
 # 6. locales: required for character encoding support
 # 7. procps: provides ps command
 # 8. requirements to run playwright
+# 9. install xvfb to run headless browsers
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -29,6 +30,7 @@ RUN apt-get update && apt-get install -y \
     zsh \
     locales \
     procps \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 # Generate and configure locale
@@ -64,10 +66,10 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
 # Install Playwright dependencies (this ensures browsers can run correctly)
-# RUN pnpm exec playwright install-deps
+RUN pnpm exec playwright install-deps
 
 # Install Playwright browsers
-# RUN pnpm exec playwright install
+RUN pnpm exec playwright install
 
 # Expose the application's port
 EXPOSE 10102

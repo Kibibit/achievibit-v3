@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppController root should return "Hello World!" 1`] = `
+ApiInfo {
+  "description": "test",
+  "license": "test",
+  "name": "test",
+  "repository": "test",
+  "version": "test",
+}
+`;

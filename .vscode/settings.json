@@ -1,4 +1,6 @@
 {
+  "jest.runMode": "on-demand",
+  "files.autoSave": "off",
   "files.associations": {
     "*.json": "json"
   },
@@ -191,5 +193,7 @@
         "**/*.rb",
         "**/*.go"
     ],
-    "angular.enable-strict-mode-prompt": false
+    "angular.enable-strict-mode-prompt": false,
+    "jest.jestCommandLine": "pnpm run test",
+    "jest.rootPath": "server/"
 }

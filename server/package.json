@@ -124,6 +124,9 @@
     "typescript": "^5.6.2"
   },
   "jest": {
+    "setupFiles": [
+      "<rootDir>/setup-globals.ts"
+    ],
     "moduleFileExtensions": [
       "js",
       "json",
@@ -138,6 +141,25 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@kb-auth$": "<rootDir>/auth/index",
+      "^@kb-config$": "<rootDir>/config/index",
+      "^@kb-decorators$": "<rootDir>/decorators/index",
+      "^@kb-filters$": "<rootDir>/filters/index",
+      "^@kb-guards$": "<rootDir>/guards/index",
+      "^@kb-interceptors$": "<rootDir>/interceptors/index",
+      "^@kb-middleware$": "<rootDir>/middleware/index",
+      "^@kb-models$": "<rootDir>/models/index",
+      "^@kb-organizations$": "<rootDir>/organizations/index",
+      "^@kb-pull-requests$": "<rootDir>/pull-requests/index",
+      "^@kb-repositories$": "<rootDir>/repositories/index",
+      "^@kb-session-user$": "<rootDir>/session-user/index",
+      "^@kb-shields$": "<rootDir>/shields/index",
+      "^@kb-users$": "<rootDir>/users/index",
+      "^@kb-webhooks$": "<rootDir>/webhooks/index",
+      "^@kb-systems$": "<rootDir>/systems/index",
+      "^@kb-tasks$": "<rootDir>/tasks/index"
+    }
   }
 }

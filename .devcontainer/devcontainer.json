@@ -37,7 +37,8 @@
         "formulahendry.auto-rename-tag",
         "donjayamanne.githistory",
         "oderwat.indent-rainbow",
-        "Postman.postman-for-vscode"
+        "Postman.postman-for-vscode",
+        "GitHub.copilot"
       ],
       "settings": {
         "terminal.integrated.shell.linux": "/bin/zsh"
@@ -65,6 +66,9 @@
     "37346": {
       "label": "unknown",
       "onAutoForward": "ignore"
+    },
+    "10103": {
+      "label": "Playwright UI"
     },
     "10102": {
       "label": "Backend"
