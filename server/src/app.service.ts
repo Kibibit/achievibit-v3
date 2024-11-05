@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { join } from 'path';
+
+import { createReadStream } from 'fs-extra';
+
+import { Injectable, StreamableFile } from '@nestjs/common';
 
 import { configService, Logger, SmeeService } from '@kb-config';
 
@@ -23,5 +27,11 @@ export class AppService {
 
   getHello(): string {
     return 'Hello World!';
+  }
+
+  getWordPronunciation() {
+    const file = createReadStream(join(configService.appRoot, 'achieveebeet.mp3'));
+
+    return new StreamableFile(file);
   }
 }

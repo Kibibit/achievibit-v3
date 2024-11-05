@@ -3,7 +3,7 @@ import { join } from 'path';
 import { readFileSync, readJSON } from 'fs-extra';
 import { chain } from 'lodash';
 
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Header } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
 import { configService, Logger } from '@kb-config';
@@ -62,5 +62,23 @@ export class AppController {
   @Get('/socket.io')
   getSocketIo() {
     return readFileSync(join(configService.appRoot, './socket-io.js'), 'utf8');
+  }
+
+  @Get('api/pronunciation')
+  @Header('Content-Type', 'audio/mpeg')
+  @ApiOperation({ summary: 'Get Word Pronunciation for achievibit' })
+  @ApiOkResponse({
+    description: 'Returns an audio file for the word "achievibit"',
+    content: {
+      'audio/mpeg': {
+        schema: {
+          type: 'string',
+          format: 'binary'
+        }
+      }
+    }
+  })
+  getWordPronunciation() {
+    return this.appService.getWordPronunciation();
   }
 }
