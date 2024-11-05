@@ -47,9 +47,9 @@ export class GithubController {
 
     res.cookie('kibibit-jwt', accessToken, {
       httpOnly: true,
-      secure: true, // Cookie only sent over HTTPS
-      sameSite: 'none', // Cookie sent on cross-site requests
-      maxAge: 3600000 // Cookie expiration time
+      secure: true,
+      sameSite: 'none',
+      maxAge: 3600000
     });
 
     // if client is NOT a browser, return the token

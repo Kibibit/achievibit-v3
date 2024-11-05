@@ -7,9 +7,11 @@ export class CustomSocketIoAdapter extends IoAdapter {
   createIOServer(port: number, options?: ServerOptions): Server {
     options = {
       ...options,
-      path: '/socket.io', // Use default path or adjust as needed
+      // Use default path or adjust as needed
+      path: '/socket.io',
       cors: {
-        origin: '*', // Adjust for your security requirements
+        // Adjust for your security requirements
+        origin: '*',
         methods: [ 'GET', 'POST' ]
       }
     };
@@ -17,7 +19,8 @@ export class CustomSocketIoAdapter extends IoAdapter {
     const server = super.createIOServer(port, options);
 
     instrument(server, {
-      auth: false, // Adjust authentication as needed
+      // Adjust authentication as needed
+      auth: false,
       mode: 'development'
       // Specify the namespace if needed
       // namespaceName: '/admin',

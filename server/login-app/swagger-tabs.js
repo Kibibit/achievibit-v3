@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   setTimeout(async () => {
     localStorage.setItem('dark_theme', 'true');
-    localStorage.setItem('namespace',	'/admin');
+    localStorage.setItem('namespace', '/admin');
     localStorage.setItem('parser', 'default');
     localStorage.setItem('path', '/socket.io');
     localStorage.setItem('server_url', window.location.origin);

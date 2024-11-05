@@ -48,9 +48,12 @@ export class GitlabController {
 
     res.cookie('kibibit-jwt', accessToken, {
       httpOnly: true,
-      secure: true, // Cookie only sent over HTTPS
-      sameSite: 'none', // Cookie sent on cross-site requests
-      maxAge: 3600000 // Cookie expiration time
+      // Cookie only sent over HTTPS
+      secure: true,
+      // Cookie sent on cross-site requests
+      sameSite: 'none',
+      // Cookie expiration time in ms: 1 hour
+      maxAge: 3600000
     });
 
     // if client is NOT a browser, return the token

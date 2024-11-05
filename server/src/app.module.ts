@@ -9,24 +9,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@kb-auth';
 import { configService, SmeeService } from '@kb-config';
+import { EventsModule } from '@kb-events';
 import { DbExceptionFilter } from '@kb-filters';
 import { DisableInProductionGuard } from '@kb-guards';
+import { HealthModule } from '@kb-health';
 import { LoggerMiddleware } from '@kb-middleware';
 import { OrganizationsModule } from '@kb-organizations';
 import { PullRequestsModule } from '@kb-pull-requests';
 import { RepositoriesModule } from '@kb-repositories';
 import { SessionUserModule } from '@kb-session-user';
 import { ShieldsModule } from '@kb-shields';
+import { SystemsModule } from '@kb-systems';
+import { TasksModule } from '@kb-tasks';
 import { UsersModule } from '@kb-users';
 import { WebhooksModule } from '@kb-webhooks';
 
-import { EventsGateway } from './events/events.gateway';
-import { HealthModule } from './health/health.module';
-import { SystemsModule } from './systems/systems.module';
-import { TasksModule } from './tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
