@@ -53,7 +53,7 @@ export class AppController {
       smeeUrl: this.appService.smeeUrl,
       showSwaggerUi: true,
       showSwaggerJson: false,
-      showAsyncDocs: false,
+      showAsyncDocs: true,
       showSmeeClient: this.appService.smeeUrl ? true : false,
       showNestjsDevTools: true
     };
