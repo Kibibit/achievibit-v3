@@ -2,6 +2,7 @@
   "files.associations": {
     "*.json": "json"
   },
+  "files.autoSave": "off",
   "workbench.colorTheme": "Andromeda Bordered",
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.colors": [
@@ -10,6 +11,7 @@
     "rgba(255,127,255,0.3)",
     "rgba(79,236,236,0.3)"
   ],
+  "workbench.editor.pinnedTabsOnSeparateRow": true,
   "indentRainbow.lightIndicatorStyleLineWidth": 2,
   "gitlens.statusBar.enabled": false,
   "peacock.showColorInStatusBar": false,
@@ -51,6 +53,7 @@
   "scss.validate": false,
   "stylelint.validate": [ "css", "scss" ],
   "cSpell.words": [
+    "achieveebeet",
     "achievibit",
     "adpyke",
     "autoimport",
@@ -88,6 +91,7 @@
     "ritwickdey",
     "Smee",
     "steoates",
+    "Streamable",
     "stylelint",
     "stylelintrc",
     "thatkookooguy",
