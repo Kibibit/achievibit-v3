@@ -12,6 +12,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { configService, loggerInstance } from '@kb-config';
 
 import { AppModule } from './app.module';
+import { CustomSocketIoAdapter } from './custom-socket-io.adapter';
 import { Documentation } from './documentation';
 import { logo } from './logo';
 
@@ -63,6 +64,13 @@ async function bootstrap() {
     maxAge: configService.isDevelopmentMode ? 0 : '1d',
     prefix: '/login'
   });
+
+  app.useStaticAssets(join(__dirname, '..', 'node_modules', '@socket.io', 'admin-ui', 'ui', 'dist'), {
+    prefix: '/api/socket-io'
+  });
+
+  // Use your custom Socket.IO adapter (see next step)
+  app.useWebSocketAdapter(new CustomSocketIoAdapter(app));
 
   await Documentation.addDocumentation(app);
 

@@ -11,7 +11,7 @@ import { SystemEnum, User } from '@kb-models';
 import { RepositoriesService } from '@kb-repositories';
 import { UsersService } from '@kb-users';
 
-export interface InstallationAccessTokenResponse {
+export interface IInstallationAccessTokenResponse {
   token: string;
   expires_at: string;
   // Add other fields from the response if needed
@@ -53,7 +53,7 @@ export class GithubService {
       auth: token
     });
 
-    const { data } = await installationOctokit.request(`GET /installation/repositories`, {
+    const { data } = await installationOctokit.request('GET /installation/repositories', {
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
         accept: 'application/vnd.github+json',
@@ -70,21 +70,22 @@ export class GithubService {
       authStrategy: createAppAuth,
       auth: {
         appId: configService.config.GITHUB_APP_ID,
-        privateKey: this.privateKey,
-      },
+        privateKey: this.privateKey
+      }
     });
-    
+
     return await octokit.request('GET /app/installations', {
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
         accept: 'application/vnd.github+json',
         per_page: 100
       }
-    })
+    });
   }
 
   private generateGithubAppJwt(): string {
-    const now = Math.floor(Date.now() / 1000); // Current time in seconds
+    // Current time in seconds
+    const now = Math.floor(Date.now() / 1000);
 
     const payload = {
       // Issued at time
@@ -184,7 +185,9 @@ export class GithubService {
     }
 
     const data = await response.json();
-    return data; // This includes the 'account' information
+
+    // This includes the 'account' information
+    return data;
   }
 
   async getInstallationRepositories(installationAccessToken: number, user: User): Promise<any> {

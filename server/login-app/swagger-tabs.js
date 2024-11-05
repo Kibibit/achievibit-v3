@@ -1,6 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   setTimeout(async () => {
-    console.log('====== test?');
+    localStorage.setItem('dark_theme', 'true');
+    localStorage.setItem('namespace', '/admin');
+    localStorage.setItem('parser', 'default');
+    localStorage.setItem('path', '/socket.io');
+    localStorage.setItem('server_url', window.location.origin);
+    localStorage.setItem('ws_only', 'false');
 
     const swaggerTopbar = document.querySelector('.topbar');
     const swaggerUi = document.querySelector('div.swagger-ui');
@@ -65,6 +70,18 @@ document.addEventListener('DOMContentLoaded', function () {
       swaggerContainer.appendChild(nestjsDevToolsIframe);
     }
 
+    const socketIoAdminIframe = document.createElement('iframe');
+    socketIoAdminIframe.src = '/api/socket-io';
+    socketIoAdminIframe.style.display = 'none';
+    socketIoAdminIframe.style.width = '100%';
+    socketIoAdminIframe.style.height = '100%';
+    socketIoAdminIframe.style.border = 'none';
+    socketIoAdminIframe.style.flexGrow = '1';
+
+    if (true) {
+      swaggerContainer.appendChild(socketIoAdminIframe);
+    }
+
     // add tabs under the topbar
     const tabs = document.createElement('div');
     // get active tab based on the current url
@@ -79,17 +96,20 @@ document.addEventListener('DOMContentLoaded', function () {
       allTabsHtml.push('<a id="json">Swagger JSON</a>');
     }
 
+    if (showSmeeClient) {
+      allTabsHtml.push('<a id="smee">webhooks proxy</a>');
+    }
+
+    if (true) {
+      allTabsHtml.push('<a id="socket-io-admin">Sockets</a>');
+    }
+
     if (showAsyncDocs) {
       allTabsHtml.push('<a id="async">Async Docs</a>');
     }
 
-    if (showSmeeClient) {
-      allTabsHtml.push('<a id="smee">Smee webhooks</a>');
-    }
-
     if (showNestjsDevTools) {
       allTabsHtml.push('<a id="nestjs-devtools">NestJs DevTools</a>');
-
     }
 
     tabs.innerHTML = allTabsHtml.join('');
@@ -119,47 +139,59 @@ document.addEventListener('DOMContentLoaded', function () {
         swaggerJsonIframe.style.display = 'none';
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
+        socketIoAdminIframe.style.display = 'none';
       } else if (tab === 'json') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
         swaggerJsonIframe.style.display = 'block';
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
+        socketIoAdminIframe.style.display = 'none';
       } else if (tab === 'async') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
         swaggerJsonIframe.style.display = 'none';
         asyncDocsIframe.style.display = 'block';
         nestjsDevToolsIframe.style.display = 'none';
+        socketIoAdminIframe.style.display = 'none';
       } else if (tab === 'smee') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'block';
         swaggerJsonIframe.style.display = 'none';
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
+        socketIoAdminIframe.style.display = 'none';
       } else if (tab === 'nestjs-devtools') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
         swaggerJsonIframe.style.display = 'none';
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'block';
+        socketIoAdminIframe.style.display = 'none';
         // open a new tab to nestjs devtools
         window.open('https://devtools.nestjs.com/', '_blank');
+      } else if (tab === 'socket-io-admin') {
+        swaggerUi.style.display = 'none';
+        smeeIframe.style.display = 'none';
+        swaggerJsonIframe.style.display = 'none';
+        asyncDocsIframe.style.display = 'none';
+        nestjsDevToolsIframe.style.display = 'none';
+        socketIoAdminIframe.style.display = 'block';
       }
     }
 
     function getCurrentActiveTab() {
       const pathname = window.location.pathname;
       const hostname = window.location.hostname;
-    
+
       if (pathname.endsWith('json')) {
         return { target: tabs.querySelector('#json') };
       }
-    
+
       if (pathname.endsWith('async')) {
         return { target: tabs.querySelector('#async') };
       }
-    
+
       // check if using smee at smee.kibibit.io
       if (hostname === 'smee.kibibit.io') {
         return { target: tabs.querySelector('#smee') };
@@ -168,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (hostname === 'devtools.nestjs.com') {
         return { target: tabs.querySelector('#nestjs-devtools') };
       }
-    
+
       return { target: tabs.querySelector('#swagger-ui') };
     }
   }, 750);

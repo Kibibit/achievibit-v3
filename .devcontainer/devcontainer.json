@@ -37,6 +37,7 @@
         "formulahendry.auto-rename-tag",
         "donjayamanne.githistory",
         "oderwat.indent-rainbow",
+        "Postman.postman-for-vscode",
         "GitHub.copilot"
       ],
       "settings": {

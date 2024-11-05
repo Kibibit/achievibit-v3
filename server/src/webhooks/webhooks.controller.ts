@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, Headers } from '@nestjs/common';
+import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiExcludeEndpoint, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { configService, Logger } from '@kb-config';

@@ -10,5 +10,12 @@
     "changeOrigin": true,
     "secure": false,
     "logLevel": "debug"
+  },
+  "/socket.io": {
+    "target": "http://localhost:10102/",
+    "ws": true,
+    "changeOrigin": true,
+    "secure": false,
+    "logLevel": "debug"
   }
 }
