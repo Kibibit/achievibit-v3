@@ -226,6 +226,9 @@ importers:
       '@gitbeaker/rest':
         specifier: ^40.3.0
         version: 40.5.0
+      '@growthbook/growthbook':
+        specifier: ^1.3.1
+        version: 1.3.1
       '@kibibit/configit':
         specifier: ^2.11.1
         version: 2.11.1
@@ -491,12 +494,6 @@ importers:
       typescript:
         specifier: ^5.6.2
         version: 5.6.3
-
-  simple-client:
-    dependencies:
-      socket.io-client:
-        specifier: ^4.8.0
-        version: 4.8.0
 
 packages:
 
@@ -1815,6 +1812,10 @@ packages:
   '@gitbeaker/rest@40.5.0':
     resolution: {integrity: sha512-0YbmZqJsWI28W9EMZinvY0wVngBj5DNRRtiUowhJmdivgx2jltVQFFaKw+Ir+pP3qkc8Y2AapzRXLUFXZXazRA==}
     engines: {node: '>=18.20.0'}
+
+  '@growthbook/growthbook@1.3.1':
+    resolution: {integrity: sha512-ewtwq6+86rRKwcYUXEmBVR1JuiEIYZhxow/Z52qyAxJwEHdXmpS4Yk8sVeVD9bphCwE2r0zuifxFkBxmnIL4Mg==}
+    engines: {node: '>=10'}
 
   '@html-eslint/eslint-plugin@0.27.0':
     resolution: {integrity: sha512-aAF14sgDKidMCCQpJ4kIhe+fwyAaAbvDlgVTIgd99F+HOWxokTTXDt39a3gewMBo76IeEHDaoizUDJQ/Vc7Mdg==}
@@ -4325,6 +4326,10 @@ packages:
   doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
+
+  dom-mutator@0.6.0:
+    resolution: {integrity: sha512-iCt9o0aYfXMUkz/43ZOAUFQYotjGB+GNbYJiJdz4TgXkyToXbbRy5S6FbTp72lRBtfpUMwEc1KmpFEU4CZeoNg==}
+    engines: {node: '>=10'}
 
   dom-serialize@2.2.1:
     resolution: {integrity: sha512-Yra4DbvoW7/Z6LBN560ZwXMjoNOSAN2wRsKFGc4iBeso+mpIA6qj1vfdf9HpMaKAqG6wXTy+1SYEzmNpKXOSsQ==}
@@ -11294,6 +11299,10 @@ snapshots:
       '@gitbeaker/core': 40.5.0
       '@gitbeaker/requester-utils': 40.5.0
 
+  '@growthbook/growthbook@1.3.1':
+    dependencies:
+      dom-mutator: 0.6.0
+
   '@html-eslint/eslint-plugin@0.27.0': {}
 
   '@html-eslint/parser@0.27.0':
@@ -11739,7 +11748,7 @@ snapshots:
       tsconfig-paths: 4.2.0
       tsconfig-paths-webpack-plugin: 4.1.0
       typescript: 5.3.3
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0
       webpack-node-externals: 3.0.0
     transitivePeerDependencies:
       - esbuild
@@ -14462,6 +14471,8 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
+  dom-mutator@0.6.0: {}
+
   dom-serialize@2.2.1:
     dependencies:
       custom-event: 1.0.1
@@ -15319,7 +15330,7 @@ snapshots:
       semver: 7.6.3
       tapable: 2.2.1
       typescript: 5.3.3
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0
 
   form-data@2.3.3:
     dependencies:
@@ -18887,6 +18898,15 @@ snapshots:
     optionalDependencies:
       esbuild: 0.20.1
 
+  terser-webpack-plugin@5.3.10(webpack@5.94.0):
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 3.3.0
+      serialize-javascript: 6.0.2
+      terser: 5.29.1
+      webpack: 5.94.0
+
   terser@5.29.1:
     dependencies:
       '@jridgewell/source-map': 0.3.6
@@ -19014,7 +19034,7 @@ snapshots:
       semver: 7.6.3
       source-map: 0.7.4
       typescript: 5.6.3
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0
 
   ts-node@10.9.2(@types/node@20.16.11)(typescript@4.9.5):
     dependencies:
@@ -19548,6 +19568,36 @@ snapshots:
     dependencies:
       typed-assert: 1.0.9
       webpack: 5.94.0(esbuild@0.20.1)
+
+  webpack@5.94.0:
+    dependencies:
+      '@types/estree': 1.0.6
+      '@webassemblyjs/ast': 1.12.1
+      '@webassemblyjs/wasm-edit': 1.12.1
+      '@webassemblyjs/wasm-parser': 1.12.1
+      acorn: 8.12.1
+      acorn-import-attributes: 1.9.5(acorn@8.12.1)
+      browserslist: 4.24.0
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.17.1
+      es-module-lexer: 1.5.4
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 3.3.0
+      tapable: 2.2.1
+      terser-webpack-plugin: 5.3.10(webpack@5.94.0)
+      watchpack: 2.4.2
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
 
   webpack@5.94.0(esbuild@0.20.1):
     dependencies:

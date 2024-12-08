@@ -27,6 +27,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsModule } from './events/events.module';
+import { GrowthbookService } from './growthbook/growthbook.service';
 
 @Module({
   imports: [
@@ -72,7 +73,8 @@ import { EventsModule } from './events/events.module';
       useClass: DbExceptionFilter
     },
     AppService,
-    SmeeService
+    SmeeService,
+    GrowthbookService
   ]
 })
 export class AppModule {

@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
 
 import { BaseConfig, Configuration, ConfigVariable } from '@kibibit/configit';
 
@@ -193,4 +193,22 @@ export class AchievibitConfig extends BaseConfig {
   @IsOptional()
   @IsBoolean()
     SYNCHRONIZE_DATABASE: boolean;
+
+  @ConfigVariable([
+    'Enable or disable automatic database synchronization.',
+    'If true, the database schema will be synchronized automatically.',
+    'SHOULD NOT be used in production.'
+  ].join(' '))
+  @IsOptional()
+  @IsUrl()
+    GROWTHBOOK_API_HOST: string;
+
+  @ConfigVariable([
+    'Enable or disable automatic database synchronization.',
+    'If true, the database schema will be synchronized automatically.',
+    'SHOULD NOT be used in production.'
+  ].join(' '))
+  @IsOptional()
+  @IsString()
+    GROWTHBOOK_API_KEY: string;
 }
