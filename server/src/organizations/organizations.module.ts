@@ -11,6 +11,7 @@ import { OrganizationsService } from './organizations.service';
     TypeOrmModule.forFeature([ Organization ])
   ],
   controllers: [ OrganizationsController ],
-  providers: [ OrganizationsService ]
+  providers: [ OrganizationsService ],
+  exports: [ OrganizationsService ]
 })
 export class OrganizationsModule {}
