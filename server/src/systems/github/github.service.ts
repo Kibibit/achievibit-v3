@@ -10,6 +10,7 @@ import { configService } from '@kb-config';
 import { SystemEnum, User } from '@kb-models';
 import { RepositoriesService } from '@kb-repositories';
 import { UsersService } from '@kb-users';
+import { OrganizationsService } from '@kb-organizations';
 
 export interface IInstallationAccessTokenResponse {
   token: string;
@@ -23,7 +24,8 @@ export class GithubService {
 
   constructor(
     private readonly usersService: UsersService,
-    private readonly repositoriesService: RepositoriesService
+    private readonly repositoriesService: RepositoriesService,
+    private readonly organizationsService: OrganizationsService
   ) {
     // Load your private key from the .pem file
     this.privateKey = readFileSync(
@@ -150,16 +152,35 @@ export class GithubService {
     if (installationDetails.account.type === 'Organization') {
       // check if organization is already in the db
       // if not, create it
+      // this should never happen since a user can only install
+      // an app on an organization they are a part of
+      // but it's good to check anyway
     }
 
     for (const repo of repos.repositories) {
+      let organization = null;
+
+      if (repo.owner.type === 'Organization') {
+        organization = await this.organizationsService.findById(repo.owner.login);
+
+        if (!organization) {
+          organization = await this.organizationsService.create({
+            name: repo.owner.login,
+            system: SystemEnum.GITHUB,
+            owner: user,
+            members: [ user ],
+            repositories: []
+          });
+        }
+      }
+
       // create a new repo in the db
       await this.repositoriesService.create({
         name: repo.name,
         fullname: repo.full_name,
         url: repo.html_url,
         owner: user,
-        // organization:  ? installationDetails.account.login : null,
+        organization: organization,
         system: SystemEnum.GITHUB
         // private: repo.private
       });
