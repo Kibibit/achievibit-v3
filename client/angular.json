@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@snackbar/core/dist/snackbar.css",
               "src/styles.scss"
             ],
             "scripts": []

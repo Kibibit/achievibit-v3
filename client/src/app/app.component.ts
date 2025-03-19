@@ -3,6 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
+import { ApiService } from './services/api.service';
 import { SocketService } from './services/socket.service';
 import { AppService } from './app.service';
 
@@ -22,7 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private appService: AppService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private apiService: ApiService
   ) {
     this.messageSubscription = this.socketService
       .on('ping')
@@ -45,6 +47,11 @@ export class AppComponent implements OnInit, OnDestroy {
     const loggedInUserObs = this
       .appService
       .getLoggedInUser();
+
+    this.apiService.getApiDetails()
+      .subscribe((data) => {
+        console.log('Api details:', data);
+      });
 
     // Combine the two observables to get the user and their repos
     combineLatest([ loggedInUserObs ])
