@@ -1,10 +1,15 @@
 packages:
-  - 'achievements'
-  - 'client'
-  - 'server'
-
+  - achievements
+  - client
+  - server
+  - sdk
 link-workspace-packages: true
 shared-workspace-lockfile: true
-
 config:
   packageImportMethod: copy
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - esbuild
+  - nice-napi
+  - protobufjs
+  - puppeteer
