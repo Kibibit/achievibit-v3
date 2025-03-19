@@ -1,5 +1,5 @@
-import { combineLatest, Subscription } from 'rxjs';
-import { NgFor, NgIf } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { AppService } from './app.service';
 @Component({
   selector: 'kb-root',
   standalone: true,
-  imports: [ RouterOutlet, NgIf, NgFor, RouterLink ],
+  imports: [ RouterOutlet, NgIf, RouterLink ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -44,19 +44,31 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const loggedInUserObs = this
-      .appService
-      .getLoggedInUser();
-
     this.apiService.getApiDetails()
       .subscribe((data) => {
         console.log('Api details:', data);
       });
 
-    // Combine the two observables to get the user and their repos
-    combineLatest([ loggedInUserObs ])
-      .subscribe(([ user ]) => {
+    this.apiService.healthCheck()
+      .subscribe((data) => {
+        console.log('Health check:', data);
+      });
+
+    this
+      .apiService
+      .getLoggedInUser()
+      .subscribe((user) => {
         this.loggedInUser = user;
       });
+
+    // TESTING: Uncomment to test cache
+    // setInterval(() => {
+    //   this
+    //     .apiService
+    //     .getLoggedInUser()
+    //     .subscribe((user) => {
+    //       console.log('Logged in user:', user);
+    //     });
+    // }, 5000);
   }
 }
