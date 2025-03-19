@@ -92,17 +92,6 @@ export interface Repository {
   private: boolean;
 }
 
-export interface SubPizza {
-  somethingElse: string;
-}
-
-export interface Pizza {
-  name: string;
-  age: number;
-  breed: string;
-  something: SubPizza;
-}
-
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -791,7 +780,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/webhooks/github
      * @secure
      */
-    webhooksControllerGithub: (data: Pizza, params: RequestParams = {}) =>
+    webhooksControllerGithub: (data: object, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/webhooks/github`,
         method: "POST",
@@ -888,6 +877,150 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         }
       >({
         path: `/api/health`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Health
+     * @name HealthControllerCheckExternalApi
+     * @request GET:/api/health/external
+     */
+    healthControllerCheckExternalApi: (params: RequestParams = {}) =>
+      this.request<
+        {
+          /** @example "ok" */
+          status?: string;
+          /** @example {"database":{"status":"up"}} */
+          info?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {} */
+          error?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {"database":{"status":"up"}} */
+          details?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+        },
+        {
+          /** @example "error" */
+          status?: string;
+          /** @example {"database":{"status":"up"}} */
+          info?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {"redis":{"status":"down","message":"Could not connect"}} */
+          error?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {"database":{"status":"up"},"redis":{"status":"down","message":"Could not connect"}} */
+          details?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+        }
+      >({
+        path: `/api/health/external`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Health
+     * @name HealthControllerCheckDevTools
+     * @request GET:/api/health/devtools
+     */
+    healthControllerCheckDevTools: (params: RequestParams = {}) =>
+      this.request<
+        {
+          /** @example "ok" */
+          status?: string;
+          /** @example {"database":{"status":"up"}} */
+          info?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {} */
+          error?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {"database":{"status":"up"}} */
+          details?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+        },
+        {
+          /** @example "error" */
+          status?: string;
+          /** @example {"database":{"status":"up"}} */
+          info?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {"redis":{"status":"down","message":"Could not connect"}} */
+          error?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+          /** @example {"database":{"status":"up"},"redis":{"status":"down","message":"Could not connect"}} */
+          details?: Record<
+            string,
+            {
+              status: string;
+              [key: string]: any;
+            }
+          >;
+        }
+      >({
+        path: `/api/health/devtools`,
         method: "GET",
         format: "json",
         ...params,
