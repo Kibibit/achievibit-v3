@@ -1,13 +1,11 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { StatusCodes } from 'http-status-codes';
-import { catchError, combineLatest, from, map, of } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createSnackbar } from '@snackbar/core';
 
-import { Api } from '@kibibit/achievibit-sdk';
-
-import { Cacheable, ICachableService, ICacheMap } from '../decorators/cachable.decorator';
+import { Api, Cacheable, Health, ICachableService, ICacheMap, ReturnDataOnError, SessionUser, wrapWithProxy } from '@kibibit/achievibit-sdk';
 
 export interface IHealthCheckResult {
   status: 'ok' | 'error';
@@ -20,23 +18,44 @@ export interface IHealthCheckResult {
   providedIn: 'root'
 })
 export class ApiService implements ICachableService {
-  private readonly apiService = new Api({});
+  private readonly sdks = {
+    general: new Api({}),
+    me: new SessionUser({})
+  };
+
+  private readonly nonPublicErrorsSdks = {
+    health: new Health({})
+  };
+
+  private readonly meApiService = wrapWithProxy(this.sdks.me);
+  private readonly healthApiService = wrapWithProxy(this.nonPublicErrorsSdks.health);
+  private readonly generalApiService = wrapWithProxy(this.sdks.general);
 
   cacheMap: ICacheMap = {};
 
   constructor(
     private readonly router: Router
   ) {
-    this.apiService.instance.interceptors.response.use(
-      (response) => this.interceptResponse(response),
-      (error) => this.handleError(error)
-    );
+    for (const sdkName of Object.keys(this.sdks)) {
+      const sdk = this.sdks[sdkName as keyof typeof this.sdks];
+
+      sdk.instance.interceptors.response.use(
+        (response) => this.interceptResponse(response),
+        (error) => this.handleError(error)
+      );
+    }
   }
 
   @Cacheable({ emitOnce: true })
   getLoggedInUser(options?: { emitOnce?: boolean }) {
-    return from(this.apiService.me.sessionUserControllerGetSessionUser())
-      .pipe(map((response) => response.data));
+    return this
+      .meApiService
+      .sessionUserControllerGetSessionUser()
+      .pipe((map((test) => {
+        console.log('test', test);
+
+        return test;
+      })));
   }
 
   clearLoggedInUserCache() {
@@ -44,9 +63,28 @@ export class ApiService implements ICachableService {
     this.cacheMap[cacheMapKey].subject.next(null);
   }
 
+  getAvailableRepositories(system: 'github' | 'gitlab' | 'bitbucket') {
+    return this
+      .meApiService
+      .sessionUserControllerGetSessionUserAvailableRepositories(system);
+  }
+
+  installWebhookOnRepo(repoFullName: string, system: 'github' | 'gitlab' | 'bitbucket') {
+    return this
+      .meApiService
+      .sessionUserControllerInstallWebhookOnRepo(system, repoFullName);
+  }
+
+  uninstallWebhookOnRepo(repoFullName: string, system: 'github' | 'gitlab' | 'bitbucket') {
+    return this
+      .meApiService
+      .sessionUserControllerUninstallWebhookOnRepo(system, repoFullName);
+  }
+
   getApiDetails() {
-    return from(this.apiService.appControllerGetApiDetails())
-      .pipe(map((response) => response.data));
+    return this
+      .generalApiService
+      .appControllerGetApiDetails();
   }
 
   healthCheck() {
@@ -66,41 +104,25 @@ export class ApiService implements ICachableService {
       );
   }
 
+  @ReturnDataOnError()
   healthCheckApp() {
-    return this.genericHealthCheck('healthControllerCheck');
+    return this
+      .healthApiService
+      .healthControllerCheck() as Observable<IHealthCheckResult | null>;
   }
 
+  @ReturnDataOnError()
   healthCheckExternalApi() {
-    return this.genericHealthCheck('healthControllerCheckExternalApi');
+    return this
+      .healthApiService
+      .healthControllerCheckExternalApi() as Observable<IHealthCheckResult | null>;
   }
 
+  @ReturnDataOnError()
   healthCheckDevTools() {
-    return this.genericHealthCheck('healthControllerCheckDevTools');
-  }
-
-  private genericHealthCheck(healthCheckMethodName: keyof Api<unknown>['health']) {
-    return from(this.apiService.health[healthCheckMethodName]({
-      // skip status code validation to skip error handling
-      validateStatus: null
-    }))
-      .pipe(
-        map((response) => response.data as IHealthCheckResult),
-        catchError((error: AxiosError<IHealthCheckResult>) => {
-          if (error.response?.data?.status) {
-            // cast type to the same type as the response data
-            return of(error.response.data as IHealthCheckResult);
-          }
-
-          const healthCheckErrorResult: IHealthCheckResult = {
-            status: 'error',
-            error: {
-              message: error.message
-            }
-          };
-
-          return of(healthCheckErrorResult);
-        })
-      );
+    return this
+      .healthApiService
+      .healthControllerCheckDevTools() as Observable<IHealthCheckResult | null>;
   }
 
   private interceptResponse(response: AxiosResponse) {
