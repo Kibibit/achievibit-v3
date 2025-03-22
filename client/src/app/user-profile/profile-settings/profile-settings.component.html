@@ -1,0 +1,18 @@
+<h5>Settings</h5>
+<div *ngIf="user?.settings" class="settings-container">
+  <div class="timezone">
+    <span>Timezone</span>
+    {{ user?.settings?.timezone }}
+  </div>
+  <div class="date-format"></div>
+  <span>Date Format</span>
+  {{ user?.settings?.dateFormat }}
+</div>
+<div class="theme">
+  <span>Theme</span>
+  {{ user?.settings?.theme }}
+</div>
+<div class="avatar-system-origin">
+  <span>Avatar System Origin</span>
+  {{ user?.settings?.avatarSystemOrigin }}
+</div>

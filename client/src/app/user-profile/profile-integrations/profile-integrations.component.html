@@ -1,0 +1,98 @@
+<h5>Repositories</h5>
+<div>
+  <div class="tabs">
+    <a tabindex="0" [class.active]="activeIntegrationsTab === 'github'" (click)="activeIntegrationsTab = 'github'" (keyup)="activeIntegrationsTab = 'github'">GitHub</a>
+    <a tabindex="0" [class.active]="activeIntegrationsTab === 'gitlab'" (click)="activeIntegrationsTab = 'gitlab'" (keyup)="activeIntegrationsTab = 'gitlab'">GitLab</a>
+    <a tabindex="0" [class.active]="activeIntegrationsTab === 'bitbucket'" (click)="activeIntegrationsTab = 'bitbucket'" (keyup)="activeIntegrationsTab = 'bitbucket'">BitBucket</a>
+  </div>
+  <div class="page padding" [class.active]="activeIntegrationsTab === 'github'">
+    <button
+      class="large-elevate small"
+      type="button"
+      (click)="installGithubApp()"
+    >
+      Install\Update GitHub App
+    </button>
+    <div class="kb-repos-container">
+      <div *ngIf="userGithubRepos.length === 0" class="no-repos">
+        <ng-container *ngIf="user?.integrations?.includes('github'); else suggestIntegrateGithub">
+          No repositories found
+        </ng-container>
+        <ng-template #suggestIntegrateGithub>
+          <a href="/api/auth/github">Integrate GitLab</a> to see your repositories
+        </ng-template>
+      </div>
+      <div *ngFor="let repo of userGithubRepos" class="kb-repo" [class.private]="repo.private"
+        [class.public]="!repo.private" [class.github]="repo.system === 'github'"
+        [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
+        <div class="kb-repo-name">
+          {{ repo.name }}
+          <i class="visibility-icon"></i>
+        </div>
+        <div>{{ repo.full_name }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="page padding" [class.active]="activeIntegrationsTab === 'gitlab'">
+    <div class="kb-repos-container">
+      <div *ngIf="userGitlabRepos.length === 0" class="no-repos">
+        <ng-container *ngIf="user?.integrations?.includes('gitlab'); else suggestIntegrateGitlab">
+          No repositories found
+        </ng-container>
+        <ng-template #suggestIntegrateGitlab>
+          <a href="/api/auth/gitlab">Integrate GitLab</a> to see your repositories
+        </ng-template>
+      </div>
+
+      <div *ngFor="let repo of userGitlabRepos" class="kb-repo" [class.private]="repo.private"
+        [class.public]="!repo.private" [class.github]="repo.system === 'github'"
+        [class.bitbucket]="repo.system === 'bitbucket'" [class.gitlab]="repo.system === 'gitlab'">
+        <div class="kb-repo-name">
+          {{ repo.name }}
+          <i class="visibility-icon"></i>
+        </div>
+        <div>{{ repo.full_name }}</div>
+        <button *ngIf="!repo.integrated" type="button" (click)="installWebhookOnRepo(repo.full_name, 'gitlab')">
+          <span>Install</span>
+        </button>
+        <button *ngIf="repo.integrated" type="button" (click)="uninstallWebhookOnRepo(repo.full_name, 'gitlab')">
+          <span>Uninstall</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="page padding" [class.active]="activeIntegrationsTab === 'bitbucket'">
+    <div class="kb-repos-container">
+      <div *ngIf="userBitbucketRepos.length === 0" class="no-repos">
+        <ng-container *ngIf="user?.integrations?.includes('bitbucket'); else suggestIntegrateBitbucket">
+          No repositories found
+        </ng-container>
+        <ng-template #suggestIntegrateBitbucket>
+          <a href="/api/auth/bitbucket">Integrate GitLab</a> to see your repositories
+        </ng-template>
+      </div>
+
+      <div *ngFor="let repo of userBitbucketRepos"
+        class="kb-repo"
+        [class.private]="repo.private"
+        [class.public]="!repo.private"
+        [class.integrated]="repo.integrated"
+        [class.github]="repo.system === 'github'"
+        [class.bitbucket]="repo.system === 'bitbucket'"
+        [class.gitlab]="repo.system === 'gitlab'"
+      >
+        <div class="kb-repo-name">
+          {{ repo.name }}
+          <i class="visibility-icon"></i>
+        </div>
+        <div>{{ repo.full_name }}</div>
+        <button *ngIf="!repo.integrated" type="button" (click)="installWebhookOnRepo(repo.full_name, 'bitbucket')">
+          <span>Install</span>
+        </button>
+        <button *ngIf="repo.integrated" type="button" (click)="uninstallWebhookOnRepo(repo.full_name, 'bitbucket')">
+          <span>Uninstall</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

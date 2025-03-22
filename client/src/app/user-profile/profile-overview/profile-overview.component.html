@@ -1,0 +1,6 @@
+<h5>Overview</h5>
+<div *ngIf="user" class="kb-user-info-container">
+  <img class="kb-user-avatar" alt="user avatar" [src]="user.avatar" />
+  <div class="username">{{ user.username }}</div>
+  <div class="email">{{ user.email }}</div>
+</div>

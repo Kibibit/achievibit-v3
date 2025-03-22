@@ -4,6 +4,8 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
+import { ApiService } from '../services/api.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +19,8 @@ export class UserProfileService {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private http: HttpClient
+    private http: HttpClient,
+    private apiService: ApiService
     // private webhooksService: WebhooksService
   ) { }
 
@@ -57,6 +60,10 @@ export class UserProfileService {
     }
 
     return this.$user as Observable<any>;
+  }
+
+  getLoggedInUserApi() {
+    this.$user = this.apiService.getLoggedInUser();
   }
 
   refreshLoggedInUser() {
