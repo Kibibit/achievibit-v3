@@ -1,15 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { KeyboardInputComponent } from './keyboard-input/keyboard-input.component';
+import { HomeComponent } from './pages/home/home.component';
 import { activeUserResolver } from './services/active-user-resolver';
-import { ProfileIntegrationsComponent } from './user-profile/profile-integrations/profile-integrations.component';
-import { ProfileOverviewComponent } from './user-profile/profile-overview/profile-overview.component';
-import { ProfileSettingsComponent } from './user-profile/profile-settings/profile-settings.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ProfileIntegrationsComponent } from './pages/user-profile/profile-integrations/profile-integrations.component';
+import { ProfileOverviewComponent } from './pages/user-profile/profile-overview/profile-overview.component';
+import { ProfileSettingsComponent } from './pages/user-profile/profile-settings/profile-settings.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 export const routes: Routes = [
-  { path: 'keyboard', component: KeyboardInputComponent },
   {
     path: 'profile',
     component: UserProfileComponent,

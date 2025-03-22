@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
-import { MeApiService } from '../services/api/me.service';
+import { MeApiService } from '../../services/api/me.service';
 
 @Injectable({
   providedIn: 'root'
