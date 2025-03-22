@@ -3,7 +3,9 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
 
-import { ApiService } from './services/api.service';
+import { GeneralApiService } from './services/api/general.service';
+import { HealthApiService } from './services/api/health.service';
+import { MeApiService } from './services/api/me.service';
 import { LoaderService } from './services/loader.service';
 import { SocketService } from './services/socket.service';
 
@@ -25,7 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private socketService: SocketService,
-    private apiService: ApiService,
+    private meApiService: MeApiService,
+    private generalApiService: GeneralApiService,
+    private healthApiService: HealthApiService,
     private router: Router,
     private loaderService: LoaderService
   ) {
@@ -67,18 +71,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.apiService.getApiDetails()
+    this.generalApiService.getApiDetails()
       .subscribe((data) => {
         console.log('Api details:', data);
       });
 
-    this.apiService.healthCheck()
+    this.healthApiService.healthCheck()
       .subscribe((data) => {
         console.log('Health check:', data);
       });
 
     this
-      .apiService
+      .meApiService
       .getLoggedInUser()
       .subscribe((user) => {
         this.loggedInUser = user;
@@ -87,7 +91,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // TESTING: Uncomment to test cache
     // setInterval(() => {
     //   this
-    //     .apiService
+    //     .meApiService
     //     .getLoggedInUser()
     //     .subscribe((user) => {
     //       console.log('Logged in user:', user);

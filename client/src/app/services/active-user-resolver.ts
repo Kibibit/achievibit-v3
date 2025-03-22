@@ -3,9 +3,9 @@ import { ResolveFn } from '@angular/router';
 
 import { User } from '@kibibit/achievibit-sdk';
 
-import { ApiService } from './api.service';
+import { MeApiService } from './api/me.service';
 
 export const activeUserResolver: ResolveFn<User> = () => {
-  const apiService = inject(ApiService);
-  return apiService.getLoggedInUser();
+  const meApiService = inject(MeApiService);
+  return meApiService.getLoggedInUser();
 };

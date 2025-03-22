@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 
-import { ApiService } from '../services/api.service';
+import { MeApiService } from '../services/api/me.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class UserProfileService {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private http: HttpClient,
-    private apiService: ApiService
+    private meApiService: MeApiService
     // private webhooksService: WebhooksService
   ) { }
 
@@ -63,7 +63,7 @@ export class UserProfileService {
   }
 
   getLoggedInUserApi() {
-    this.$user = this.apiService.getLoggedInUser();
+    this.$user = this.meApiService.getLoggedInUser();
   }
 
   refreshLoggedInUser() {
