@@ -1,6 +1,7 @@
 .env
 pgdata
 keys
+/sdk/src/generated/
 
 .env.*.json
 *private-key.pem

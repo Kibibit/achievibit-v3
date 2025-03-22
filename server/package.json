@@ -6,7 +6,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build:sdk": "swagger-typescript-api -p http://localhost:10102/api/docs-json -o ../sdk -n api.ts --module-name-index 1 --axios && cd ../sdk && npm version minor",
+    "build:sdk": "swagger-typescript-api -p http://localhost:10102/api/docs-json -o ../sdk/src/generated --extract-enums --module-name-first-tag --modular --axios && cd ../sdk && npm version minor",
     "generate-barrels": "barrelsby --delete -d ./src -l below -q --exclude spec.ts --exclude spec.js --exclude __mocks__ && echo '> Barrels Generated'",
     "prebuild": "npm run generate-barrels",
     "build": "nest build",
