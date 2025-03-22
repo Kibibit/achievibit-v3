@@ -9,9 +9,9 @@
         achievibit
       </a>
     </h5>
-    <button *ngIf="loggedInUser" class="circle transparent" type="button">
+    <button *ngIf="loggedInUser" class="circle transparent" type="button" (click)="openMenu()">
       <img class="responsive" alt="user avatar" [src]="loggedInUser.avatar">
-      <menu class="left no-wrap">
+      <menu *ngIf="menuOpen" class="left no-wrap">
         <a class="row" [routerLink]="['/profile']">
           <i class="material-symbols-outlined">
             person
@@ -41,6 +41,7 @@
     </button>
   </nav>
 </header>
+<progress *ngIf="loading$ | async" class="orange-text"></progress>
 <main class="responsive padding">
   <router-outlet />
 </main>

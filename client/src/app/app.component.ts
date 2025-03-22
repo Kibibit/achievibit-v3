@@ -1,30 +1,33 @@
 import { Subscription } from 'rxjs';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
 
 import { ApiService } from './services/api.service';
+import { LoaderService } from './services/loader.service';
 import { SocketService } from './services/socket.service';
-import { AppService } from './app.service';
 
 @Component({
   selector: 'kb-root',
   standalone: true,
-  imports: [ RouterOutlet, NgIf, RouterLink ],
+  imports: [ RouterOutlet, NgIf, RouterLink, AsyncPipe ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
+  loading$ = this.loaderService.loading$;
   loggedInUser: any;
+  menuOpen = false;
 
   private messageSubscription: Subscription;
   messages: string[] = [];
   newMessage: string = '';
 
   constructor(
-    private appService: AppService,
     private socketService: SocketService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router,
+    private loaderService: LoaderService
   ) {
     this.messageSubscription = this.socketService
       .on('ping')
@@ -32,6 +35,26 @@ export class AppComponent implements OnInit, OnDestroy {
         // this.messages.push(data.text);
         console.log('Received ping message:', data);
       });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.menuOpen = false;
+      }
+
+      if (event instanceof NavigationStart) {
+        this.loaderService.show();
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        this.loaderService.hide();
+      }
+    });
+  }
+
+  openMenu() {
+    this.menuOpen = true;
   }
 
   sendMessage() {
