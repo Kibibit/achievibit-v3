@@ -51,5 +51,14 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.2",
     "wait-for-user-input": "^1.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "esbuild",
+      "nice-napi",
+      "protobufjs",
+      "puppeteer"
+    ]
   }
 }
