@@ -1,0 +1,35 @@
+<h6>Users</h6>
+<div class="field label prefix">
+  <i>search</i>
+  <input type="text" id="search-users"  [formControl]="searchControl">
+  <label for="search-users">Search Users</label>
+</div>
+<ng-container *ngIf="$users | async as users">
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>username</th>
+              <th>achievements</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users.data">
+              <td>
+                <a
+                  routerLinkActive="fill"
+                  [routerLink]="['/users', user.username]"
+                >
+                  {{ user.username }}
+                </a>
+              </td>
+              <td>{{ user.achievements.length }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
