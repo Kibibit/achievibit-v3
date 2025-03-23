@@ -1,4 +1,4 @@
-import { MongoRepository } from 'typeorm';
+import { FindOptionsWhere, MongoRepository, ObjectLiteral } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,9 +17,11 @@ export class OrganizationsService {
   }
 
   async findAll(
-    pageOptions: PageOptionsModel
+    pageOptions: PageOptionsModel,
+    where: ObjectLiteral | FindOptionsWhere<Organization> | FindOptionsWhere<Organization>[] = {}
   ) {
     const [ entities, itemCount ] = await this.orgsRepository.findAndCount({
+      where,
       // Sorting by createdAt field
       order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,

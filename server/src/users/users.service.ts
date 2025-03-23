@@ -1,5 +1,5 @@
 
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
 
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -40,9 +40,11 @@ export class UsersService {
   }
 
   async findAll(
-    pageOptions: PageOptionsModel
+    pageOptions: PageOptionsModel,
+    where: ObjectLiteral | FindOptionsWhere<User> | FindOptionsWhere<User>[] = {}
   ) {
     const [ entities, itemCount ] = await this.usersRepository.findAndCount({
+      where,
       // Sorting by createdAt field
       order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,

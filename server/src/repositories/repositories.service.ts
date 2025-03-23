@@ -1,4 +1,4 @@
-import { MongoRepository } from 'typeorm';
+import { FindOptionsWhere, ILike, MongoRepository, ObjectLiteral } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -18,7 +18,7 @@ export class RepositoriesService {
 
   async findAll(
     pageOptions: PageOptionsModel,
-    where: any = {}
+    where: ObjectLiteral | FindOptionsWhere<Repository> | FindOptionsWhere<Repository>[] = {}
   ) {
     const [ entities, itemCount ] = await this.reposRepository.findAndCount({
       where,

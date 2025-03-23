@@ -1,7 +1,8 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsSafeQuery } from 'src/decorators/is-safe-query.decorator';
 
 export enum Order {
   ASC = 'ASC',
@@ -9,6 +10,12 @@ export enum Order {
 }
 
 export class PageOptionsModel {
+  @ApiPropertyOptional({ type: String, default: '' })
+  @IsString()
+  @IsSafeQuery()
+  @IsOptional()
+  readonly query?: string;
+
   @ApiPropertyOptional({ enum: Order, default: Order.ASC })
   @IsEnum(Order)
   @IsOptional()
