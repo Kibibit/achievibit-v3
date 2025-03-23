@@ -6,6 +6,7 @@ import { ApiOkResponsePaginated, DisableInProduction } from '@kb-decorators';
 import { CreateUser, PageOptionsModel, User } from '@kb-models';
 
 import { UsersService } from './users.service';
+import { ILike } from 'typeorm';
 
 @Controller('api/users')
 @ApiTags('Users')
@@ -38,7 +39,9 @@ export class UsersController {
   async getUsers(
     @Query() pageOptions: PageOptionsModel
   ) {
-    return await this.usersService.findAll(pageOptions);
+    return await this.usersService.findAll(pageOptions, {
+      username: ILike(`%${ pageOptions.query }%`)
+    });
   }
 
   @Get(':id')

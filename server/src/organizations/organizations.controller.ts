@@ -5,6 +5,7 @@ import { ApiOkResponsePaginated } from '@kb-decorators';
 import { Organization, PageOptionsModel } from '@kb-models';
 
 import { OrganizationsService } from './organizations.service';
+import { ILike } from 'typeorm';
 
 @Controller('api/orgs')
 @ApiTags('Organizations')
@@ -22,7 +23,9 @@ export class OrganizationsController {
   async getOrganizations(
     @Query() pageOptions: PageOptionsModel
   ) {
-    return await this.organizationsService.findAll(pageOptions);
+    return await this.organizationsService.findAll(pageOptions, {
+      name: ILike(`%${pageOptions.query}%`)
+    });
   }
 
   @Get(':id')

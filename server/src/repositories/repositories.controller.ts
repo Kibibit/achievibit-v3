@@ -5,6 +5,7 @@ import { ApiOkResponsePaginated } from '@kb-decorators';
 import { PageOptionsModel, Repository } from '@kb-models';
 
 import { RepositoriesService } from './repositories.service';
+import { ILike } from 'typeorm';
 
 @Controller('api/repos')
 @ApiTags('Repositories')
@@ -22,6 +23,12 @@ export class RepositoriesController {
   async getRepos(
     @Query() pageOptions: PageOptionsModel
   ) {
+    if (pageOptions.query) {
+      return await this.repositoriesService.findAll(pageOptions, {
+        name: ILike(`%${pageOptions.query}%`)
+      });
+    }
+
     return await this.repositoriesService.findAll(pageOptions);
   }
 
