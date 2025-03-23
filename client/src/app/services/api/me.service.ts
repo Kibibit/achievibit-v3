@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { map } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { Cacheable, ICachableService, ICacheMap, SessionUser, wrapWithProxy } from '@kibibit/achievibit-sdk';
@@ -27,17 +26,18 @@ export class MeApiService implements ICachableService {
   getLoggedInUser(options?: { emitOnce?: boolean }) {
     return this
       .meApiService
-      .sessionUserControllerGetSessionUser()
-      .pipe((map((test) => {
-        console.log('test', test);
-
-        return test;
-      })));
+      .sessionUserControllerGetSessionUser();
   }
 
   clearLoggedInUserCache() {
     const cacheMapKey = 'getLoggedInUser';
     this.cacheMap[cacheMapKey].subject.next(null);
+  }
+
+  logout() {
+    return this
+      .meApiService
+      .sessionUserControllerLogout();
   }
 
   getAvailableRepositories(system: 'github' | 'gitlab' | 'bitbucket') {

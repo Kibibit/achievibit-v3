@@ -7,7 +7,9 @@ export interface IHealthCheckResult {
   status: 'ok' | 'error';
   info?: Record<string, any>;
   error?: Record<string, any>;
-  details?: Record<string, any>;
+  details?: {
+    [key: string]: { status: string };
+  };
 }
 
 @Injectable({
