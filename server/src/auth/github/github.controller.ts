@@ -12,6 +12,7 @@ import { JwtService } from '../jwt/jwt.service';
 @Controller('api/auth/github')
 @ApiTags('Authentication')
 export class GithubController {
+  private readonly oneDay = 1 * 24 * 60 * 60 * 1000;
   constructor(
     private readonly jwtService: JwtService
   ) {}
@@ -49,7 +50,7 @@ export class GithubController {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 3600000
+      maxAge: this.oneDay
     });
 
     // if client is NOT a browser, return the token
