@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios';
+import { ValidationError } from 'class-validator';
 import { StatusCodes } from 'http-status-codes';
 import { createSnackbar } from '@snackbar/core';
 
@@ -17,11 +18,18 @@ export class ApiErrorHandler {
     createSnackbar(message, { timeout: 5000 });
   }
 
+  private static handleValidationError(errors: ValidationError) {
+    ApiErrorHandler.showSnackbar(`Unexpected error (status: ${ errors })`);
+  }
+
   static handleError(error: AxiosError) {
     // Check for specific error statuses
     if (error.response) {
       const status = error.response.status;
       switch (status) {
+        case StatusCodes.BAD_REQUEST:
+          ApiErrorHandler.handleValidationError(error.response.data as ValidationError);
+          break;
         case StatusCodes.UNAUTHORIZED:
           ApiErrorHandler.handleUnauthorized();
           break;
