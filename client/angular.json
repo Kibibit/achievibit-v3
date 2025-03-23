@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@kibibit/achievibit-sdk"
+            ],
+            "namedChunks": true,
             "outputPath": "dist/client",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -120,6 +124,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@kibibit/achievibit-sdk"
+            ],
+            "namedChunks": true,
+            "optimization": true,
             "outputPath": {
               "base": "../server/client",
               "browser": ""
@@ -142,6 +151,7 @@
           },
           "configurations": {
             "production": {
+              "namedChunks": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -154,9 +164,12 @@
                   "maximumError": "4kb"
                 }
               ],
+              "extractLicenses": false,
+              "sourceMap": false,
               "outputHashing": "all"
             },
             "development": {
+              "namedChunks": true,
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
