@@ -6,10 +6,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SocketService {
-  private socket: Socket;
+  private socket!: Socket;
 
   constructor() {
+    this.connect();
+  }
+
+  connect(): void {
     this.socket = io(window.location.origin);
+    this.socket.on('connect', () => {
+      console.log('✅ Socket connected:', this.socket.id);
+    });
   }
 
   emit(event: string, data: any) {
@@ -27,5 +34,19 @@ export class SocketService {
         this.socket.off(event);
       };
     });
+  }
+
+  joinAchievementRoom(userId: string): void {
+    this.socket.emit('join-user-achievements', userId);
+  }
+
+  onAchievement(callback: (achievement: any) => void): void {
+    this.socket.on('new-achievement', callback);
+  }
+
+  disconnect(): void {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   }
 }
