@@ -1,35 +1,36 @@
 import { Subscription } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-import { GeneralApiService } from './services/api/general.service';
-import { HealthApiService } from './services/api/health.service';
+import { User } from '@kibibit/achievibit-sdk';
+
 import { MeApiService } from './services/api/me.service';
 import { LoaderService } from './services/loader.service';
 import { SocketService } from './services/socket.service';
+import { AchievementComponent } from './shared/achievement/achievement.component';
 
 @Component({
   selector: 'kb-root',
   standalone: true,
-  imports: [ RouterOutlet, NgIf, RouterLink, AsyncPipe ],
+  imports: [ RouterOutlet, NgIf, RouterLink, AsyncPipe, RouterLinkActive, AchievementComponent, AchievementComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
   loading$ = this.loaderService.loading$;
-  loggedInUser: any;
+  loggedInUser?: User;
   menuOpen = false;
 
   private messageSubscription: Subscription;
   messages: string[] = [];
   newMessage: string = '';
 
+  @ViewChild('userMenuDialog') userMenuDialog!: ElementRef<HTMLDialogElement>;
+
   constructor(
     private socketService: SocketService,
     private meApiService: MeApiService,
-    private generalApiService: GeneralApiService,
-    private healthApiService: HealthApiService,
     private router: Router,
     private loaderService: LoaderService
   ) {
@@ -61,6 +62,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menuOpen = true;
   }
 
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
   sendMessage() {
     this.socketService.emit('message', { text: this.newMessage });
     this.newMessage = '';
@@ -71,16 +76,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.generalApiService.getApiDetails()
-      .subscribe((data) => {
-        console.log('Api details:', data);
-      });
-
-    this.healthApiService.healthCheck()
-      .subscribe((data) => {
-        console.log('Health check:', data);
-      });
-
     this
       .meApiService
       .getLoggedInUser()
@@ -97,5 +92,12 @@ export class AppComponent implements OnInit, OnDestroy {
     //       console.log('Logged in user:', user);
     //     });
     // }, 5000);
+  }
+
+  logout() {
+    this.meApiService.logout()
+      .subscribe(() => {
+        window.location.href = '/login';
+      });
   }
 }
