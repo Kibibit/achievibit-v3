@@ -71,6 +71,14 @@ export class Achievement {
   @ApiProperty()
     avatar?: string;
 
+  @Column({ comment: 'The name of the achievement.' })
+  @ApiProperty()
+    name: string;
+
+  @Column({ comment: 'The description of the achievement.' })
+  @ApiProperty()
+    description: string;
+
   constructor(partial: Partial<Achievement>) {
     Object.assign(this, partial);
   }
