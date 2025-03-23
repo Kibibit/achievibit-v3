@@ -1,0 +1,94 @@
+<ng-container *ngIf="apiDetails$ | async as apiDetails">
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h4>API Details</h4>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>{{ apiDetails.name }}</td>
+            </tr>
+            <tr>
+              <td>Version</td>
+              <td>{{ apiDetails.version }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="healthCheck$ | async as healthCheck">
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h4>Application Health</h4>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of healthCheck.app?.details | keyvalue">
+              <td>{{ service.key }}</td>
+              <td>{{ service.value.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h4>External Apis Health</h4>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of healthCheck.externalApi?.details | keyvalue">
+              <td>{{ service.key }}</td>
+              <td>{{ service.value.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h4>DevTools Health</h4>
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of healthCheck.devTools?.details | keyvalue">
+              <td>{{ service.key }}</td>
+              <td>{{ service.value.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
