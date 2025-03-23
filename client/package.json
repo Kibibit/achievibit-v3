@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@fontsource/comfortaa": "^5.2.5",
+    "@fontsource/righteous": "^5.2.5",
     "@kibibit/achievibit-sdk": "link:../sdk",
     "@snackbar/core": "^1.7.0",
     "axios": "^1.7.7",

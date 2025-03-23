@@ -1,5 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
+html body {
+  --kb-primary-font-family: "Comfortaa", sans-serif;
+  --kb-primary-font-weight: 400;
+  --kb-primary-font-style: normal;
+  --kb-secondary-font-family: "Righteous", sans-serif;
+  --kb-secondary-font-weight: 400;
+  --kb-secondary-font-style: normal;
+}
+
+html body {
+  font-family: var(--kb-primary-font-family);
+  font-weight: var(--kb-primary-font-weight);
+  font-style: var(--kb-primary-font-style);
+}
+
 .snackbar {
   background: transparent;
   display: flex;

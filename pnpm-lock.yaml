@@ -168,6 +168,12 @@ importers:
       '@angular/router':
         specifier: ^17.3.0
         version: 17.3.12(@angular/common@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))(@angular/platform-browser@17.3.12(@angular/animations@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(@angular/common@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(rxjs@7.8.2)
+      '@fontsource/comfortaa':
+        specifier: ^5.2.5
+        version: 5.2.5
+      '@fontsource/righteous':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@kibibit/achievibit-sdk':
         specifier: link:../sdk
         version: link:../sdk
@@ -2002,6 +2008,12 @@ packages:
 
   '@fmvilas/pseudo-yaml-ast@0.3.1':
     resolution: {integrity: sha512-8OAB74W2a9M3k9bjYD8AjVXkX+qO8c0SqNT5HlgOqx7AxSw8xdksEcZp7gFtfi+4njSxT6+76ZR+1ubjAwQHOg==}
+
+  '@fontsource/comfortaa@5.2.5':
+    resolution: {integrity: sha512-qpaTCLLabFwdBIwhGEDQNrhXIDOQ0ogk6l3ZJB4FUo77/3KdeRpqrXaPznW2x9o7oIo0l02oRl2ljSM+dpKOUg==}
+
+  '@fontsource/righteous@5.2.5':
+    resolution: {integrity: sha512-2/qtpg5RXBxlxKk8BP5jI0XN/dp6EnXP9eqnhk6CHIM8bLTjYwV/xiiQJCxcWGzRFGMP71Hq8A97qLObcftJEg==}
 
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -11887,6 +11899,10 @@ snapshots:
   '@fmvilas/pseudo-yaml-ast@0.3.1':
     dependencies:
       yaml-ast-parser: 0.0.43
+
+  '@fontsource/comfortaa@5.2.5': {}
+
+  '@fontsource/righteous@5.2.5': {}
 
   '@gar/promisify@1.1.3': {}
 
