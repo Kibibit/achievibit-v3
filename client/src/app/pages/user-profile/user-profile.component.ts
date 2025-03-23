@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'kb-user-profile',
+  selector: 'kb-active-user-profile',
   standalone: true,
   imports: [ NgIf, NgFor, RouterModule ],
   templateUrl: './user-profile.component.html',
