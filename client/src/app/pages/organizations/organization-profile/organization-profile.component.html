@@ -1,0 +1,10 @@
+<div
+  *ngIf="org"
+  class="kb-user-info-container"
+>
+  <img class="kb-user-avatar circle extra" alt="user avatar" [src]="'https://github.com/' + org.name + '.png'" />
+  <div class="username">{{ org.name }}</div>
+  <div class="email">Members: {{ org.members.length }}</div>
+  <!-- <div class="email">Repositories: {{ org.repositories.length }}</div> -->
+  <div class="email">System: {{ org.system }}</div>
+</div>

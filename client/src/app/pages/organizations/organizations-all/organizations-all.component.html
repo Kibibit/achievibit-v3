@@ -1,0 +1,35 @@
+<h6>Organizations</h6>
+<div class="field label prefix">
+  <i>search</i>
+  <input type="text" id="search-orgs" [formControl]="searchControl">
+  <label for="search-orgs">Search Organizations</label>
+</div>
+<ng-container *ngIf="$orgs | async as orgs">
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>name</th>
+              <th>achievements</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let org of orgs.data">
+              <td>
+                <a
+                  routerLinkActive="fill"
+                  [routerLink]="['/orgs', org.name]"
+                >
+                  {{ org.name }}
+                </a>
+              </td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
