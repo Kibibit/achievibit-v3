@@ -1,14 +1,15 @@
 {
   "name": "@kibibit/achievibit-sdk",
-  "version": "1.7.0",
+  "version": "1.11.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
+    "generate:api": "swagger-typescript-api -p http://localhost:10102/api/docs-json -o ./src/generated --extract-enums --module-name-first-tag --modular --axios && npm version minor",
     "generate-barrels": "barrelsby --delete -d ./src -l below -q --exclude spec.ts --exclude spec.js --exclude __mocks__ && echo '> Barrels Generated'",
-    "prebuild": "npm run generate-barrels",
+    "prebuild": "rimraf dist && npm run generate:api && npm run generate-barrels",
     "build": "tsup index.ts --format esm,cjs --dts",
     "prepare": "npm run build"
   },
@@ -17,6 +18,8 @@
   "description": "",
   "devDependencies": {
     "barrelsby": "^2.8.1",
+    "rimraf": "^6.0.1",
+    "swagger-typescript-api": "^13.0.23",
     "tsup": "^8.4.0",
     "typescript": "^5.0.0"
   },
