@@ -1,0 +1,28 @@
+<button class="back-button transparent circle extra" type="button" [routerLink]="['/repos']">
+  <i class="material-symbols-outlined">
+    arrow_back
+  </i>
+</button>
+<div class="cover-image">
+  <img src="https://t4.ftcdn.net/jpg/03/86/82/73/360_F_386827376_uWOOhKGk6A4UVL5imUBt20Bh8cmODqzx.jpg" alt="cover-image" />
+</div>
+<div class="profile-content">
+  <div class="kb-user-info-container">
+    <img class="kb-user-avatar circle extra" alt="user avatar" src="https://avatar.iran.liara.run/public" />
+    <div
+      *ngIf="repo"
+      class="kb-user-info-card"
+    >
+      <div class="username larger">{{ repo.fullname }}</div>
+      <div class="email">{{ repo.url }}</div>
+      <div class="email">System: {{ repo.system }}</div>
+    </div>
+  </div>
+  <div class="achievements-container">
+    <h6 class="username">{{ repo.fullname }}</h6>
+    <kb-achievement-one-love
+      *ngIf="achievementNotification"
+      [achievement]="achievementNotification"
+    ></kb-achievement-one-love>
+  </div>
+</div>
