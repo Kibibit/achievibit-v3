@@ -24,7 +24,7 @@ export class HealthController {
   async check() {
     const healthCheckResult = await this.health.check([
       () => this.db.pingCheck('database'),
-      () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024 * 1024),
+      () => this.memory.checkHeap('memory heap', 150 * 1024 * 1024 * 1024),
       async () => this.certificateIndicator.isHealthy()
       // () => this.disk.checkStorage('storage', { path: '/', threshold: 250 * 1024 * 1024 * 1024 })
     ]);
