@@ -7,9 +7,9 @@
     "dist"
   ],
   "scripts": {
-    "generate:api": "swagger-typescript-api -p http://localhost:10102/api/docs-json -o ./src/generated --extract-enums --module-name-first-tag --modular --axios && npm version minor",
+    "generate:api": "rimraf ./src/generated && swagger-typescript-api -p http://localhost:10102/api/docs-json -o ./src/generated --extract-enums --module-name-first-tag --modular --axios && npm version minor",
     "generate-barrels": "barrelsby --delete -d ./src -l below -q --exclude spec.ts --exclude spec.js --exclude __mocks__ && echo '> Barrels Generated'",
-    "prebuild": "rimraf dist && npm run generate:api && npm run generate-barrels",
+    "prebuild": "rimraf dist && npm run generate-barrels",
     "build": "tsup index.ts --format esm,cjs --dts",
     "prepare": "npm run build"
   },
