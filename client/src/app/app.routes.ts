@@ -33,5 +33,10 @@ export const routes: Routes = [
     path: '',
     loadChildren: () => import('./pages/repositories/repositories.routes')
       .then((m) => m.repositoriesRoutes)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/pull-requests/pull-requests.routes')
+      .then((m) => m.pullRequestsRoutes)
   }
 ];
