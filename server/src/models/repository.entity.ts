@@ -69,7 +69,14 @@ export class Repository {
     () => Organization,
     (organization) => organization.repositories
   )
+  @Exclude()
   readonly organization?: Organization;
+
+  @ApiProperty({ readOnly: true })
+  @Expose()
+  get organizationName() {
+    return this.organization?.name;
+  }
 
   @Column({
     default: false
@@ -82,4 +89,4 @@ export class Repository {
   }
 }
 
-export class CreateRepository extends OmitType(Repository, [ 'id', 'createdAt' ] as const) {}
+export class CreateRepository extends OmitType(Repository, [ 'id', 'createdAt', 'organizationName' ] as const) {}
