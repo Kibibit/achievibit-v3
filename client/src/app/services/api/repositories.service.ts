@@ -5,8 +5,7 @@ import {
   ICachableService,
   ICacheMap,
   Repositories,
-  RepositoriesControllerGetReposParamsOrderEnum as OrderEnum,
-  wrapWithProxy } from '@kibibit/achievibit-sdk';
+  RepositoriesControllerGetReposParamsOrderEnum as OrderEnum, wrapWithProxy } from '@kibibit/achievibit-sdk';
 
 import { ApiErrorHandler } from './api-error-handler';
 
@@ -25,6 +24,12 @@ export class RepositoriesApiService implements ICachableService {
       (response) => this.interceptResponse(response),
       (error) => ApiErrorHandler.handleError(error)
     );
+  }
+
+  getRepoByName(owner: string, name: string) {
+    return this
+      .reposApiService
+      .repositoriesControllerGetRepo(owner, name);
   }
 
   getAllRepos(query?: { query?: string; order?: OrderEnum; page?: number; take?: number }) {

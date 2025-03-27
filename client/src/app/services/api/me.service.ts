@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { Cacheable, ICachableService, ICacheMap, SessionUser, wrapWithProxy } from '@kibibit/achievibit-sdk';
+import { Cacheable, ICachableService, ICacheMap, SessionUser, User, wrapWithProxy } from '@kibibit/achievibit-sdk';
 
 import { ApiErrorHandler } from './api-error-handler';
 
@@ -10,8 +11,10 @@ import { ApiErrorHandler } from './api-error-handler';
 })
 export class MeApiService implements ICachableService {
   private readonly meSdk = new SessionUser({});
+  private readonly noFailureSdk = new SessionUser({});
 
   private readonly meApiService = wrapWithProxy(this.meSdk);
+  private readonly noFailureApiService = wrapWithProxy(this.noFailureSdk);
 
   cacheMap: ICacheMap = {};
 
@@ -27,6 +30,12 @@ export class MeApiService implements ICachableService {
     return this
       .meApiService
       .sessionUserControllerGetSessionUser();
+  }
+
+  checkUserLoggedIn() {
+    return this
+      .noFailureApiService
+      .sessionUserControllerGetSessionUser() as Observable<User>;
   }
 
   clearLoggedInUserCache() {

@@ -1,11 +1,9 @@
 import { AxiosResponse } from 'axios';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import {
   ICachableService,
   ICacheMap,
-  Organization,
   Organizations,
   OrganizationsControllerGetOrganizationsParamsOrderEnum as OrderEnum,
   wrapWithProxy } from '@kibibit/achievibit-sdk';
@@ -32,7 +30,7 @@ export class OrganizationsApiService implements ICachableService {
   getOrganizationByName(name: string) {
     return this
       .orgsApiService
-      .organizationsControllerGetOrganization(name, { id: name }) as any as Observable<Organization>;
+      .organizationsControllerGetOrganization(name);
   }
 
   getAllOrgs(query?: { query: string; order?: OrderEnum; page?: number; take?: number }) {

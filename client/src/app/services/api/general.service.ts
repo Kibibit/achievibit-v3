@@ -25,6 +25,12 @@ export class GeneralApiService {
       .appControllerGetApiDetails();
   }
 
+  pronunciation() {
+    return console.log('test', this
+      .generalApiService
+      .appControllerGetWordPronunciation);
+  }
+
   private interceptResponse(response: AxiosResponse) {
     // createSnackbar('hello world', {
     //   timeout: 5000

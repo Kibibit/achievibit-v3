@@ -15,7 +15,7 @@ export class ValidationError {
   /**
    * Object's property that haven't pass validation.
    */
-  property: string;
+  property!: string;
   /**
    * Value that haven't pass a validation.
    *
@@ -37,6 +37,12 @@ export class ValidationError {
   };
 }
 
+export class ServerValidationError extends Error {
+  constructor(public errors: ValidationError[]) {
+    super('Validation error');
+  }
+}
+
 
 export class ApiErrorHandler {
   private static handleUnauthorized() {
@@ -53,17 +59,26 @@ export class ApiErrorHandler {
     createSnackbar(message, { timeout: 5000 });
   }
 
-  private static handleValidationError(errors: ValidationError) {
-    ApiErrorHandler.showSnackbar(`Unexpected error (status: ${ errors })`);
+  private static handleValidationError(errors: ValidationError[]) {
+    // Show the first error message
+    const error = errors[0];
+    const message = Object.values(error.constraints as object)[0];
+    // this.showSnackbar(message);
   }
 
-  static handleError(error: AxiosError) {
+  static handleError(error: AxiosError<any>) {
     // Check for specific error statuses
     if (error.response) {
       const status = error.response.status;
       switch (status) {
-        case StatusCodes.BAD_REQUEST:
-          ApiErrorHandler.handleValidationError(error.response.data as ValidationError);
+        case StatusCodes.BAD_REQUEST: ;
+          const errors = error.response.data?.message;
+          if (errors) {
+            this.handleValidationError(errors);
+            const validationError = new ServerValidationError(errors);
+
+            return Promise.reject(validationError);
+          }
           break;
         case StatusCodes.UNAUTHORIZED:
           ApiErrorHandler.handleUnauthorized();
