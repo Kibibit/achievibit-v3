@@ -1,0 +1,205 @@
+:host {
+  display: block;
+  width: 100dvw;
+  height: calc(100dvh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+header {
+  color: white;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 1em;
+  font-size: 1rem;
+  z-index: 1000;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-family: "Comfortaa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: 400;
+  font-style: normal;
+  gap: 0.5em;
+  align-items: end;
+}
+
+header .logo h1 {
+  font-family: "Righteous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+header .logo h3 {
+  margin: 0;
+  margin-bottom: 0.5em;
+  font-size: 0.8em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+header .call-to-action {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 80px;
+}
+
+header .call-to-action button {
+  font-family: "Comfortaa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: 400;
+
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-style: normal;
+  font-size: 0.75em;
+  background-color: rgba(220, 209, 233, 10%);
+  color: white;
+  border: none;
+  padding: 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+header .call-to-action button:hover {
+  background-color: rgba(220, 209, 233, 20%);
+}
+
+header .logo img {
+  height: 100%;
+  padding: 0.6em 0.6em 0.6em 0;
+}
+
+.parallax {
+  background-color: #46345D;
+  background-image: url('/assets/layers/sky.png');
+  image-rendering: pixelated;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  max-height: 100%;
+  position: relative;
+  flex-shrink: 0;
+
+  min-height: 80dvh;
+  z-index: 500;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 10px;
+}
+
+.layer {
+  --base-time: 20s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  /* set background size to match the height of the parallax container */
+  background-size: auto 100%;
+  /* repeat horizontally */
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+
+/* Pause animation on hover */
+/* .parallax:hover .layer {
+  animation-play-state: paused !important;
+} */
+
+.parallax .layer.layer-1 {
+  z-index: 1;
+  animation: scroll calc(5 * var(--base-time)) linear infinite;
+}
+
+.parallax .layer.layer-2 {
+  z-index: 2;
+  animation: scroll calc(4 * var(--base-time)) linear infinite;
+}
+
+.parallax .layer.layer-3 {
+  z-index: 3;
+  animation: scroll calc(3 * var(--base-time)) linear infinite;
+}
+
+.parallax .layer.layer-4 {
+  z-index: 4;
+  animation: scroll calc(2 * var(--base-time)) linear infinite;
+}
+
+.parallax .layer.layer-5 {
+  z-index: 5;
+  animation: scroll calc(1 * var(--base-time)) linear infinite;
+}
+
+.parallax .layer.layer-6 {
+  z-index: 6;
+}
+
+.far-clouds {
+  --image-width: 128px;
+  background-image: url('/assets/layers/far-clouds.png');
+}
+
+.near-clouds {
+  --image-width: 144px;
+  background-image: url('/assets/layers/near-clouds.png');
+}
+
+.far-mountains {
+  --image-width: 160px;
+  background-image: url('/assets/layers/far-mountains.png');
+}
+
+.mountains {
+  --image-width: 320px;
+  background-image: url('/assets/layers/mountains.png');
+}
+
+.trees {
+  --image-width: 240px;
+  background-image: url('/assets/layers/trees.png');
+}
+
+@keyframes scroll {
+  0% {
+      background-position-x: 0;
+  }
+  100% {
+      background-position-x: calc(1 * var(--scroll-width));
+  }
+}
+
+.rpg {
+  width: 100%;
+  background-color: #52865A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rpg img {
+  width: 100%;
+  max-width: 1200px;
+  image-rendering: pixelated;
+  transform: translateY(-10px);
+}
