@@ -1,10 +1,28 @@
-<div
-  *ngIf="org"
-  class="kb-user-info-container"
->
-  <img class="kb-user-avatar circle extra" alt="user avatar" [src]="'https://github.com/' + org.name + '.png'" />
-  <div class="username">{{ org.name }}</div>
-  <div class="email">Members: {{ org.members.length }}</div>
-  <!-- <div class="email">Repositories: {{ org.repositories.length }}</div> -->
-  <div class="email">System: {{ org.system }}</div>
+<button class="back-button transparent circle extra" type="button" [routerLink]="['/orgs']">
+  <i class="material-symbols-outlined">
+    arrow_back
+  </i>
+</button>
+<div class="cover-image">
+  <img src="https://t4.ftcdn.net/jpg/03/86/82/73/360_F_386827376_uWOOhKGk6A4UVL5imUBt20Bh8cmODqzx.jpg" alt="cover-image" />
+</div>
+<div class="profile-content">
+  <div class="kb-user-info-container">
+    <img class="kb-user-avatar circle extra" alt="user avatar" [src]="'https://github.com/' + org.name + '.png'" />
+    <div
+      *ngIf="org"
+      class="kb-user-info-card"
+    >
+      <div class="username larger">{{ org.name }}</div>
+      <div class="email">Members: {{ org.members.length }}</div>
+      <div class="email">System: {{ org.system }}</div>
+    </div>
+  </div>
+  <div class="achievements-container">
+    <h6 class="username">{{ org.name }}</h6>
+    <kb-achievement-one-love
+      *ngIf="achievementNotification"
+      [achievement]="achievementNotification"
+    ></kb-achievement-one-love>
+  </div>
 </div>

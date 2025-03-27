@@ -1,8 +1,13 @@
 <h6>Organizations</h6>
-<div class="field label prefix">
+<div class="field label prefix"  [class.invalid]="searchControl.invalid && (searchControl.touched || searchControl.dirty)">
   <i>search</i>
   <input type="text" id="search-orgs" [formControl]="searchControl">
   <label for="search-orgs">Search Organizations</label>
+  <ng-container *ngIf="searchControlErrors$ | async as searchControl">
+    <span *ngIf="searchControlErrors$ | async as searchControlErrors" class="error">
+    {{ searchControlErrors | firstError }}
+  </span>
+  </ng-container>
 </div>
 <ng-container *ngIf="$orgs | async as orgs">
   <div class="container">
