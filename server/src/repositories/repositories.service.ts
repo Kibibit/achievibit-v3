@@ -22,6 +22,7 @@ export class RepositoriesService {
   ) {
     const [ entities, itemCount ] = await this.reposRepository.findAndCount({
       where,
+      relations: [ 'organization' ],
       // Sorting by createdAt field
       order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,
@@ -33,9 +34,12 @@ export class RepositoriesService {
     return new PageModel(entities, pageMeta);
   }
 
-  async findById(name: string) {
+  async findByFullname(owner: string, name: string) {
     return await this.reposRepository.findOne({
-      where: { name }
+      where: {
+        name,
+        fullname: `${owner}/${name}`
+      }
     });
   }
 

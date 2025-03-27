@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,15 +9,15 @@ import { CreatePullRequest, PageMetaModel, PageModel, PageOptionsModel, PrStatus
 export class PullRequestsService {
   constructor(
     @InjectRepository(PullRequest)
-    private readonly orgsRepository: Repository<PullRequest>
+    private readonly prsRepository: Repository<PullRequest>
   ) {}
 
-  create(repo: CreatePullRequest) {
-    return this.orgsRepository.save(repo);
+  create(createPrPayload: CreatePullRequest) {
+    return this.prsRepository.save(createPrPayload);
   }
 
   createMock() {
-    return this.orgsRepository.save(new PullRequest({
+    return this.prsRepository.save(new PullRequest({
       title: 'test',
       system: SystemEnum.GITHUB,
       description: 'test',
@@ -45,9 +45,11 @@ export class PullRequestsService {
   }
 
   async findAll(
-    pageOptions: PageOptionsModel
+    pageOptions: PageOptionsModel,
+    where: ObjectLiteral | FindOptionsWhere<PullRequest> | FindOptionsWhere<PullRequest>[] = {}
   ) {
-    const [ entities, itemCount ] = await this.orgsRepository.findAndCount({
+    const [ entities, itemCount ] = await this.prsRepository.findAndCount({
+      where,
       // Sorting by createdAt field
       order: { createdAt: pageOptions.order },
       skip: pageOptions.skip,
@@ -59,9 +61,9 @@ export class PullRequestsService {
     return new PageModel(entities, pageMeta);
   }
 
-  async findById(name: string) {
-    return await this.orgsRepository.findOne({
-      where: { name }
+  async findById(id: string) {
+    return await this.prsRepository.findOne({
+      where: { id }
     });
   }
 }
