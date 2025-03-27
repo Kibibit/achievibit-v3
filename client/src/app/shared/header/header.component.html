@@ -1,0 +1,63 @@
+<header>
+  <nav style="gap: 0.5em; --outline-variant: transparent;">
+    <!-- <button class="circle transparent">
+      <i>menu</i>
+    </button> -->
+    <kb-achievibit-logo></kb-achievibit-logo>
+    <a class="chip" routerLinkActive="fill" [routerLink]="['/repos']">Repositories</a>
+    <a class="chip" routerLinkActive="fill" [routerLink]="['/users']">Users</a>
+    <a class="chip" routerLinkActive="fill" [routerLink]="['/orgs']">Organizations</a>
+    <!-- expose to admins only -->
+    <!-- <a class="chip" routerLinkActive="fill" [routerLink]="['/prs']">Pull Requests</a> -->
+    <div class="max"></div>
+    <ng-container *ngIf="!hideUserState">
+      <ng-container *ngIf="loggedInUser; else login">
+        <kb-user-lives [currentLives]="3"></kb-user-lives>
+        <button class="circle transparent" type="button" (click)="openMenu()">
+          <img class="responsive" alt="user avatar" [src]="loggedInUser.avatar">
+          <menu class="left no-wrap">
+            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/overview']">
+              <i class="material-symbols-outlined">
+                person
+              </i>
+              <span>Your Profile</span>
+            </a>
+            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/integrations']">
+              <i class="material-symbols-outlined">
+                integration_instructions
+              </i>
+              <span>Integrations</span>
+            </a>
+            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/settings']">
+              <i class="material-symbols-outlined">
+                settings
+              </i>
+              <span>Settings</span>
+            </a>
+            <hr class="small">
+            <a class="row" routerLinkActive="fill" [routerLink]="['/app-status']">
+              <i class="material-symbols-outlined">
+                heart_check
+              </i>
+              <span>Achievibit Status</span>
+            </a>
+            <hr class="small">
+            <a class="row" tabindex="0" (click)="logout()" (keydown.enter)="logout()">
+              <i class="material-symbols-outlined">
+                logout
+              </i>
+              <span>Sign out</span>
+            </a>
+          </menu>
+        </button>
+      </ng-container>
+    </ng-container>
+    <ng-template #login>
+      <a class="chip" href="/login">
+        <i>login</i>
+        Login
+      </a>
+    </ng-template>
+  </nav>
+</header>
+<progress *ngIf="loading$ | async" class="orange-text"></progress>

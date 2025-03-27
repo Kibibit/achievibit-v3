@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  position: relative;
+  margin-right: 1em;
+}
+
+button.how-to-say {
+  position: absolute;
+  top: 0;
+  right: 0;
+  scale: 50%;
+  transform: translate3d(calc(2* 90%), calc(-2* 60%), 0);
+}
+
+.logo {
+  height: 30px;
+  margin-right: 0.2em;
+}

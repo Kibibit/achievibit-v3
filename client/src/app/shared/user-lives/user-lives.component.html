@@ -1,0 +1,12 @@
+<!-- show 3 full hearts-->
+<ng-container *ngFor="let num of [].constructor(currentLives); let i = index">
+  <i class="material-symbols-outlined fill" style="color: rgb(174, 23, 96); margin: 0 1px;">
+    favorite
+  </i>
+</ng-container>
+<!-- show 1 empty hearts -->
+<ng-container *ngFor="let num of [].constructor(emptyLives); let i = index">
+  <i class="material-symbols-outlined" style="color: rgb(174, 23, 96); margin: 0 1px;">
+    favorite
+  </i>
+</ng-container>

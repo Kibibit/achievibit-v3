@@ -28,7 +28,7 @@ export class AchievementComponent implements OnInit {
 
     this.socketService.joinAchievementRoom(this.username);
 
-    this.socketService.onAchievement((achievement) => {
+    this.socketService.onAchievement(this.username, (achievement) => {
       console.log(`🎖️ New achievement for ${ this.username }:`, achievement);
 
       // create an id based on achievement name and created at
