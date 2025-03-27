@@ -1,5 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ApiOkResponsePaginated } from '@kb-decorators';
 import { PageOptionsModel, Repository } from '@kb-models';
@@ -32,14 +32,18 @@ export class RepositoriesController {
     return await this.repositoriesService.findAll(pageOptions);
   }
 
-  @Get(':id')
+  @Get(':owner/:name')
   @ApiOperation({
-    summary: 'Get repository by id',
-    description: 'Returns a repository by its id'
+    summary: 'Get repository by fullname',
+    description: 'Returns a repository by its fullname'
+  })
+  @ApiOkResponse({
+    type: Repository
   })
   async getRepo(
-    @Query('id') id: string
+    @Param('owner') owner: string,
+    @Param('name') name: string
   ) {
-    return await this.repositoriesService.findById(id);
+    return await this.repositoriesService.findByFullname(owner, name);
   }
 }

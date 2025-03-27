@@ -1,5 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ApiOkResponsePaginated } from '@kb-decorators';
 import { Organization, PageOptionsModel } from '@kb-models';
@@ -33,8 +33,11 @@ export class OrganizationsController {
     summary: 'Get repository by id',
     description: 'Returns a pull requests by its id'
   })
+  @ApiOkResponse({
+    type: Organization
+  })
   async getOrganization(
-    @Query('id') id: string
+    @Param('id') id: string
   ) {
     return await this.organizationsService.findById(id);
   }
