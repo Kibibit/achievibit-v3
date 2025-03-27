@@ -1,0 +1,52 @@
+<h6>Pull Requests</h6>
+<div class="field label prefix"  [class.invalid]="searchControl.invalid && (searchControl.touched || searchControl.dirty)">
+  <i>search</i>
+  <input type="text" id="search-orgs" [formControl]="searchControl">
+  <label for="search-orgs">Search Pull Requests</label>
+  <ng-container *ngIf="searchControlErrors$ | async as searchControl">
+    <span *ngIf="searchControlErrors$ | async as searchControlErrors" class="error">
+    {{ searchControlErrors | firstError }}
+  </span>
+  </ng-container>
+</div>
+<ng-container *ngIf="$prs | async as prs">
+  <ng-container *ngIf="prs.meta.itemCount !== 0; else noPrs">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>achievements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pr of prs.data">
+                <td>
+                  <a
+                    routerLinkActive="fill"
+                    [routerLink]="['/prs', pr.id]"
+                  >
+                    {{ pr.id }}
+                  </a>
+                </td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noPrs>
+    <article class="medium middle-align center-align">
+      <div>
+        <i class="extra">sentiment_very_dissatisfied</i>
+        <h5>there are no PRs currently</h5>
+        <p>Click the button to start a conversation</p>
+        <div class="space"></div>
+      </div>
+    </article>
+  </ng-template>
+</ng-container>
