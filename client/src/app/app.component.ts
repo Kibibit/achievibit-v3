@@ -1,23 +1,43 @@
+import { StatusCodes } from 'http-status-codes';
 import { Subscription } from 'rxjs';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { User } from '@kibibit/achievibit-sdk';
 
 import { MeApiService } from './services/api/me.service';
+import { AuthService } from './services/auth.service';
 import { LoaderService } from './services/loader.service';
 import { SocketService } from './services/socket.service';
 import { AchievementComponent } from './shared/achievement/achievement.component';
+import { AchievibitLogoComponent } from './shared/achievibit-logo/achievibit-logo.component';
+import { KbHasRoleDirective } from './shared/directives/has-role.directive';
+import { HeaderComponent } from './shared/header/header.component';
+import { UserLivesComponent } from './shared/user-lives/user-lives.component';
 
 @Component({
   selector: 'kb-root',
   standalone: true,
-  imports: [ RouterOutlet, NgIf, RouterLink, AsyncPipe, RouterLinkActive, AchievementComponent, AchievementComponent ],
+  imports: [
+    RouterOutlet,
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+    RouterLinkActive,
+    AchievementComponent,
+    AchievementComponent,
+    NgFor,
+    KbHasRoleDirective,
+    AchievibitLogoComponent,
+    UserLivesComponent,
+    HeaderComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
+  hideUserState: boolean = true;
   loading$ = this.loaderService.loading$;
   loggedInUser?: User;
   menuOpen = false;
@@ -32,7 +52,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private socketService: SocketService,
     private meApiService: MeApiService,
     private router: Router,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private readonly authService: AuthService
   ) {
     this.messageSubscription = this.socketService
       .on('ping')
@@ -40,30 +61,6 @@ export class AppComponent implements OnInit, OnDestroy {
         // this.messages.push(data.text);
         console.log('Received ping message:', data);
       });
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.menuOpen = false;
-      }
-
-      if (event instanceof NavigationStart) {
-        this.loaderService.show();
-      } else if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationCancel ||
-        event instanceof NavigationError
-      ) {
-        this.loaderService.hide();
-      }
-    });
-  }
-
-  openMenu() {
-    this.menuOpen = true;
-  }
-
-  closeMenu() {
-    this.menuOpen = false;
   }
 
   sendMessage() {
@@ -76,28 +73,28 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // do I even need this here? if I move the navbar element into a component,
+    // I can just hide it there and only redirect to login if the user tries to
+    // access a page that requires authentication
     this
       .meApiService
-      .getLoggedInUser()
-      .subscribe((user) => {
-        this.loggedInUser = user;
-      });
+      .checkUserLoggedIn()
+      .subscribe({
+        next: (user) => {
+          this.authService.setUser(user);
+          this.loggedInUser = user;
+          this.hideUserState = false;
+        },
+        error: (error: { status: number; message: string }) => {
+          this.hideUserState = false;
+          if (error.status === StatusCodes.UNAUTHORIZED) {
+            console.log('User not logged in:');
+            return;
+          }
 
-    // TESTING: Uncomment to test cache
-    // setInterval(() => {
-    //   this
-    //     .meApiService
-    //     .getLoggedInUser()
-    //     .subscribe((user) => {
-    //       console.log('Logged in user:', user);
-    //     });
-    // }, 5000);
-  }
-
-  logout() {
-    this.meApiService.logout()
-      .subscribe(() => {
-        window.location.href = '/login';
+          // Handle other errors
+          window.location.href = '/login';
+        }
       });
   }
 }
