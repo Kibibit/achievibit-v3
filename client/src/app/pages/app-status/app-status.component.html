@@ -1,94 +1,68 @@
-<ng-container *ngIf="apiDetails$ | async as apiDetails">
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h4>API Details</h4>
-        <table class="striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>{{ apiDetails.name }}</td>
-            </tr>
-            <tr>
-              <td>Version</td>
-              <td>{{ apiDetails.version }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="padding">
+<div class="container">
+  <h4>Application Status</h4>
+  <div class="grid">
+    <ng-container *ngIf="socketConnectionStatus$ | async as socketConnectionStatus">
+    <article class="s3">
+      <div class="status-name">Socket Connection</div>
+      <span *ngIf="socketConnectionStatus.connected; else disconnected">
+        <p class="status kb-up"><i class="material-symbols-outlined">radio_button_checked</i> Connected</p>
+      </span>
+      <ng-template #disconnected>
+        <p class="status kb-down"><i class="material-symbols-outlined">radio_button_unchecked</i> Disconnected</p>
+      </ng-template>
+    </article>
+    </ng-container>
+    <ng-container *ngIf="healthCheck$ | async as healthCheck">
+      <article *ngFor="let service of healthCheck.app?.details | keyvalue" class="s3">
+        <div class="status-name">{{ service.key }}</div>
+        <span *ngIf="service.value.status === 'up'; else disconnected">
+          <p class="status kb-up"><i class="material-symbols-outlined">radio_button_checked</i> OK</p>
+        </span>
+        <ng-template #disconnected>
+          <p class="status kb-down"><i class="material-symbols-outlined">radio_button_unchecked</i> ERROR</p>
+        </ng-template>
+      </article>
+    </ng-container>
+    <ng-container *ngIf="apiDetails$ | async as apiDetails">
+      <article class="s3">
+        <div class="status-name">Version</div>
+        <span>
+          <p class="status kb-up">{{ apiDetails.version }}</p>
+        </span>
+      </article>
+    </ng-container>
   </div>
-</ng-container>
-<ng-container *ngIf="healthCheck$ | async as healthCheck">
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h4>Application Health</h4>
-        <table class="striped">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let service of healthCheck.app?.details | keyvalue">
-              <td>{{ service.key }}</td>
-              <td>{{ service.value.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+</div>
+<div class="container">
+  <h4>External Apis Health</h4>
+  <div class="grid">
+    <ng-container *ngIf="healthCheck$ | async as healthCheck">
+      <article *ngFor="let service of healthCheck.externalApi?.details | keyvalue" class="s3">
+        <div class="status-name">{{ service.key }}</div>
+        <span *ngIf="service.value.status === 'up'; else disconnected">
+          <p class="status kb-up"><i class="material-symbols-outlined">radio_button_checked</i> OK</p>
+        </span>
+        <ng-template #disconnected>
+          <p class="status kb-down"><i class="material-symbols-outlined">radio_button_unchecked</i> ERROR</p>
+        </ng-template>
+      </article>
+    </ng-container>
   </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h4>External Apis Health</h4>
-        <table class="striped">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let service of healthCheck.externalApi?.details | keyvalue">
-              <td>{{ service.key }}</td>
-              <td>{{ service.value.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+</div>
+<div class="container">
+  <h4>DevTools Health</h4>
+  <div class="grid">
+    <ng-container *ngIf="healthCheck$ | async as healthCheck">
+      <article *ngFor="let service of healthCheck.devTools?.details | keyvalue" class="s3">
+        <div class="status-name">{{ service.key }}</div>
+        <span *ngIf="service.value.status === 'up'; else disconnected">
+          <p class="status kb-up"><i class="material-symbols-outlined">radio_button_checked</i> OK</p>
+        </span>
+        <ng-template #disconnected>
+          <p class="status kb-down"><i class="material-symbols-outlined">radio_button_unchecked</i> ERROR</p>
+        </ng-template>
+      </article>
+    </ng-container>
   </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h4>DevTools Health</h4>
-        <table class="striped">
-          <thead>
-            <tr>
-              <th>Service</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let service of healthCheck.devTools?.details | keyvalue">
-              <td>{{ service.key }}</td>
-              <td>{{ service.value.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</ng-container>
+</div>

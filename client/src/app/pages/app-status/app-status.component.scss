@@ -1,0 +1,34 @@
+article {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  .status-name {
+    flex-grow: 1;
+    text-transform:capitalize;
+    text-align: center;
+  }
+}
+
+.container {
+  padding-bottom: 1em;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  gap: 0.5em;
+
+  &.kb-up {
+    color: var(--success, green);
+  }
+
+  &.kb-down {
+    color: var(--danger, red);
+  }
+
+  i {
+    transform: translateY(-1px);
+  }
+}
