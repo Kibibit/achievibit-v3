@@ -12,7 +12,7 @@ export class CertificateHealthIndicator extends HealthIndicator {
 
   async isHealthy(): Promise<HealthIndicatorResult> {
     if (this.isLocalhost(this.domain)) {
-      return this.getStatus('ssl-certificate', true, {
+      return this.getStatus('ssl certificate', true, {
         status: 'up',
         message: 'SSL check skipped for localhost'
       });
@@ -31,14 +31,14 @@ export class CertificateHealthIndicator extends HealthIndicator {
       }
 
       if (daysRemaining <= this.warningThresholdDays) {
-        return this.getStatus('ssl-certificate', true, {
+        return this.getStatus('ssl certificate', true, {
           status: 'warning',
           message: `SSL certificate will expire in ${daysRemaining} days`,
           expiryDate: expiryDate.toISOString(),
         });
       }
 
-      return this.getStatus('ssl-certificate', true, {
+      return this.getStatus('ssl certificate', true, {
         status: 'up',
         expiryDate: expiryDate.toISOString(),
       });
