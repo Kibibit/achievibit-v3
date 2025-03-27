@@ -17,6 +17,8 @@ import { Achievement } from './achievement.entity';
 import { Integration } from './Integration.entity';
 import { Organization } from './organization.entity';
 import { UserSettings } from './user-settings.entity';
+import { Role } from './authorization/roles.enum';
+import { Permission } from './authorization/permissions.enum';
 
   @Entity('users', {
     comment: [
@@ -54,6 +56,32 @@ export class User {
     @Expose({ groups: [ 'admin', 'self' ] })
     @ApiProperty()
       isOnboarded: boolean;
+
+    @Expose({ groups: [ 'admin', 'self' ] })
+    @Column({
+      type: 'enum',
+      enum: Role,
+      array: true,
+      default: [ Role.USER ]
+    })
+    @ApiProperty({
+      enum: Role,
+      isArray: true
+    })
+    roles: Role[];
+
+    @Expose({ groups: [ 'admin', 'self' ] })
+    // @Column({
+    //   type: 'enum',
+    //   enum: Permission,
+    //   array: true,
+    //   default: []
+    // })
+    @ApiProperty({
+      enum: Permission,
+      isArray: true
+    })
+    permissions: Permission[];
 
     @OneToMany(
       () => Integration,
@@ -130,4 +158,4 @@ export class User {
     }
 }
 
-export class CreateUser extends OmitType(User, [ 'id', 'createdAt', 'settings' ] as const) {}
+export class CreateUser extends OmitType(User, [ 'id', 'createdAt', 'settings', 'permissions' ] as const) {}
