@@ -8,10 +8,10 @@ describe('PullRequestProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PullRequestProfileComponent]
+      imports: [ PullRequestProfileComponent ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PullRequestProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

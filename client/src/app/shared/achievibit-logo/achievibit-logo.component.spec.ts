@@ -8,10 +8,10 @@ describe('AchievibitLogoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AchievibitLogoComponent]
+      imports: [ AchievibitLogoComponent ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(AchievibitLogoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
