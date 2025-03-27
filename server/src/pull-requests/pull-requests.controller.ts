@@ -7,6 +7,7 @@ import { JwtAuthGuard } from '@kb-guards';
 import { PageOptionsModel, PullRequest } from '@kb-models';
 
 import { PullRequestsService } from './pull-requests.service';
+import { ILike } from 'typeorm';
 
 @Controller('api/prs')
 @ApiTags('Pull Requests')
@@ -29,7 +30,9 @@ export class PullRequestsController {
   async getPullRequestsDev(
     @Query() pageOptions: PageOptionsModel
   ) {
-    return await this.pullRequestsService.findAll(pageOptions);
+    return await this.pullRequestsService.findAll(pageOptions, {
+      name: ILike(`%${pageOptions.query}%`)
+    });
   }
 
   @Get(':id')
