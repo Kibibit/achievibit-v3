@@ -1,0 +1,73 @@
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // height: calc(100dvh - 64px);
+  // gradient dark purple colors
+  background: linear-gradient(135deg, #2b5876, #4e4376);
+  overflow-y: auto;
+}
+
+.cover-image {
+  width: 100%;
+  height: 250px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.profile-content {
+  display: flex;
+  flex-grow: 1;
+
+  .kb-user-info-container {
+    // background: pink;
+    width: 300px;
+    padding: 0 1em 1em;
+    transform: translate3d(0, calc(-150px - 1em), 0);
+  }
+
+  .achievements-container {
+    // background: green;
+    min-width: 10px;
+    flex-grow: 1;
+    padding: 1em;
+  }
+}
+
+.kb-user-avatar {
+  width: calc(300px - 2em);
+  height: calc(300px - 2em);
+  border-radius: 30px;
+}
+
+.kb-user-info-card {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  border-radius: 0.5em;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  color: black;
+  padding: 2em 1em 1em;
+  min-height: 400px;
+  margin-top: 1em;
+}
+
+.username {
+  font-weight: bold;
+
+  &.larger {
+    font-size: 1.2em;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}

@@ -1,8 +1,28 @@
-<div
-  *ngIf="user"
-  class="kb-user-info-container"
->
-  <img class="kb-user-avatar circle extra" alt="user avatar" [src]="user.avatar" />
-  <div class="username">{{ user.username }}</div>
-  <div class="email">{{ user.email }}</div>
+<button class="back-button transparent circle extra" type="button" [routerLink]="['/users']">
+  <i class="material-symbols-outlined">
+    arrow_back
+  </i>
+</button>
+<div class="cover-image">
+  <img src="https://t4.ftcdn.net/jpg/03/86/82/73/360_F_386827376_uWOOhKGk6A4UVL5imUBt20Bh8cmODqzx.jpg" alt="cover-image" />
+</div>
+<div class="profile-content">
+  <div class="kb-user-info-container">
+    <img class="kb-user-avatar circle extra" alt="user avatar" [src]="user.avatar" />
+    <div
+      *ngIf="user"
+      class="kb-user-info-card"
+    >
+      <div class="username larger">{{ user.username }}</div>
+      <p>{{ 'Project Tech-Lead & DX Manager @ GrowthSpace ++ Manager \ Tech-Lead \ DX system design @ kibibit (opensource)' }}</p>
+      <div class="email">{{ user.email }}</div>
+    </div>
+  </div>
+  <div class="achievements-container">
+    <h6 class="username">{{ user.username }}</h6>
+    <kb-achievement-one-love
+      *ngIf="achievementNotification"
+      [achievement]="achievementNotification"
+    ></kb-achievement-one-love>
+  </div>
 </div>
