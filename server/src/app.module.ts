@@ -26,9 +26,16 @@ import { WebhooksModule } from '@kb-webhooks';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
+    PrometheusModule.register({
+      path: "/api/metrics",
+      defaultLabels: {
+        app: "achievibit-v3"
+      }
+    }),
     DevtoolsModule.register({
       http: configService.config.NODE_ENV !== 'production'
     }),
