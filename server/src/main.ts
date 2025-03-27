@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import { WinstonModule } from 'nest-winston';
 
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
@@ -36,7 +36,15 @@ async function bootstrap() {
     }
   );
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+    exceptionFactory: (errors) => {
+      // Pass the raw ValidationError[] into the exception
+      return new BadRequestException(errors);
+    },
+  }));
   // app.useGlobalInterceptors(new ErrorLoggingInterceptor());
   // app.useGlobalFilters(new HttpExceptionFilter());
 
