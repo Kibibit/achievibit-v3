@@ -13,13 +13,8 @@ ENV HUSKY_SKIP_HOOKS=true
 # Set the working directory
 WORKDIR /app
 
-# Copy package and lock files for both client and server
-COPY ./client/package.json ./client/pnpm-lock.yaml ./client/
-COPY ./server/package.json ./server/pnpm-lock.yaml ./server/
-
-# Install dependencies
-RUN cd client && pnpm install
-RUN cd server && pnpm install
+COPY . .
+RUN pnpm install
 
 # Copy the rest of the application code
 COPY ./client ./client
