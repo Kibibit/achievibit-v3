@@ -3,9 +3,11 @@ import { Server, Socket } from 'socket.io';
 import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Achievement } from '@kb-models';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { Logger } from '@kb-config';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: { origin: true, credentials: true } })
 export class EventsGateway {
+  private readonly logger = new Logger(EventsGateway.name);
   @WebSocketServer()
     server: Server;
 
@@ -21,42 +23,65 @@ export class EventsGateway {
 
   @SubscribeMessage('join-user-achievements')
   handleJoinUserAchievements(@ConnectedSocket() client: Socket, @MessageBody() username: string) {
-    console.log(`User ${ client.id } joined achievements room for ${ username }`);
+    this.logger.debug(`User JOINED user achievement's room`, {
+      roomUsername: username,
+      clientUserId: client.id
+    });
     client.join(`user-achievements:${ username }`);
   }
 
   @SubscribeMessage('leave-user-achievements')
   handleLeaveUserAchievements(@ConnectedSocket() client: Socket, @MessageBody() username: string) {
-    console.log(`User ${ client.id } left achievements room for ${ username }`);
+    this.logger.debug(`User LEFT user achievement's room`, {
+      roomUsername: username,
+      clientUserId: client.id
+    });
     client.leave(`user-achievements:${ username }`);
   }
 
   @SubscribeMessage('join-organization-achievements')
   handleJoinOrganizationAchievements(@ConnectedSocket() client: Socket, @MessageBody() orgName: string) {
-    console.log(`User ${ client.id } joined achievements room for organization ${ orgName }`);
+    this.logger.debug(`User JOINED organization achievement's room`, {
+      roomOrgName: orgName,
+      clientUserId: client.id
+    });
     client.join(`organization-achievements:${ orgName }`);
   }
 
   @SubscribeMessage('leave-organization-achievements')
   handleLeaveOrganizationAchievements(@ConnectedSocket() client: Socket, @MessageBody() orgName: string) {
-    console.log(`User ${ client.id } left achievements room for organization ${ orgName }`);
+    this.logger.debug(`User LEFT organization achievement's room`, {
+      roomUsername: orgName,
+      clientUserId: client.id
+    });
     client.leave(`organization-achievements:${ orgName }`);
   }
 
   @SubscribeMessage('join-repository-achievements')
   handleJoinRepositoryAchievements(@ConnectedSocket() client: Socket, @MessageBody() repoId: string) {
-    console.log(`User ${ client.id } joined achievements room for repository ${ repoId }`);
+    this.logger.debug(`User JOINED repository achievement's room`, {
+      roomRepoId: repoId,
+      clientUserId: client.id
+    });
     client.join(`repository-achievements:${ repoId }`);
   }
 
   @SubscribeMessage('leave-repository-achievements')
   handleLeaveRepositoryAchievements(@ConnectedSocket() client: Socket, @MessageBody() repoId: string) {
-    console.log(`User ${ client.id } left achievements room for repository ${ repoId }`);
+    this.logger.debug(`User LEFT repository achievement's room`, {
+      roomRepoId: repoId,
+      clientUserId: client.id
+    });
     client.leave(`repository-achievements:${ repoId }`);
   }
 
   async sendPingMessage() {
-    console.log('Sending ping message to all clients...');
+    if (!this.server) {
+      this.logger.error('Socket server is not initialized');
+      return;
+    }
+
+    this.logger.debug('Sending ping message to all clients...');
     this.server.emit('ping', 'dev check');
   }
 
@@ -73,47 +98,71 @@ export class EventsGateway {
   }
 
   // TODO: Remove this method when done testing
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async testAchievementEvent() {
-    console.log('Sending test achievement event');
-    this.sendAchievementToUser('thatkookooguy', {
+    const username = 'thatkookooguy';
+    const mockAchievement = {
       id: 'test-achievement',
       avatar: 'https://github.com/kibibit.png',
       name: `Test Achievement ${ Math.round(Math.random() * 100000000) }`,
       description: 'This is a test achievement',
+    };
+
+    this.logger.debug(`Sending test USER achievement event`, {
+      username,
+      mockAchievement
     });
+    this.sendAchievementToUser(username, mockAchievement);
   }
 
-  @Cron(CronExpression.EVERY_30_SECONDS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async testAchievementEvent2() {
-    console.log('Sending test achievement event');
-    this.sendAchievementToUser('k1b1b0t', {
+    const username = 'k1b1b0t';
+    const mockAchievement = {
       id: 'test-another-achievement',
       avatar: 'https://github.com/k1b1b0t.png',
       name: `ANOTHER Achievement  ${ Math.round(Math.random() * 100000000) }`,
       description: 'This is a test achievement',
+    };
+
+    this.logger.debug(`Sending test USER achievement event`, {
+      username,
+      mockAchievement
     });
+    this.sendAchievementToUser(username, mockAchievement);
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async testAchievementEvent3() {
-    console.log('Sending test achievement event');
-    this.sendAchievementToOrg('Kibibit', {
+    const orgName = 'Kibibit';
+    const mockAchievement = {
       id: 'test-another-achievement',
       avatar: 'https://github.com/k1b1b0t.png',
       name: `ORG Achievement ${ Math.round(Math.random() * 100000000) }`,
       description: 'This is a test achievement',
+    };
+
+    this.logger.debug(`Sending test ORG achievement event`, {
+      orgName,
+      mockAchievement
     });
+    this.sendAchievementToOrg(orgName, mockAchievement);
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_MINUTE)
   async testAchievementEvent4() {
-    console.log('Sending test achievement event');
-    this.sendAchievementToRepo('Kibibit/404', {
+    const repoFullname = 'Kibibit/404';
+    const mockAchievement = {
       id: 'test-another-achievement',
-      avatar: 'https://github.com/k1b1b0t.png',
-      name: `ORG Achievement ${ Math.round(Math.random() * 100000000) }`,
+      avatar: 'https://picsum.photos/seed/404/100',
+      name: `REPO Achievement ${ Math.round(Math.random() * 100000000) }`,
       description: 'This is a test achievement',
+    };
+
+    this.logger.debug(`Sending test REPO achievement event`, {
+      repoFullname,
+      mockAchievement
     });
+    this.sendAchievementToRepo(repoFullname, mockAchievement);
   }
 }
