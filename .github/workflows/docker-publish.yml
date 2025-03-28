@@ -40,4 +40,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: thatkookooguy/achievibit-v3:latest
+          tags: kibibit/achievibit-v3:latest

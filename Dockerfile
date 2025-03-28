@@ -24,7 +24,7 @@ COPY ./server ./server
 COPY ./server/login-app ./server/login-app
 
 # Build the client application
-RUN cd client && pnpm run build
+RUN cd client && pnpm run build:prod
 
 # Build the server application
 RUN cd server && pnpm run build
