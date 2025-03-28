@@ -25,8 +25,6 @@ RUN cd server && pnpm install
 COPY ./client ./client
 COPY ./server ./server
 
-# Copy the achievibit-beta.private-key.pem file from the server root
-COPY ./server/achievibit-beta.private-key.pem ./server
 # Copy server/login-app folder
 COPY ./server/login-app ./server/login-app
 
