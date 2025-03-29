@@ -52,7 +52,8 @@
   "remoteEnv": {
     "NODE_ENV": "devcontainer",
     "PUPPETEER_SKIP_DOWNLOAD": "false",
-    "HUSKY": "1"
+    "HUSKY": "1",
+    "TZ": "Asia/Jerusalem"
   },
   "runServices": [
     "db"
