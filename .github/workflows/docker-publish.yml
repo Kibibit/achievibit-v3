@@ -29,7 +29,8 @@ jobs:
         run: |
           cd server
           pnpm version prerelease --preid=beta
-          echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_ENV
           cd ..
 
       - name: Install dependencies
