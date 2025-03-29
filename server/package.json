@@ -1,6 +1,6 @@
 {
   "name": "@kibibit/achievibit-backend",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.0",
   "description": "Achievements & Gamification for Cloud Git Systems",
   "author": "thatkookooguy <neilkalman@gmail.com>",
   "private": true,
