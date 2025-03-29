@@ -10,31 +10,43 @@
   </ng-container>
 </div>
 <ng-container *ngIf="$orgs | async as orgs">
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <table class="striped">
-          <thead>
-            <tr>
-              <th>name</th>
-              <th>achievements</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let org of orgs.data">
-              <td>
-                <a
-                  routerLinkActive="fill"
-                  [routerLink]="['/orgs', org.name]"
-                >
-                  {{ org.name }}
-                </a>
-              </td>
-              <td>0</td>
-            </tr>
-          </tbody>
-        </table>
+  <ng-container *ngIf="orgs.meta.itemCount !== 0; else emptyResults">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>name</th>
+                <th>achievements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let org of orgs.data">
+                <td>
+                  <a
+                    routerLinkActive="fill"
+                    [routerLink]="['/orgs', org.name]"
+                  >
+                    {{ org.name }}
+                  </a>
+                </td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #emptyResults>
+    <article class="medium middle-align center-align">
+      <div>
+        <i class="extra">sentiment_very_dissatisfied</i>
+        <h5>there are no results for the current query</h5>
+        <p>Try and change things a bit?</p>
+        <div class="space"></div>
+      </div>
+    </article>
+  </ng-template>
 </ng-container>

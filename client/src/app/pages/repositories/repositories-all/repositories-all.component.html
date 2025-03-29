@@ -10,37 +10,49 @@
   </ng-container>
 </div>
 <ng-container *ngIf="$repositories | async as repositories">
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <table class="striped">
-          <thead>
-            <tr>
-              <th>Repository</th>
-              <th>Git Cloud</th>
-              <th>Owner</th>
-              <th>Organization</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let repository of repositories.data">
-              <td>
-                <a
-                  routerLinkActive="fill"
-                  [routerLink]="['/repos', repository.fullname]"
-                >
-                {{ repository.fullname }}
-                </a>
-              </td>
-              <td class="kb-center">
-                <img alt="github" style="filter: invert(1); width: 25px; height: 25px;" [src]="'https://simpleicons.org/icons/' + repository.system + '.svg'" />
-              </td>
-              <td>{{ repository.owner.username }}</td>
-              <td>{{ repository.organizationName }}</td>
-            </tr>
-          </tbody>
-        </table>
+  <ng-container *ngIf="repositories.meta.itemCount !== 0; else emptyResults">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>Repository</th>
+                <th>Git Cloud</th>
+                <th>Owner</th>
+                <th>Organization</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let repository of repositories.data">
+                <td>
+                  <a
+                    routerLinkActive="fill"
+                    [routerLink]="['/repos', repository.fullname]"
+                  >
+                  {{ repository.fullname }}
+                  </a>
+                </td>
+                <td class="kb-center">
+                  <img alt="github" style="filter: invert(1); width: 25px; height: 25px;" [src]="'https://simpleicons.org/icons/' + repository.system + '.svg'" />
+                </td>
+                <td>{{ repository.owner.username }}</td>
+                <td>{{ repository.organizationName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+  <ng-template #emptyResults>
+    <article class="medium middle-align center-align">
+      <div>
+        <i class="extra">sentiment_very_dissatisfied</i>
+        <h5>there are no results for the current query</h5>
+        <p>Try and change things a bit?</p>
+        <div class="space"></div>
+      </div>
+    </article>
+  </ng-template>
 </ng-container>
