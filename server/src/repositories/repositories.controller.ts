@@ -46,4 +46,23 @@ export class RepositoriesController {
   ) {
     return await this.repositoriesService.findByFullname(owner, name);
   }
+
+  @Get('test-openai')
+  @ApiOperation({
+    summary: 'Test OpenAI',
+    description: 'Test OpenAI API'
+  })
+  @ApiOkResponse({
+    type: String
+  })
+  async testOpenAI() {
+    const repoName = 'joe-pizza-online-orders';
+    const description = 'A pizza ordering system for Joe\'s Pizza. The best pizza in New York City!';
+    const languages = ['JavaScript', 'TypeScript'];
+
+    const avatarBase64 = await this.repositoriesService.generateAvatar(repoName, description, languages);
+
+    // serve it
+    return `data:image/png;base64,${avatarBase64}`;
+  }
 }
