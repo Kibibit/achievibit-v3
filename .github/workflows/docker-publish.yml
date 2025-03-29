@@ -23,6 +23,15 @@ jobs:
           corepack enable
           corepack prepare pnpm@latest --activate
 
+      # bump server version in /server/package.json
+      - name: Bump server version
+        id: version
+        run: |
+          cd server
+          pnpm version prerelease --preid=beta
+          echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
+          cd ..
+
       - name: Install dependencies
         run: pnpm install
 
@@ -40,4 +49,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: k1b1b0t/achievibit-v3:latest
+          # k1b1b0t/achievibit-v3:latest and one for the version
+          tags: |
+            k1b1b0t/achievibit-v3:latest
+            k1b1b0t/achievibit-v3:${{ env.version }}
