@@ -4,7 +4,6 @@
   "files.associations": {
     "*.json": "json"
   },
-  "files.autoSave": "off",
   "workbench.colorTheme": "Andromeda Bordered",
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.colors": [
@@ -84,6 +83,7 @@
     "kohler",
     "luxon",
     "meeseek",
+    "minidenticon",
     "msedge",
     "nestjs",
     "Onboarded",
