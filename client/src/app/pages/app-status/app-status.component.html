@@ -17,10 +17,10 @@
       <article *ngFor="let service of healthCheck.app?.details | keyvalue" class="s3">
         <div class="status-name">{{ service.key }}</div>
         <span *ngIf="service.value.status === 'up'; else disconnected">
-          <p class="status kb-up"><i class="material-symbols-outlined">radio_button_checked</i> OK</p>
           <ng-container *ngIf="service.value.expiryDate">
             <p class="status kb-up">Expiry: {{ service.value.expiryDate | date:'short' }}</p>
           </ng-container>
+          <p class="status kb-up"><i class="material-symbols-outlined">radio_button_checked</i> OK</p>
         </span>
         <ng-template #disconnected>
           <p class="status kb-down"><i class="material-symbols-outlined">radio_button_unchecked</i> ERROR</p>
