@@ -175,15 +175,19 @@ export class GithubService {
       }
 
       // create a new repo in the db
-      await this.repositoriesService.create({
-        name: repo.name,
-        fullname: repo.full_name,
-        url: repo.html_url,
-        owner: user,
-        organization: organization,
-        system: SystemEnum.GITHUB
-        // private: repo.private
-      });
+      await this.repositoriesService.create(
+        {
+          name: repo.name,
+          fullname: repo.full_name,
+          url: repo.html_url,
+          owner: user,
+          organization: organization,
+          system: SystemEnum.GITHUB
+          // private: repo.private
+        },
+        repo.description,
+        repo.languages
+      );
     }
 
     return repos.repositories.map((repo) => repo.full_name);
