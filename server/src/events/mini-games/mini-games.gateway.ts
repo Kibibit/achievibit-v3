@@ -195,15 +195,15 @@ export class MiniGamesGateway implements OnGatewayInit {
   // emit game started event to the client for testing every minute.
   // specifically for 'pizza-delivery' mini-game
   // and thatkookooguy user
-  @Cron(CronExpression.EVERY_MINUTE)
-  handleCron() {
-    const user = {
-      id: 'test-user-id',
-      username: 'thatkookooguy'
-    } as User;
+  // @Cron(CronExpression.EVERY_MINUTE)
+  // handleCron() {
+  //   const user = {
+  //     id: 'test-user-id',
+  //     username: 'thatkookooguy'
+  //   } as User;
 
-    this.startMiniGameForUser(user, 'pizza-delivery');
-  }
+  //   this.startMiniGameForUser(user, 'pizza-delivery');
+  // }
 
   private getUserMiniGameRoomName(username: string) {
     return `mini-game:${ username }`;

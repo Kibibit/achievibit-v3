@@ -98,7 +98,7 @@ export class EventsGateway {
   }
 
   // TODO: Remove this method when done testing
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron(CronExpression.EVERY_MINUTE)
   async testAchievementEvent() {
     const username = 'thatkookooguy';
     const mockAchievement = {
@@ -115,7 +115,8 @@ export class EventsGateway {
     this.sendAchievementToUser(username, mockAchievement);
   }
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  // whenever we are at *:40 of every minute
+  @Cron('40 * * * * *')
   async testAchievementEvent2() {
     const username = 'k1b1b0t';
     const mockAchievement = {
@@ -132,7 +133,7 @@ export class EventsGateway {
     this.sendAchievementToUser(username, mockAchievement);
   }
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron('40 * * * * *')
   async testAchievementEvent3() {
     const orgName = 'Kibibit';
     const mockAchievement = {
@@ -149,7 +150,7 @@ export class EventsGateway {
     this.sendAchievementToOrg(orgName, mockAchievement);
   }
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron('40 * * * * *')
   async testAchievementEvent4() {
     const repoFullname = 'Kibibit/404';
     const mockAchievement = {
