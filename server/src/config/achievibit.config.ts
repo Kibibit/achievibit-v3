@@ -193,4 +193,12 @@ export class AchievibitConfig extends BaseConfig {
   @IsOptional()
   @IsBoolean()
     SYNCHRONIZE_DATABASE: boolean;
+
+  @ConfigVariable([
+    'openai api key.',
+    'You can get this from your OpenAI account settings.'
+  ].join(' '))
+  @IsString()
+  @IsOptional()
+    OPENAI_API_KEY: string;
 }
