@@ -25,10 +25,10 @@ export class GeneralApiService {
       .appControllerGetApiDetails();
   }
 
-  pronunciation() {
-    return console.log('test', this
+  getSupportedTimezones() {
+    return this
       .generalApiService
-      .appControllerGetWordPronunciation);
+      .appControllerGetTimezones();
   }
 
   private interceptResponse(response: AxiosResponse) {

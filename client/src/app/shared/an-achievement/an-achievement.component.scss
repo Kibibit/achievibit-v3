@@ -1,0 +1,122 @@
+.kb-achievment-banner {
+  box-shadow: 10px 10px 16px -10px rgba(0,0,0,0.75);
+  align-items: center;
+  text-align: center;
+  display: flex;
+  // background: transparent !important;
+  // color: white !important;
+  max-width: 500px;
+  padding: 35px 0.5em 0.5em;
+  margin: 110px auto 0;
+  border-radius: 4px;
+}
+
+.kb-achievement {
+  position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translate3d(0, calc(-100% + 35px), 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  svg {
+    transform: translate3d(-0.4em, 0.6em, 0);
+    width: 6em;
+    margin-bottom: 0.5em;
+    fill: white;
+  }
+
+  .kb-achievement-name {
+    font-size: 0.8em;
+    position: relative;
+    z-index: 3;
+    color: white;
+    margin: 0 2em 1.2em;
+
+    .text {
+      padding: 0.5em;
+      position: relative;
+      z-index: 3;
+    }
+
+    .extra {
+      position: absolute;
+      width: 1em;
+      bottom: -0.6em;
+      z-index: 1;
+      border: 1em solid hsl(217, 71%, 53%);
+
+      &.left {
+        border-left-color: transparent;
+        transform: translateX(-100%);
+        left: 0.6em;
+      }
+
+      &.right {
+        border-right-color: transparent;
+        transform: translateX(100%);
+        right: 0.6em;
+      }
+    }
+
+    .shadow {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      border: 0.6em solid transparent;
+
+      &.left {
+        border-right-color: #043140;
+        transform: translate3d(-50%, 50%, 0);
+        left: 0;
+      }
+
+      &.right {
+        border-left-color: #043140;
+        transform: translate3d(50%, 50%, 0);
+        right: 0;
+      }
+    }
+  }
+}
+
+.kb-white {
+  fill: white;
+  color: white;
+}
+
+.axe {
+  fill: hsl(48, 100%, 67%);
+}
+
+.kb-logo-move {
+  transform: translate3d(-10%, 0, 0);
+}
+
+.kb-achievibit-name {
+  font-family: 'Press Start 2P', cursive !important;
+  font-size: 1em !important;
+}
+
+.has-background-primary {
+  background-color: #2a9fd6 !important;
+}
+
+.notification.is-warning {
+  background-color: #212729;
+  color: white; //rgba(0, 0, 0, .7);
+}
+
+.achievement-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7em;
+  
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -30,6 +30,7 @@
     "http-status-codes": "^2.3.0",
     "lodash-es": "^4.17.21",
     "material-dynamic-colors": "^1.1.2",
+    "minidenticons": "^4.2.1",
     "rxjs": "7.8.2",
     "socket.io-client": "^4.8.0",
     "tslib": "^2.3.0",

@@ -6,6 +6,19 @@ export interface ISocketConnectionStatus {
   connected: boolean;
 }
 
+export interface IMiniGameRoomConnectedEventData {
+  isListening: boolean;
+  message: string;
+  roomName: string;
+  error?: string;
+};
+
+export interface IMiniGameEventData {
+  gameState?: Record<string, any>;
+  miniGameName: string;
+  eventType: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,11 +52,78 @@ export class SocketService {
   }
 
   connect() {
-    this.socket = io(window.location.origin);
+    this.socket = io(window.location.origin, {
+      withCredentials: true
+    });
   }
 
-  emit(event: string, data: any) {
+  emit(event: string, data: any, callback?: (response: any) => void) {
     this.socket.emit(event, data);
+  }
+
+  joinUserMiniGamesRoom() {
+    return new Observable<IMiniGameEventData>((observer) => {
+      this.socket.emit('join-user-mini-games', {}, (response: IMiniGameRoomConnectedEventData) => {
+        // This is the ack from the server
+        if (response?.error) {
+          observer.error(response.error);
+        } else {
+          // could include game state, etc.
+          observer.next({
+            miniGameName: response.roomName,
+            eventType: 'join-user-mini-games'
+          });
+          // observer.complete();
+        }
+      });
+
+      this.socket.on('mini-game-start', (game) => {
+        observer.next({
+          gameState: game,
+          miniGameName: game.miniGameName,
+          eventType: 'mini-game-start'
+        });
+        console.log('🎮 Mini-game started:', game);
+      });
+
+      // If needed, handle "mini-game-state" as a separate stream
+      this.socket.on('mini-game-state', (state) => {
+        console.log('🎮 Mini-game state:', state);
+      });
+
+      this.socket.on('mini-game-end', (state) => {
+        observer.next({
+          gameState: state,
+          miniGameName: state.miniGameName,
+          eventType: 'mini-game-end'
+        });
+        console.log('🎮 Mini-game ended:', state);
+      });
+    });
+  }
+
+  leaveUserMiniGamesRoom() {
+    this.socket.emit('leave-user-mini-games');
+  }
+
+  joinMiniGameRoom(miniGameName: string) {
+    return new Observable((observer) => {
+      this.socket.emit('join-mini-game', { miniGameName }, (response: any) => {
+        // This is the ack from the server
+        if (response?.error) {
+          observer.error(response.error);
+        } else {
+          // could include game state, etc.
+          observer.next(response);
+          // observer.complete();
+        }
+      });
+
+      // If needed, handle "mini-game-state" as a separate stream
+      this.on('mini-game-state').subscribe((state) => {
+        console.log('🎮 Mini-game state:', state);
+      });
+    });
   }
 
   on(event: string): Observable<any> {

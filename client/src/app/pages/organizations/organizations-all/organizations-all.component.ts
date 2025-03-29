@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { ServerValidationError } from '../../../services/api/api-error-handler';
 import { OrganizationsApiService } from '../../../services/api/organizations.service';
+import { AnAchievementComponent } from '../../../shared/an-achievement/an-achievement.component';
 import { FirstErrorPipe } from '../../../shared/pipes/first-error.pipe';
 
 const threeSeconds = 1500;
@@ -14,7 +15,7 @@ const halfASecond = 500;
 @Component({
   selector: 'kb-organizations-all',
   standalone: true,
-  imports: [ DatePipe, NgFor, NgIf, AsyncPipe, ReactiveFormsModule, RouterLink, FirstErrorPipe ],
+  imports: [ DatePipe, NgFor, NgIf, AsyncPipe, ReactiveFormsModule, RouterLink, FirstErrorPipe, AnAchievementComponent ],
   templateUrl: './organizations-all.component.html',
   styleUrl: './organizations-all.component.scss'
 })

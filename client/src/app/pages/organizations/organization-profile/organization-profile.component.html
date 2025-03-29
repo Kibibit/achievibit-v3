@@ -20,9 +20,11 @@
   </div>
   <div class="achievements-container">
     <h6 class="username">{{ org.name }}</h6>
-    <kb-achievement-one-love
-      *ngIf="achievementNotification"
-      [achievement]="achievementNotification"
-    ></kb-achievement-one-love>
+    <ng-container *ngIf="achievementNotification">
+      <kb-an-achievement
+        @fadeInUp
+        [achievement]="achievementNotification"
+      ></kb-an-achievement>
+    </ng-container>
   </div>
 </div>

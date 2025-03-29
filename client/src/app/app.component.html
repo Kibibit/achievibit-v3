@@ -3,3 +3,4 @@
   <router-outlet />
 </main>
 <kb-achievement *ngIf="loggedInUser" [username]="loggedInUser.username"></kb-achievement>
+<kb-mini-game *ngIf="loggedInUser"></kb-mini-game>

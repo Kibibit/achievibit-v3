@@ -7,37 +7,6 @@
   z-index: 50000;
 }
 
-.achievement {
-  display: flex;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5em;
-  max-width: 500px;
-  border-radius: 7px;
-  margin: 0 auto 0.5em;
-
-  .achievement__info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .name {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-  
-    .description {
-      font-size: 1em;
-    }
-  }
-
-  .achievement__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.7em;
-
-    img {
-      width: 50px;
-    }
-  }
+kb-an-achievement {
+  position: relative;
 }

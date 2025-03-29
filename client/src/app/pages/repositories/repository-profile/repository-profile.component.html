@@ -8,7 +8,7 @@
 </div>
 <div class="profile-content">
   <div class="kb-user-info-container">
-    <img class="kb-user-avatar circle extra" alt="user avatar" src="https://avatar.iran.liara.run/public" />
+    <img class="kb-user-avatar circle extra" alt="user avatar" src="https://avatar.vercel.sh/{{ repo.name }}.svg?text={{ this.initials }}&rounded=60" />
     <div
       *ngIf="repo"
       class="kb-user-info-card"
@@ -20,9 +20,11 @@
   </div>
   <div class="achievements-container">
     <h6 class="username">{{ repo.fullname }}</h6>
-    <kb-achievement-one-love
-      *ngIf="achievementNotification"
-      [achievement]="achievementNotification"
-    ></kb-achievement-one-love>
+    <ng-container *ngIf="achievementNotification">
+      <kb-an-achievement
+        @fadeInUp
+        [achievement]="achievementNotification"
+      ></kb-an-achievement>
+    </ng-container>
   </div>
 </div>

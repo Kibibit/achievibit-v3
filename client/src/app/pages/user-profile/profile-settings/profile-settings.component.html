@@ -1,18 +1,19 @@
 <h5>Settings</h5>
-<div *ngIf="user?.settings" class="settings-container">
-  <div class="timezone">
-    <span>Timezone</span>
-    {{ user?.settings?.timezone }}
+<div *ngIf="user?.settings" class="settings-container padding">
+  <div class="field label small" [class.invalid]="!user?.settings?.timezone">
+    <input type="text" id="dateFormat" disabled [value]="user?.settings?.timezone ? user?.settings?.timezone :  'Using system default: ' + browserTimezone?.value">
+    <label for="dateFormat">Timezone</label> 
   </div>
-  <div class="date-format"></div>
-  <span>Date Format</span>
-  {{ user?.settings?.dateFormat }}
-</div>
-<div class="theme">
-  <span>Theme</span>
-  {{ user?.settings?.theme }}
-</div>
-<div class="avatar-system-origin">
-  <span>Avatar System Origin</span>
-  {{ user?.settings?.avatarSystemOrigin }}
+  <div class="field label small" [class.invalid]="!user?.settings?.dateFormat">
+    <input type="text" id="dateFormat" disabled [value]="user?.settings?.dateFormat ? user?.settings?.dateFormat : 'Using system default: ' + browserInferredDateFormat">
+    <label for="dateFormat">Date Format</label> 
+  </div>
+  <div class="field label small" [class.invalid]="!user?.settings?.theme">
+    <input type="text" id="theme" disabled [value]="user?.settings?.theme">
+    <label for="theme">Theme</label> 
+  </div>
+  <div class="field label small" [class.invalid]="!user?.settings?.avatarSystemOrigin">
+    <input type="text" id="avatar" disabled [value]="user?.settings?.avatarSystemOrigin">
+    <label for="avatar">Avatar System Origin</label> 
+  </div>
 </div>

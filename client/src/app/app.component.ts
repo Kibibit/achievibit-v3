@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { Subscription } from 'rxjs';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 import { User } from '@kibibit/achievibit-sdk';
 
@@ -11,10 +11,8 @@ import { AuthService } from './services/auth.service';
 import { LoaderService } from './services/loader.service';
 import { SocketService } from './services/socket.service';
 import { AchievementComponent } from './shared/achievement/achievement.component';
-import { AchievibitLogoComponent } from './shared/achievibit-logo/achievibit-logo.component';
-import { KbHasRoleDirective } from './shared/directives/has-role.directive';
 import { HeaderComponent } from './shared/header/header.component';
-import { UserLivesComponent } from './shared/user-lives/user-lives.component';
+import { MiniGameComponent } from './shared/mini-game/mini-game.component';
 
 @Component({
   selector: 'kb-root',
@@ -22,16 +20,10 @@ import { UserLivesComponent } from './shared/user-lives/user-lives.component';
   imports: [
     RouterOutlet,
     NgIf,
-    RouterLink,
-    AsyncPipe,
-    RouterLinkActive,
     AchievementComponent,
     AchievementComponent,
-    NgFor,
-    KbHasRoleDirective,
-    AchievibitLogoComponent,
-    UserLivesComponent,
-    HeaderComponent
+    HeaderComponent,
+    MiniGameComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -1,11 +1,8 @@
 <div class="achievements">
-  <div *ngFor="let achievement of achievements" class="achievement">
-    <div class="achievement__icon">
-      <img alt="Achievement icon" [src]="achievement.avatar" />
-    </div>
-    <div class="achievement__info">
-      <div class="name">{{ achievement.name }}</div>
-      <div class="description">{{ achievement.description }}</div>
-    </div>
-  </div>
+  <ng-container *ngFor="let achievement of achievements">
+    <kb-an-achievement
+      @fadeInUp
+      [achievement]="achievement"
+    ></kb-an-achievement>
+  </ng-container>
 </div>

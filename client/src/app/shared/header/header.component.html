@@ -12,7 +12,7 @@
     <div class="max"></div>
     <ng-container *ngIf="!hideUserState">
       <ng-container *ngIf="loggedInUser; else login">
-        <kb-user-lives [currentLives]="3"></kb-user-lives>
+        <kb-user-lives [currentLives]="loggedInUser.lives"></kb-user-lives>
         <button class="circle transparent" type="button" (click)="openMenu()">
           <img class="responsive" alt="user avatar" [src]="loggedInUser.avatar">
           <menu class="left no-wrap">

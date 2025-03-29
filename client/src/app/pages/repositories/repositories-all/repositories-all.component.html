@@ -32,7 +32,9 @@
                 {{ repository.fullname }}
                 </a>
               </td>
-              <td>{{ repository.system }}</td>
+              <td class="kb-center">
+                <img alt="github" style="filter: invert(1); width: 25px; height: 25px;" [src]="'https://simpleicons.org/icons/' + repository.system + '.svg'" />
+              </td>
               <td>{{ repository.owner.username }}</td>
               <td>{{ repository.organizationName }}</td>
             </tr>
