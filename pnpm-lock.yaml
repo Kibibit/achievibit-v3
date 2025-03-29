@@ -401,6 +401,9 @@ importers:
       nestjs-asyncapi:
         specifier: ^1.3.0
         version: 1.3.0(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4)(@nestjs/swagger@7.4.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2))(@nestjs/websockets@10.4.6)(@types/babel__core@7.20.5)(@types/node@20.16.11)(encoding@0.1.13)
+      openai:
+        specifier: ^4.90.0
+        version: 4.90.0(encoding@0.1.13)(ws@8.18.0)
       passport:
         specifier: ^0.7.0
         version: 0.7.0
@@ -3278,11 +3281,17 @@ packages:
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
+  '@types/node-fetch@2.6.12':
+    resolution: {integrity: sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==}
+
   '@types/node-forge@1.3.11':
     resolution: {integrity: sha512-FQx220y22OKNTqaByeBGqHWYz4cl94tpcxeFdvBo3wjG6XPBuZ0BNgNZRV5J5TFmmcsJ4IzsLkmGRiQbnYsBEQ==}
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
+
+  '@types/node@18.19.84':
+    resolution: {integrity: sha512-ACYy2HGcZPHxEeWTqowTF7dhXN+JU1o7Gr4b41klnn6pj2LD6rsiGqSZojMdk1Jh2ys3m76ap+ae1vvE4+5+vg==}
 
   '@types/node@20.16.11':
     resolution: {integrity: sha512-y+cTCACu92FyA5fgQSAI8A1H429g7aSK2HsO7K4XYUWc4dY5IUz55JSDIYT6/VsOLfGy8vmvQYC2hfb0iF16Uw==}
@@ -5352,6 +5361,9 @@ packages:
       typescript: '>3.6.0'
       webpack: ^5.11.0
 
+  form-data-encoder@1.7.2:
+    resolution: {integrity: sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==}
+
   form-data@2.3.3:
     resolution: {integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==}
     engines: {node: '>= 0.12'}
@@ -5363,6 +5375,10 @@ packages:
   form-data@4.0.1:
     resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
     engines: {node: '>= 6'}
+
+  formdata-node@4.4.1:
+    resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
+    engines: {node: '>= 12.20'}
 
   formidable@3.5.1:
     resolution: {integrity: sha512-WJWKelbRHN41m5dumb0/k8TeAx7Id/y3a+Z7QfhxP/htI9Js5zYaEDtG8uMgG0vM0lOlqnmjE99/kfpOYi/0Og==}
@@ -6985,6 +7001,10 @@ packages:
   node-addon-api@3.2.1:
     resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
 
+  node-domexception@1.0.0:
+    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
+    engines: {node: '>=10.5.0'}
+
   node-emoji@1.11.0:
     resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
 
@@ -7231,6 +7251,18 @@ packages:
   open@8.4.2:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
+
+  openai@4.90.0:
+    resolution: {integrity: sha512-YCuHMMycqtCg1B8G9ezkOF0j8UnBWD3Al/zYaelpuXwU1yhCEv+Y4n9G20MnyGy6cH4GsFwOMrgstQ+bgG1PtA==}
+    hasBin: true
+    peerDependencies:
+      ws: ^8.18.0
+      zod: ^3.23.8
+    peerDependenciesMeta:
+      ws:
+        optional: true
+      zod:
+        optional: true
 
   openapi-sampler@1.5.1:
     resolution: {integrity: sha512-tIWIrZUKNAsbqf3bd9U1oH6JEXo8LNYuDlXw26By67EygpjT+ArFnsxxyTMjFWRfbqo5ozkvgSQDK69Gd8CddA==}
@@ -9000,6 +9032,9 @@ packages:
   unbzip2-stream@1.4.3:
     resolution: {integrity: sha512-mlExGW4w71ebDJviH16lQLtZS32VKqsSfk80GCfUlwT/4/hNRFsoscrF/c++9xinkMzECL1uL9DDwXqFWkruPg==}
 
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
@@ -9211,6 +9246,10 @@ packages:
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
+
+  web-streams-polyfill@4.0.0-beta.3:
+    resolution: {integrity: sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==}
+    engines: {node: '>= 14'}
 
   webapi-parser@0.5.0:
     resolution: {integrity: sha512-fPt6XuMqLSvBz8exwX4QE1UT+pROLHa00EMDCdO0ybICduwQ1V4f7AWX4pNOpCp+x+0FjczEsOxtQU0d8L3QKw==}
@@ -9550,7 +9589,7 @@ snapshots:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.1703.10(chokidar@3.6.0)
-      '@angular-devkit/build-webpack': 0.1703.10(chokidar@3.6.0)(webpack-dev-server@4.15.1(webpack@5.94.0))(webpack@5.94.0(esbuild@0.20.1))
+      '@angular-devkit/build-webpack': 0.1703.10(chokidar@3.6.0)(webpack-dev-server@4.15.1(webpack@5.94.0(esbuild@0.20.1)))(webpack@5.94.0(esbuild@0.20.1))
       '@angular-devkit/core': 17.3.10(chokidar@3.6.0)
       '@angular/compiler-cli': 17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5)
       '@babel/core': 7.24.0
@@ -9608,9 +9647,9 @@ snapshots:
       undici: 6.11.1
       vite: 5.1.8(@types/node@20.16.11)(less@4.2.0)(sass@1.71.1)(terser@5.29.1)
       watchpack: 2.4.0
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
       webpack-dev-middleware: 6.1.2(webpack@5.94.0(esbuild@0.20.1))
-      webpack-dev-server: 4.15.1(webpack@5.94.0)
+      webpack-dev-server: 4.15.1(webpack@5.94.0(esbuild@0.20.1))
       webpack-merge: 5.10.0
       webpack-subresource-integrity: 5.1.0(webpack@5.94.0(esbuild@0.20.1))
     optionalDependencies:
@@ -9636,12 +9675,12 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  '@angular-devkit/build-webpack@0.1703.10(chokidar@3.6.0)(webpack-dev-server@4.15.1(webpack@5.94.0))(webpack@5.94.0(esbuild@0.20.1))':
+  '@angular-devkit/build-webpack@0.1703.10(chokidar@3.6.0)(webpack-dev-server@4.15.1(webpack@5.94.0(esbuild@0.20.1)))(webpack@5.94.0(esbuild@0.20.1))':
     dependencies:
       '@angular-devkit/architect': 0.1703.10(chokidar@3.6.0)
       rxjs: 7.8.1
-      webpack: 5.94.0(esbuild@0.20.1)
-      webpack-dev-server: 4.15.1(webpack@5.94.0)
+      webpack: 5.94.0(esbuild@0.25.1)
+      webpack-dev-server: 4.15.1(webpack@5.94.0(esbuild@0.20.1))
     transitivePeerDependencies:
       - chokidar
 
@@ -12664,7 +12703,7 @@ snapshots:
     dependencies:
       '@angular/compiler-cli': 17.3.12(@angular/compiler@17.3.12(@angular/core@17.3.12(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5)
       typescript: 5.4.5
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -13549,11 +13588,20 @@ snapshots:
 
   '@types/mime@1.3.5': {}
 
+  '@types/node-fetch@2.6.12':
+    dependencies:
+      '@types/node': 20.16.11
+      form-data: 4.0.1
+
   '@types/node-forge@1.3.11':
     dependencies:
       '@types/node': 20.16.11
 
   '@types/node@12.20.55': {}
+
+  '@types/node@18.19.84':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/node@20.16.11':
     dependencies:
@@ -14287,7 +14335,7 @@ snapshots:
       '@babel/core': 7.24.0
       find-cache-dir: 4.0.0
       schema-utils: 4.2.0
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   babel-plugin-istanbul@6.1.1:
     dependencies:
@@ -14991,7 +15039,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 4.2.0
       serialize-javascript: 6.0.2
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   core-js-compat@3.38.1:
     dependencies:
@@ -15112,7 +15160,7 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.6.3
     optionalDependencies:
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   css-select@5.1.0:
     dependencies:
@@ -16199,6 +16247,8 @@ snapshots:
       typescript: 5.3.3
       webpack: 5.94.0
 
+  form-data-encoder@1.7.2: {}
+
   form-data@2.3.3:
     dependencies:
       asynckit: 0.4.0
@@ -16216,6 +16266,11 @@ snapshots:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+
+  formdata-node@4.4.1:
+    dependencies:
+      node-domexception: 1.0.0
+      web-streams-polyfill: 4.0.0-beta.3
 
   formidable@3.5.1:
     dependencies:
@@ -17616,7 +17671,7 @@ snapshots:
     dependencies:
       klona: 2.0.6
       less: 4.2.0
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   less@4.2.0:
     dependencies:
@@ -17647,7 +17702,7 @@ snapshots:
     dependencies:
       webpack-sources: 3.2.3
     optionalDependencies:
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   lilconfig@3.1.3: {}
 
@@ -17909,7 +17964,7 @@ snapshots:
     dependencies:
       schema-utils: 4.2.0
       tapable: 2.2.1
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   minidenticons@4.2.1: {}
 
@@ -18140,6 +18195,8 @@ snapshots:
 
   node-addon-api@3.2.1:
     optional: true
+
+  node-domexception@1.0.0: {}
 
   node-emoji@1.11.0:
     dependencies:
@@ -18436,6 +18493,20 @@ snapshots:
       define-lazy-prop: 2.0.0
       is-docker: 2.2.1
       is-wsl: 2.2.0
+
+  openai@4.90.0(encoding@0.1.13)(ws@8.18.0):
+    dependencies:
+      '@types/node': 18.19.84
+      '@types/node-fetch': 2.6.12
+      abort-controller: 3.0.0
+      agentkeepalive: 4.5.0
+      form-data-encoder: 1.7.2
+      formdata-node: 4.4.1
+      node-fetch: 2.7.0(encoding@0.1.13)
+    optionalDependencies:
+      ws: 8.18.0
+    transitivePeerDependencies:
+      - encoding
 
   openapi-sampler@1.5.1:
     dependencies:
@@ -18802,7 +18873,7 @@ snapshots:
       postcss: 8.4.35
       semver: 7.6.3
     optionalDependencies:
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
     transitivePeerDependencies:
       - typescript
 
@@ -19332,7 +19403,7 @@ snapshots:
       neo-async: 2.6.2
     optionalDependencies:
       sass: 1.71.1
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   sass@1.71.1:
     dependencies:
@@ -19623,7 +19694,7 @@ snapshots:
     dependencies:
       iconv-lite: 0.6.3
       source-map-js: 1.2.1
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   source-map-support@0.5.13:
     dependencies:
@@ -19941,14 +20012,14 @@ snapshots:
     dependencies:
       bintrees: 1.0.2
 
-  terser-webpack-plugin@5.3.10(esbuild@0.20.1)(webpack@5.94.0):
+  terser-webpack-plugin@5.3.10(esbuild@0.20.1)(webpack@5.94.0(esbuild@0.20.1)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.29.1
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
     optionalDependencies:
       esbuild: 0.20.1
 
@@ -20441,6 +20512,8 @@ snapshots:
       buffer: 5.7.1
       through: 2.3.8
 
+  undici-types@5.26.5: {}
+
   undici-types@6.19.8: {}
 
   undici@6.11.1: {}
@@ -20610,6 +20683,8 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
+  web-streams-polyfill@4.0.0-beta.3: {}
+
   webapi-parser@0.5.0:
     dependencies:
       ajv: 6.5.2
@@ -20622,14 +20697,14 @@ snapshots:
 
   webidl-conversions@6.1.0: {}
 
-  webpack-dev-middleware@5.3.4(webpack@5.94.0):
+  webpack-dev-middleware@5.3.4(webpack@5.94.0(esbuild@0.20.1)):
     dependencies:
       colorette: 2.0.20
       memfs: 3.5.3
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.2.0
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   webpack-dev-middleware@6.1.2(webpack@5.94.0(esbuild@0.20.1)):
     dependencies:
@@ -20639,9 +20714,9 @@ snapshots:
       range-parser: 1.2.1
       schema-utils: 4.2.0
     optionalDependencies:
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
-  webpack-dev-server@4.15.1(webpack@5.94.0):
+  webpack-dev-server@4.15.1(webpack@5.94.0(esbuild@0.20.1)):
     dependencies:
       '@types/bonjour': 3.5.13
       '@types/connect-history-api-fallback': 1.5.4
@@ -20671,10 +20746,10 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 5.3.4(webpack@5.94.0)
+      webpack-dev-middleware: 5.3.4(webpack@5.94.0(esbuild@0.20.1))
       ws: 8.18.0
     optionalDependencies:
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -20694,7 +20769,7 @@ snapshots:
   webpack-subresource-integrity@5.1.0(webpack@5.94.0(esbuild@0.20.1)):
     dependencies:
       typed-assert: 1.0.9
-      webpack: 5.94.0(esbuild@0.20.1)
+      webpack: 5.94.0(esbuild@0.25.1)
 
   webpack@5.94.0:
     dependencies:
@@ -20726,7 +20801,7 @@ snapshots:
       - esbuild
       - uglify-js
 
-  webpack@5.94.0(esbuild@0.20.1):
+  webpack@5.94.0(esbuild@0.25.1):
     dependencies:
       '@types/estree': 1.0.6
       '@webassemblyjs/ast': 1.12.1
@@ -20748,7 +20823,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(esbuild@0.20.1)(webpack@5.94.0)
+      terser-webpack-plugin: 5.3.10(esbuild@0.20.1)(webpack@5.94.0(esbuild@0.20.1))
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     transitivePeerDependencies:

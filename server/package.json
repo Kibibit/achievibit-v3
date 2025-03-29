@@ -71,6 +71,7 @@
     "lodash": "^4.17.21",
     "nest-winston": "^1.9.7",
     "nestjs-asyncapi": "^1.3.0",
+    "openai": "^4.90.0",
     "passport": "^0.7.0",
     "passport-bitbucket-oauth2": "^0.1.2",
     "passport-github2": "^0.1.12",
