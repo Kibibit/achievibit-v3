@@ -42,6 +42,7 @@ WORKDIR /app
 
 # Copy the built server and client files
 COPY --from=build /app/server/dist ./dist
+COPY --from=build /app/server/achieveebeet.mp3 ./
 COPY --from=build /app/server/package.json ./
 COPY --from=build /app/server/pnpm-lock.yaml ./
 COPY --from=build /app/server/client ./client
