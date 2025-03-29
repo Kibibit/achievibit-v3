@@ -151,6 +151,13 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fontsource/comfortaa/300.css",
+              "node_modules/@fontsource/comfortaa/400.css",
+              "node_modules/@fontsource/comfortaa/500.css",
+              "node_modules/@fontsource/comfortaa/600.css",
+              "node_modules/@fontsource/comfortaa/700.css",
+              "node_modules/@fontsource/righteous/400.css",
+              "node_modules/@snackbar/core/dist/snackbar.css",
               "src/styles.scss"
             ],
             "scripts": []
