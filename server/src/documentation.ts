@@ -90,7 +90,7 @@ export class Documentation {
 
   static async addDocumentation(app: INestApplication) {
     await Documentation.addSwagger(app);
-    await Documentation.addAsyncApi(app);
+    // await Documentation.addAsyncApi(app);
   }
 
   static async addSwagger(app: INestApplication) {
