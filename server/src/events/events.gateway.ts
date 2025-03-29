@@ -28,6 +28,12 @@ export class EventsGateway {
       clientUserId: client.id
     });
     client.join(`user-achievements:${ username }`);
+
+    return {
+      status: 'ok',
+      message: `Joined user achievements room: ${ username }`,
+      roomName: `user-achievements:${ username }`
+    };
   }
 
   @SubscribeMessage('leave-user-achievements')
