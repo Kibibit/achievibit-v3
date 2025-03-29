@@ -5,7 +5,7 @@ import * as tls from 'tls';
 
 @Injectable()
 export class CertificateHealthIndicator extends HealthIndicator {
-  private readonly domain = configService.config.BASE_BACKEND_URL;
+  private readonly domain = new URL(configService.config.BASE_BACKEND_URL).hostname;
   
   // Warn if the cert expires in ≤30 days
   private readonly warningThresholdDays = 30;
