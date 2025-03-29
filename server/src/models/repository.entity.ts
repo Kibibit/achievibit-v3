@@ -33,6 +33,11 @@ export class Repository {
   @ApiProperty()
     name: string;
 
+  @Column({ nullable: true })
+  // @IsNotEmpty()
+  @ApiProperty()
+    avatar?: string;
+
   @Column()
   @ApiProperty()
     system: SystemEnum;
