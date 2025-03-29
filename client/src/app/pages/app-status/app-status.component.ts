@@ -1,4 +1,4 @@
-import { AsyncPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { GeneralApiService } from '../../services/api/general.service';
@@ -8,7 +8,7 @@ import { SocketService } from '../../services/socket.service';
 @Component({
   selector: 'kb-app-status',
   standalone: true,
-  imports: [ NgIf, AsyncPipe, NgFor, KeyValuePipe ],
+  imports: [ NgIf, AsyncPipe, NgFor, KeyValuePipe, DatePipe ],
   templateUrl: './app-status.component.html',
   styleUrl: './app-status.component.scss'
 })

@@ -8,7 +8,7 @@ export interface IHealthCheckResult {
   info?: Record<string, any>;
   error?: Record<string, any>;
   details?: {
-    [key: string]: { status: string };
+    [key: string]: { status: string; expiryDate?: string; message?: string };
   };
 }
 
