@@ -27,9 +27,9 @@ export class UserSettings {
     @Expose({ groups: [ 'admin' ] })
       id: string;
 
-    @Column()
+    @Column({ nullable: true })
     @ApiProperty()
-      timezone: string;
+      timezone?: string;
 
     // nullable
     @Column({
