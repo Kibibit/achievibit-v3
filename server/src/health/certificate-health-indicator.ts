@@ -65,8 +65,7 @@ export class CertificateHealthIndicator extends HealthIndicator {
     });
   }
 
-  private isLocalhost(domain: string): boolean {
-    const host = new URL(domain).hostname;
+  private isLocalhost(host: string): boolean {
     return host === 'localhost' || host === '127.0.0.1' || host === '::1';
   }
 }
