@@ -6,7 +6,7 @@ import { Octokit } from '@octokit/core';
 
 import { Injectable } from '@nestjs/common';
 
-import { configService } from '@kb-config';
+import { configService, Logger } from '@kb-config';
 import { SystemEnum, User } from '@kb-models';
 import { RepositoriesService } from '@kb-repositories';
 import { UsersService } from '@kb-users';
@@ -20,6 +20,7 @@ export interface IInstallationAccessTokenResponse {
 
 @Injectable()
 export class GithubService {
+  private readonly logger = new Logger(GithubService.name);
   private readonly privateKey: string;
 
   constructor(
@@ -161,7 +162,14 @@ export class GithubService {
       let organization = null;
 
       if (repo.owner.type === 'Organization') {
+        this.logger.verbose('trying to find organization', {
+          name: repo.owner.login
+        });
         organization = await this.organizationsService.findById(repo.owner.login);
+        this.logger.verbose('found organization', {
+          name: repo.owner.login,
+          organization
+        });
 
         if (!organization) {
           organization = await this.organizationsService.create({
