@@ -83,6 +83,11 @@ export class User {
     })
     permissions: Permission[];
 
+    @Expose()
+    @ApiProperty()
+    @Column({ default: 4 })
+      lives: number;
+
     @OneToMany(
       () => Integration,
       (integration) => integration.user,

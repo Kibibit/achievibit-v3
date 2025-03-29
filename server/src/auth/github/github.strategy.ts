@@ -63,10 +63,7 @@ export class GitHubStrategy extends PassportStrategy(Strategy) {
           systemEmails: profile.emails.map((email) => email.value)
         } ] as Integration[],
         settings: {
-          theme: 'light',
-          timezone: 'auto',
           avatarSystemOrigin: SystemEnum.GITHUB,
-          dateFormat: 'MM/DD/YYYY'
         } as UserSettings
       } as User);
     } else {

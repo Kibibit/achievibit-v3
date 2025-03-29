@@ -1,9 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Header, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DiskHealthIndicator, HealthCheck, HealthCheckService, HttpHealthIndicator, MemoryHealthIndicator, TypeOrmHealthIndicator } from '@nestjs/terminus';
 
 import { Logger } from '@kb-config';
 import { CertificateHealthIndicator } from './certificate-health-indicator';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('api/health')
 @ApiTags('Health')
@@ -34,6 +35,8 @@ export class HealthController {
     return healthCheckResult;
   }
 
+  @CacheTTL(300)
+  @UseInterceptors(CacheInterceptor)
   @HealthCheck()
   @Get('external')
   checkExternalApi() {
@@ -56,6 +59,7 @@ export class HealthController {
       () => this.http.pingCheck('n8n.kibibit.io', 'https://n8n.kibibit.io/'),
       () => this.http.pingCheck('secrets.kibibit.io', 'https://secrets.kibibit.io/'),
       () => this.http.pingCheck('imgproxy.kibibit.io', 'https://imgproxy.kibibit.io/'),
+      () => this.http.pingCheck('prometheus.kibibit.io', 'https://prometheus.kibibit.io/'),
     ]);
   }
 }

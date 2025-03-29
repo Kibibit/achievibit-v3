@@ -4,13 +4,40 @@ import { readFileSync, readJSON } from 'fs-extra';
 import { chain } from 'lodash';
 
 import { Controller, Get, Header } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiExtraModels, ApiOkResponse, ApiOperation, ApiProperty, getSchemaPath } from '@nestjs/swagger';
 
 import { configService, Logger } from '@kb-config';
 import { ApiInfo } from '@kb-models';
+import timezones, { Timezone } from 'timezones.json';
 
 import { AppService } from './app.service';
 
+export class KbTimezone implements Timezone {
+  @ApiProperty()
+  value: string;
+
+  @ApiProperty()
+  abbr: string;
+
+  @ApiProperty()
+  offset: number;
+
+  @ApiProperty()
+  isdst: boolean;
+
+  @ApiProperty()
+  text: string;
+
+  @ApiProperty({
+    isArray: true,
+    type: String
+  })
+  utc: string[]; 
+}
+
+export type KbTimezonesPayload = Record<string, KbTimezone>;
+
+@ApiExtraModels(KbTimezone)
 @Controller()
 export class AppController {
   private readonly logger = new Logger(AppController.name);
@@ -44,6 +71,32 @@ export class AppController {
     );
 
     return details;
+  }
+
+  @Get('api/timezones')
+  @ApiOperation({ summary: 'Get Supported Timezones' })
+  @ApiOkResponse({
+    description: 'Returns a map of UTC offset to timezone',
+    schema: {
+      type: 'object',
+      additionalProperties: {
+        $ref: getSchemaPath(KbTimezone),
+      },
+    },
+  })
+  async getTimezones() {
+    // each timezone has a array of utc offsets.
+    // for each timezone, we want to loop over the offsets and add each one
+    // we want a map of key === utc offset, value === single timezone mapping
+    const timezonesByUTC = chain(timezones)
+      .map((timezone) => timezone.utc.map((utc) => [utc, timezone]))
+      .flatten()
+      .groupBy((pair) => pair[0])
+      .mapValues((pairs) => pairs.map((pair) => pair[1]))
+      .mapValues((timezones) => timezones[0])
+      .value();
+
+    return timezonesByUTC;
   }
 
   @Get('api/swagger')
@@ -81,4 +134,10 @@ export class AppController {
   getWordPronunciation() {
     return this.appService.getWordPronunciation();
   }
+}
+
+function countryCodeToFlagEmoji(countryCode) {
+  return countryCode
+    .toUpperCase()
+    .replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + 127397));
 }

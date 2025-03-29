@@ -13,7 +13,8 @@ import { User } from './user.entity';
 
 export enum ThemeEnum {
   LIGHT = 'light',
-  DARK = 'dark'
+  DARK = 'dark',
+  SYSTEM = 'system'
 }
 
   @Entity('user-settings', {
@@ -30,9 +31,12 @@ export class UserSettings {
     @ApiProperty()
       timezone: string;
 
-    @Column()
+    // nullable
+    @Column({
+      nullable: true
+    })
     @ApiProperty()
-      dateFormat: string;
+      dateFormat?: string;
 
     @Column({
       type: 'enum',
@@ -41,7 +45,7 @@ export class UserSettings {
     @ApiProperty({ enum: SystemEnum })
       avatarSystemOrigin: SystemEnum;
 
-    @Column('enum', { enum: ThemeEnum })
+    @Column('enum', { enum: ThemeEnum, default: ThemeEnum.SYSTEM })
     @ApiProperty({ enum: ThemeEnum })
       theme: ThemeEnum;
 

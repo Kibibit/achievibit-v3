@@ -55,10 +55,7 @@ export class GitLabStrategy extends PassportStrategy(Strategy) {
           // tokenExpiry: new Date()
         } ] as Integration[],
         settings: {
-          theme: 'light',
-          timezone: 'auto',
-          avatarSystemOrigin: SystemEnum.GITHUB,
-          dateFormat: 'MM/DD/YYYY'
+          avatarSystemOrigin: SystemEnum.GITLAB,
         } as UserSettings
       } as User);
     } else {

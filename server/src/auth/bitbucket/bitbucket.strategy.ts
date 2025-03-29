@@ -49,10 +49,7 @@ export class BitBucketStrategy extends PassportStrategy(Strategy) {
           systemEmails: emails.all
         } ] as Integration[],
         settings: {
-          theme: 'light',
-          timezone: 'auto',
-          avatarSystemOrigin: SystemEnum.GITHUB,
-          dateFormat: 'MM/DD/YYYY'
+          avatarSystemOrigin: SystemEnum.BITBUCKET,
         } as UserSettings
       } as User);
     } else {

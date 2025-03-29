@@ -27,9 +27,11 @@ import { WebhooksModule } from '@kb-webhooks';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
+    CacheModule.register(),
     PrometheusModule.register({
       path: "/api/metrics",
       defaultLabels: {

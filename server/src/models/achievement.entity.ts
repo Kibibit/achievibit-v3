@@ -79,6 +79,19 @@ export class Achievement {
   @ApiProperty()
     description: string;
 
+  @Column('jsonb', {
+    default: {},
+    comment: [
+      'A Treasure is a valid JSON object that contains ',
+      'some data for accumulative achievements'
+    ].join('')
+  })
+  @ApiProperty({
+    type: 'object',
+    additionalProperties: true
+  })
+    treasure?: Record<string, any>;
+
   constructor(partial: Partial<Achievement>) {
     Object.assign(this, partial);
   }
