@@ -1,14 +1,22 @@
 import { Server, Socket } from 'socket.io';
 
 import { ConnectedSocket, MessageBody, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { Achievement, ApiInfo } from '@kb-models';
+import { Achievement, ApiInfo, User } from '@kb-models';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { configService, Logger } from '@kb-config';
-import { OnModuleInit } from '@nestjs/common';
-import { AppService } from '../app.service';
 import { readJSON } from 'fs-extra';
 import { join } from 'path';
 import { chain } from 'lodash';
+import { parse as parseCookie } from 'cookie';
+import * as jwt from 'jsonwebtoken';
+
+interface IAuthenticatedEventData {
+  user: User;
+}
+
+interface AuthenticatedSocket extends Socket {
+  data: IAuthenticatedEventData;
+}
 
 @WebSocketGateway({ cors: { origin: true, credentials: true } })
 export class EventsGateway implements OnGatewayConnection {
@@ -24,11 +32,37 @@ export class EventsGateway implements OnGatewayConnection {
     }, 30000);
   }
 
+  afterInit(server: Server) {
+    server.use((socket: AuthenticatedSocket, next) => {
+        const payload = this.getUserFromCookieOrHeaderToken(socket);
+
+        if (!payload) {
+          return next();
+        }
+
+        socket.data.user = {
+          id: payload.sub,
+          username: payload.username
+        } as User;
+
+        next();
+    });
+  }
+
   // on client connect, broadcast the api version
-  async handleConnection(client: Socket) {
+  async handleConnection(client: AuthenticatedSocket) {
     this.logger.debug('Client connected', { clientId: client.id });
 
     const apiDetails = await this.getApiDetails();
+
+    // TODO: join user achievements room instead of client asking to join
+    // if user is logged in and not onboarded, emit onboarding:start event
+    const loggedInUser = client.data.user;
+
+    if (!loggedInUser?.isOnboarded) {
+      this.logger.debug('User is not onboarded', { username: loggedInUser.username });
+      client.emit('onboarding:start');
+    }
 
     this.broadcastVersion(apiDetails.version, client);
   }
@@ -221,4 +255,23 @@ export class EventsGateway implements OnGatewayConnection {
 
     return this.apiDetails;
   }
+
+  private getUserFromCookieOrHeaderToken(socket: AuthenticatedSocket) {
+      try {
+        const cookieHeader = socket.handshake.headers.cookie;
+        const cookies = cookieHeader ? parseCookie(cookieHeader) : {};
+        const token: string = cookies['kibibit-jwt'] || socket.handshake.auth.token;
+  
+        if (!token) {
+          // will throw an error and the socket will not be authenticated
+          // return value is in catch block
+          throw new Error('No token provided in cookies or headers');
+        }
+  
+        return jwt.verify(token, configService.config.JWT_SECRET) as jwt.JwtPayload & User;
+      } catch (error) {
+        this.logger.warn('Failed to authenticate socket:', error.message);
+        return null;
+      }
+    }
 }
