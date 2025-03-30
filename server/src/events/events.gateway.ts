@@ -13,6 +13,8 @@ import { chain } from 'lodash';
 @WebSocketGateway({ cors: { origin: true, credentials: true } })
 export class EventsGateway implements OnGatewayConnection {
   private readonly logger = new Logger(EventsGateway.name);
+  private apiDetails: ApiInfo;
+
   @WebSocketServer()
     server: Server;
 
@@ -197,24 +199,26 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   private async getApiDetails() {
-    const packageInfo = await readJSON(
-      join(configService.appRoot, './package.json')
-    );
-    const details = new ApiInfo(
-      chain(packageInfo)
-        .pick([
-          'name',
-          'description',
-          'version',
-          'license',
-          'repository',
-          'author',
-          'bugs'
-        ])
-        .mapValues((val) => val.url ? val.url : val)
-        .value()
-    );
+    if (!this.apiDetails) {
+      const packageInfo = await readJSON(
+        join(configService.appRoot, './package.json')
+      );
+      this.apiDetails = new ApiInfo(
+        chain(packageInfo)
+          .pick([
+            'name',
+            'description',
+            'version',
+            'license',
+            'repository',
+            'author',
+            'bugs'
+          ])
+          .mapValues((val) => val.url ? val.url : val)
+          .value()
+      );
+    }
 
-    return details;
+    return this.apiDetails;
   }
 }
