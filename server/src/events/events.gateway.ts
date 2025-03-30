@@ -55,17 +55,17 @@ export class EventsGateway implements OnGatewayConnection {
     // if user is logged in and not onboarded, emit onboarding:start event
     const loggedInUser = client.data.user;
 
-    if (!loggedInUser?.isOnboarded) {
+    if (loggedInUser) {
+      this.logger.debug('User is logged in', { username: loggedInUser.username });
+      client.join(`user-achievements:${ loggedInUser.username }`);
+    }
+
+    if (loggedInUser && !loggedInUser.isOnboarded) {
       this.logger.debug('User is not onboarded', { username: loggedInUser.username });
       client.emit('onboarding:start');
     }
 
     this.broadcastVersion(apiDetails.version, client);
-  }
-
-  @SubscribeMessage('message')
-  handleMessage(client: any, payload: any): string {
-    return 'Hello world!';
   }
 
   @SubscribeMessage('join-user-achievements')

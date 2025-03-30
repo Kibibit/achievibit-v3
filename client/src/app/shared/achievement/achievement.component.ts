@@ -30,8 +30,6 @@ export class AchievementComponent implements OnInit {
       return;
     }
 
-    this.socketService.joinAchievementRoom(this.username);
-
     this.socketService.onAchievement(this.username, (achievement) => {
       // load image for achievement before showing it
       const img = new Image();

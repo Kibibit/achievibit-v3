@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
-import { Subscription } from 'rxjs';
 import { NgIf } from '@angular/common';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 import { User } from '@kibibit/achievibit-sdk';
@@ -28,13 +27,11 @@ import { MiniGameComponent } from './shared/mini-game/mini-game.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   hideUserState: boolean = true;
   loading$ = this.loaderService.loading$;
   loggedInUser?: User;
   menuOpen = false;
-
-  private messageSubscription: Subscription;
   messages: string[] = [];
   newMessage: string = '';
 
@@ -47,15 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private loaderService: LoaderService,
     private readonly authService: AuthService
   ) {}
-
-  sendMessage() {
-    this.socketService.emit('message', { text: this.newMessage });
-    this.newMessage = '';
-  }
-
-  ngOnDestroy() {
-    this.messageSubscription.unsubscribe();
-  }
 
   ngOnInit(): void {
     // do I even need this here? if I move the navbar element into a component,
