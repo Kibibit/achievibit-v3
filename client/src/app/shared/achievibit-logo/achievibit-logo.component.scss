@@ -16,3 +16,33 @@ button.how-to-say {
   height: 30px;
   margin-right: 0.2em;
 }
+
+.logo-badge {
+  left: 0;
+  transform: translate3d(50px, -35px, 0);
+  opacity: 0.5;
+  transition: all 0.5s ease-in-out;
+  transform-origin: center;
+  color: #FF6684 !important;
+
+  &.blink {
+    // blink and stop
+    animation: blinkTwice 1s forwards;
+  }
+
+  &.kb-green {
+    color: #47C68E !important;
+  }
+}
+
+@keyframes blinkTwice {
+  0%,
+  50%,
+  100% {
+    opacity: 0.5;
+  }
+  25%,
+  75% {
+    opacity: 1;
+  }
+}

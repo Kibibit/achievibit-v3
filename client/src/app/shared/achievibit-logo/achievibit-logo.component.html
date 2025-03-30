@@ -7,3 +7,4 @@
 <button aria-label="Play Sound" class="how-to-say transparent circle" type="button" (click)="playSound()">
   <i class="material-symbols-outlined">volume_up</i>
 </button>
+<div *ngIf="apiVersion" class="badge logo-badge transparent" [class.blink]="shouldBlink" [class.kb-green]="connected">{{ apiVersion }}</div>
