@@ -52,25 +52,7 @@ export class AppController {
     type: ApiInfo
   })
   async getApiDetails() {
-    const packageInfo = await readJSON(
-      join(configService.appRoot, './package.json')
-    );
-    const details = new ApiInfo(
-      chain(packageInfo)
-        .pick([
-          'name',
-          'description',
-          'version',
-          'license',
-          'repository',
-          'author',
-          'bugs'
-        ])
-        .mapValues((val) => val.url ? val.url : val)
-        .value()
-    );
-
-    return details;
+    return this.appService.getApiDetails();
   }
 
   @Get('api/timezones')

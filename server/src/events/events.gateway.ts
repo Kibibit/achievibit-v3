@@ -1,12 +1,17 @@
 import { Server, Socket } from 'socket.io';
 
-import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { Achievement } from '@kb-models';
+import { ConnectedSocket, MessageBody, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { Achievement, ApiInfo } from '@kb-models';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { Logger } from '@kb-config';
+import { configService, Logger } from '@kb-config';
+import { OnModuleInit } from '@nestjs/common';
+import { AppService } from '../app.service';
+import { readJSON } from 'fs-extra';
+import { join } from 'path';
+import { chain } from 'lodash';
 
 @WebSocketGateway({ cors: { origin: true, credentials: true } })
-export class EventsGateway {
+export class EventsGateway implements OnGatewayConnection {
   private readonly logger = new Logger(EventsGateway.name);
   @WebSocketServer()
     server: Server;
@@ -16,6 +21,19 @@ export class EventsGateway {
       this.sendPingMessage();
     }, 30000);
   }
+  onModuleInit() {
+    this.broadcastVersionOnStartup();
+  }
+
+  // on client connect, broadcast the api version
+  async handleConnection(client: Socket) {
+    this.logger.debug('Client connected', { clientId: client.id });
+
+    const apiDetails = await this.getApiDetails();
+
+    this.broadcastVersion(apiDetails.version, client);
+  }
+
   @SubscribeMessage('message')
   handleMessage(client: any, payload: any): string {
     return 'Hello world!';
@@ -171,5 +189,48 @@ export class EventsGateway {
       mockAchievement
     });
     this.sendAchievementToRepo(repoFullname, mockAchievement);
+  }
+
+  @Cron('40 * * * * *')
+  async updateApiVersion() {
+    const apiVersion = '2.2.2-beta.10';
+
+    this.broadcastVersion(apiVersion);
+  }
+
+  async broadcastVersion(apiVersion: string, client?: Socket) {
+    if (client) {
+      return client.emit('version-update', { apiVersion });
+    }
+
+    this.server.emit('version-update', { apiVersion });
+  }
+
+  private async broadcastVersionOnStartup() {
+    const apiDetails = await this.getApiDetails();
+    
+    this.broadcastVersion(apiDetails.version);
+  }
+
+  private async getApiDetails() {
+    const packageInfo = await readJSON(
+      join(configService.appRoot, './package.json')
+    );
+    const details = new ApiInfo(
+      chain(packageInfo)
+        .pick([
+          'name',
+          'description',
+          'version',
+          'license',
+          'repository',
+          'author',
+          'bugs'
+        ])
+        .mapValues((val) => val.url ? val.url : val)
+        .value()
+    );
+
+    return details;
   }
 }
