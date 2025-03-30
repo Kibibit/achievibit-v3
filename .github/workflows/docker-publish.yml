@@ -36,8 +36,8 @@ jobs:
       # commit the version bump
       - name: Commit version bump
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "k1b1b0t"
+          git config user.email "k1b1b0t@kibibit.io"
           git add server/package.json || true
           git commit -m "chore: bump server version to ${{ env.version }}" || echo "No changes to commit"
           git push
