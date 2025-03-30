@@ -3,6 +3,7 @@ import { join } from 'path';
 import { readFileSync } from 'fs-extra';
 import * as jwt from 'jsonwebtoken';
 import { Octokit } from '@octokit/core';
+import { Octokit as OctokitRest } from '@octokit/rest';
 
 import { Injectable } from '@nestjs/common';
 
@@ -285,5 +286,37 @@ export class GithubService {
     }));
 
     return userReposLean;
+  }
+
+  async announceAchievibitOnPullRequest(pr: any, repo: any) {
+    const octokit = new OctokitRest({
+      // GitHub App installation token or personal token
+      auth: 'your-github-token'
+    });
+
+    const { owner, name } = {
+      owner: repo.owner.login,
+      name: repo.name
+    };
+  
+    const sha = pr.head.sha;
+  
+    // Add status
+    await octokit.repos.createCommitStatus({
+      owner,
+      repo: name,
+      sha,
+      state: 'pending',
+      context: 'Achievibit',
+      description: 'Scanning for achievements...',
+    });
+  
+    // Optional comment
+    await octokit.issues.createComment({
+      owner,
+      repo: name,
+      issue_number: pr.number,
+      body: '👋 Hey! This PR is being scanned for achievements by **Achievibit**. Stay tuned! 🎉',
+    });
   }
 }
