@@ -21,9 +21,6 @@ export class EventsGateway implements OnGatewayConnection {
       this.sendPingMessage();
     }, 30000);
   }
-  onModuleInit() {
-    this.broadcastVersionOnStartup();
-  }
 
   // on client connect, broadcast the api version
   async handleConnection(client: Socket) {
@@ -191,25 +188,12 @@ export class EventsGateway implements OnGatewayConnection {
     this.sendAchievementToRepo(repoFullname, mockAchievement);
   }
 
-  @Cron('40 * * * * *')
-  async updateApiVersion() {
-    const apiVersion = '2.2.2-beta.10';
-
-    this.broadcastVersion(apiVersion);
-  }
-
   async broadcastVersion(apiVersion: string, client?: Socket) {
     if (client) {
       return client.emit('version-update', { apiVersion });
     }
 
     this.server.emit('version-update', { apiVersion });
-  }
-
-  private async broadcastVersionOnStartup() {
-    const apiDetails = await this.getApiDetails();
-    
-    this.broadcastVersion(apiDetails.version);
   }
 
   private async getApiDetails() {
