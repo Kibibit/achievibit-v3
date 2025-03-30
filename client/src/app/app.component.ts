@@ -46,14 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private loaderService: LoaderService,
     private readonly authService: AuthService
-  ) {
-    this.messageSubscription = this.socketService
-      .on('ping')
-      .subscribe((data) => {
-        // this.messages.push(data.text);
-        console.log('Received ping message:', data);
-      });
-  }
+  ) {}
 
   sendMessage() {
     this.socketService.emit('message', { text: this.newMessage });

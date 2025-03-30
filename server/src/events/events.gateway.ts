@@ -26,11 +26,7 @@ export class EventsGateway implements OnGatewayConnection {
   @WebSocketServer()
     server: Server;
 
-  constructor() {
-    setInterval(() => {
-      this.sendPingMessage();
-    }, 30000);
-  }
+  constructor() {}
 
   afterInit(server: Server) {
     server.use((socket: AuthenticatedSocket, next) => {
@@ -130,16 +126,6 @@ export class EventsGateway implements OnGatewayConnection {
       clientUserId: client.id
     });
     client.leave(`repository-achievements:${ repoId }`);
-  }
-
-  async sendPingMessage() {
-    if (!this.server) {
-      this.logger.error('Socket server is not initialized');
-      return;
-    }
-
-    this.logger.debug('Sending ping message to all clients...');
-    this.server.emit('ping', 'dev check');
   }
 
   sendAchievementToUser(username: string, achievement: Partial<Achievement>) {
