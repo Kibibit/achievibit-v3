@@ -3,7 +3,6 @@ import { join } from 'path';
 import { readFileSync } from 'fs-extra';
 import * as jwt from 'jsonwebtoken';
 import { Octokit } from '@octokit/core';
-import { Octokit as OctokitRest } from '@octokit/rest';
 
 import { Injectable } from '@nestjs/common';
 
@@ -289,6 +288,7 @@ export class GithubService {
   }
 
   async announceAchievibitOnPullRequest(pr: any, repo: any) {
+    const { Octokit: OctokitRest } = await import('@octokit/rest');
     const octokit = new OctokitRest({
       // GitHub App installation token or personal token
       auth: 'your-github-token'
