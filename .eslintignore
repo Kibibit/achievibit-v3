@@ -2,6 +2,6 @@
 **/tester-app/**/*
 **/dist/**/*
 **/.eslintrc.js
-server/**
+# server/**
 plugins/**
 **/lib/**/*
