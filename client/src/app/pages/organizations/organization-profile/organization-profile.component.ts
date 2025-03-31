@@ -1,4 +1,4 @@
-import { delay, from, fromEvent, tap } from 'rxjs';
+import { delay, from, tap } from 'rxjs';
 import { NgIf } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -30,8 +30,16 @@ export class OrganizationProfileComponent implements OnDestroy {
   ) {
     this.org = this.route.snapshot.data[this.dataKey];
 
-    this.socketService.joinOrganizationAchievementRoom(this.org.name);
-    this.socketService.onAchievement(this.org.name, this.handleNewAchievement);
+    this.socketService
+      .getSocketConnectionStatus()
+      .subscribe((status) => {
+        if (!status.connected) {
+          return;
+        }
+
+        this.socketService.joinOrganizationAchievementRoom(this.org.name);
+        this.socketService.onAchievement(this.org.name, this.handleNewAchievement);
+      });
   }
 
   ngOnDestroy() {
@@ -40,33 +48,22 @@ export class OrganizationProfileComponent implements OnDestroy {
   }
 
   private onNewAchievement(achievement: any) {
-    // load image for achievement before showing it
+    console.log(`🎖️ New achievement for the ${ this.org.name } organization:`, achievement);
     const img = new Image();
-    const onLoad$ = fromEvent(img, 'load');
-    const onError$ = fromEvent(img, 'error');
 
-    onLoad$.subscribe(() => {
-      console.log(`🎖️ New achievement for the ${ this.org.name } organization:`, achievement);
+    img.onload = () => {
       from([ achievement ])
         .pipe(
           tap((a) => this.achievementNotification = a),
           delay(5000)
         )
         .subscribe(() => this.achievementNotification = null);
+    };
 
-      onError$.subscribe(() => {
-        console.error(`🎖️ Error loading image for achievement: ${ achievement.avatar }`);
-      });
+    img.onerror = () => {
+      console.error(`🎖️ Error loading image for achievement: ${ achievement.avatar }`);
+    };
 
-      // Always set this AFTER subscriptions
-      img.src = achievement.avatar;
-
-      // Also check if it's cached and already loaded
-      if (img.complete && img.naturalHeight !== 0) {
-      // already loaded and good
-      // manually trigger the same logic
-        onLoad$.subscribe();
-      }
-    });
+    img.src = achievement.avatar;
   }
 }
