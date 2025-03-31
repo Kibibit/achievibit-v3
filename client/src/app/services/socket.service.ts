@@ -25,6 +25,8 @@ export interface IMiniGameEventData {
 export class SocketService {
   private socket!: Socket;
 
+  private eventHandlers: Map<string, ((data: any) => void)[]> = new Map();
+
   private socketConnectionStatusSubject = new BehaviorSubject<ISocketConnectionStatus>({ connected: false });
   socketConnectionStatus$ = this.socketConnectionStatusSubject.asObservable();
 
@@ -34,16 +36,13 @@ export class SocketService {
     this.socket.on('connect', () => {
       console.log('✅ Socket connected:', this.socket.id);
       this.socketConnectionStatusSubject.next({ connected: true });
+
+      this.reRegisterEventHandlers();
     });
 
     this.socket.on('disconnect', () => {
       console.log('❌ Socket disconnected');
       this.socketConnectionStatusSubject.next({ connected: false });
-    });
-
-    this.socket.on('reconnect', () => {
-      console.log('🔄 Socket reconnected:', this.socket.id);
-      this.socketConnectionStatusSubject.next({ connected: true });
     });
   }
 
@@ -128,13 +127,32 @@ export class SocketService {
 
   on(event: string): Observable<any> {
     return new Observable((observer) => {
-      this.socket.on(event, (data) => {
-        observer.next(data);
-      });
+      const handler = (data: any) => observer.next(data);
+
+      this.socket.on(event, handler);
+
+      // Store the handler if not already stored
+      const handlers = this.eventHandlers.get(event) || [];
+
+      const handlerAlreadyExists = handlers.some(
+        (existingHandler) => existingHandler === handler
+      );
+
+      if (!handlerAlreadyExists) {
+        handlers.push(handler);
+        this.eventHandlers.set(event, handlers);
+      }
 
       // Handle cleanup
       return () => {
-        this.socket.off(event);
+        this.socket.off(event, handler);
+        const updatedHandlers = this.eventHandlers
+          .get(event)?.filter((eventHandler) => eventHandler !== handler);
+        if (updatedHandlers?.length) {
+          this.eventHandlers.set(event, updatedHandlers);
+        } else {
+          this.eventHandlers.delete(event);
+        }
       };
     });
   }
@@ -177,5 +195,15 @@ export class SocketService {
     if (this.socket) {
       this.socket.disconnect();
     }
+  }
+
+  private reRegisterEventHandlers(): void {
+    this.eventHandlers.forEach((handlers, event) => {
+      // Remove current handlers just in case
+      this.socket.off(event);
+      handlers.forEach((handler) => {
+        this.socket.on(event, handler);
+      });
+    });
   }
 }

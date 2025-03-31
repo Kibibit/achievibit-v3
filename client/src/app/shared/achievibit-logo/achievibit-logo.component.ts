@@ -31,7 +31,7 @@ export class AchievibitLogoComponent {
         this.connected = status.connected;
 
         // resubscribe
-        this.handleVersionUpdates();
+        // this.handleVersionUpdates();
       });
 
     this.generalApiService.getApiDetails()
