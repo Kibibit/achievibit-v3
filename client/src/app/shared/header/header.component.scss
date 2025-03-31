@@ -6,3 +6,16 @@ header {
   margin: 1em;
   z-index: 50000000;
 }
+
+.mobile-show {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-show {
+    display: block;
+  }
+  .mobile-hide {
+    display: none;
+  }
+}

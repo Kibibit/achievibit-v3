@@ -4,52 +4,77 @@
       <i>menu</i>
     </button> -->
     <kb-achievibit-logo></kb-achievibit-logo>
-    <a class="chip" routerLinkActive="fill" [routerLink]="['/repos']">Repositories</a>
-    <a class="chip" routerLinkActive="fill" [routerLink]="['/users']">Users</a>
-    <a class="chip" routerLinkActive="fill" [routerLink]="['/orgs']">Organizations</a>
+    <a class="chip mobile-hide" routerLinkActive="fill" [routerLink]="['/repos']">Repositories</a>
+    <a class="chip mobile-hide" routerLinkActive="fill" [routerLink]="['/users']">Users</a>
+    <a class="chip mobile-hide" routerLinkActive="fill" [routerLink]="['/orgs']">Organizations</a>
     <!-- expose to admins only -->
     <!-- <a class="chip" routerLinkActive="fill" [routerLink]="['/prs']">Pull Requests</a> -->
     <div class="max"></div>
     <ng-container *ngIf="!hideUserState">
       <ng-container *ngIf="loggedInUser; else login">
         <kb-user-lives [currentLives]="loggedInUser.lives"></kb-user-lives>
-        <button class="circle transparent" type="button" (click)="openMenu()">
+        <button
+          class="circle transparent"
+          type="button"
+          (click)="toggleMenu()"
+          (keydown.enter)="openMenu()"
+          (blur)="closeMenu()"
+          (keydown.esc)="closeMenu()"
+        >
           <img class="responsive" alt="user avatar" [src]="loggedInUser.avatar">
-          <menu class="left no-wrap">
-            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/overview']">
+        </button>
+          <menu id="userMenu" class="left no-wrap" [class.active]="menuOpen">
+            <a class="row show-mobile" routerLinkActive="fill" [routerLink]="['/repos']" (click)="closeMenu()">
+              <i class="material-symbols-outlined">
+                tactic
+              </i>
+              Repositories
+            </a>
+            <a class="row show-mobile" routerLinkActive="fill" [routerLink]="['/users']" (click)="closeMenu()">
+              <i class="material-symbols-outlined">
+                group
+              </i>
+              Users
+            </a>
+            <a class="row show-mobile" routerLinkActive="fill" [routerLink]="['/orgs']" (click)="closeMenu()">
+              <i class="material-symbols-outlined">
+                corporate_fare
+              </i>
+              Organizations
+            </a>
+            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/overview']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 person
               </i>
               <span>Your Profile</span>
             </a>
-            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/integrations']">
+            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/integrations']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 integration_instructions
               </i>
               <span>Integrations</span>
             </a>
-            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/settings']">
+            <a class="row" routerLinkActive="fill" [routerLink]="['/profile/settings']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 settings
               </i>
               <span>Settings</span>
             </a>
             <hr class="small">
-            <a class="row" routerLinkActive="fill" [routerLink]="['/app-status']">
+            <a class="row" routerLinkActive="fill" [routerLink]="['/app-status']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 heart_check
               </i>
               <span>Achievibit Status</span>
             </a>
             <hr class="small">
-            <a class="row" tabindex="0" (click)="logout()" (keydown.enter)="logout()">
+            <a class="row" tabindex="0" (click)="closeMenu(); logout()" (keydown.enter)="closeMenu(); logout()">
               <i class="material-symbols-outlined">
                 logout
               </i>
               <span>Sign out</span>
             </a>
           </menu>
-        </button>
       </ng-container>
     </ng-container>
     <ng-template #login>

@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { User } from '@kibibit/achievibit-sdk';
@@ -30,6 +30,8 @@ export class HeaderComponent implements OnInit {
   menuOpen = false;
   loggedInUser?: User;
 
+  @ViewChild('userMenu') userMenu!: HTMLMenuElement;
+
   constructor(
     private loaderService: LoaderService,
     private authService: MeApiService,
@@ -38,19 +40,19 @@ export class HeaderComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.menuOpen = false;
+        this.closeMenu();
       }
 
       if (event instanceof NavigationStart) {
         this.loaderService.show();
-        this.menuOpen = false;
+        this.closeMenu();
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
         this.loaderService.hide();
-        this.menuOpen = false;
+        this.closeMenu();
       }
     });
   }
@@ -96,7 +98,19 @@ export class HeaderComponent implements OnInit {
     this.menuOpen = true;
   }
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+
+    if (!this.menuOpen) {
+      this.closeMenu();
+    }
+  }
+
   closeMenu() {
     this.menuOpen = false;
+
+    const activeElement = document.activeElement as HTMLElement | null;
+
+    activeElement?.blur();
   }
 }
