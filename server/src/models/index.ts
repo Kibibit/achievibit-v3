@@ -12,5 +12,8 @@ export * from './repository.entity';
 export * from './system.enum';
 export * from './user-settings.entity';
 export * from './user.entity';
+export * from './authorization/permissions.enum';
+export * from './authorization/role-permissions.map';
+export * from './authorization/roles.enum';
 export * from './pagination/page-meta.model';
 export * from './pagination/page.model';

@@ -4,3 +4,5 @@
 
 export * from './events.gateway';
 export * from './events.module';
+export * from './events.service';
+export * from './mini-games/mini-games.gateway';
