@@ -43,7 +43,50 @@ export class AppComponent implements OnInit {
     private router: Router,
     private loaderService: LoaderService,
     private readonly authService: AuthService
-  ) {}
+  ) {
+    (console as any).image = function(url: string, size = 100) {
+      const image = new Image();
+      image.src = url;
+      image.onload = function() {
+        const style = [
+          'font-size: 1px;',
+          'padding: ' + (this as any).height / 100 * size + 'px ' + (this as any).width / 100 * size + 'px;',
+          'background: url(' + url + ') no-repeat;',
+          'background-size: contain;'
+        ].join(' ');
+        console.log('%c ', style);
+      };
+    };
+    const imageUrl = 'https://kibibit.io/kibibit-assets/1x/long-white.png';
+
+    this.imageUrlToBase64(imageUrl)
+      .then((base64) => {
+        (console as any).image(base64, 30);
+      })
+      .catch(console.error);
+  }
+
+  private imageUrlToBase64(url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      // Important for cross-origin images!
+      img.crossOrigin = 'Anonymous';
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return reject(new Error('Could not get canvas context'));
+
+        ctx.drawImage(img, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        resolve(dataURL);
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
+  }
 
   ngOnInit(): void {
     // do I even need this here? if I move the navbar element into a component,
