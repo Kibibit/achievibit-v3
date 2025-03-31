@@ -14,6 +14,7 @@ import { ShieldsService } from '@kb-shields';
 import { UsersService } from '@kb-users';
 
 import { SessionUserService } from './session-user.service';
+import { EventsService } from '@kb-events';
 
 @Controller('api/me')
 @ApiTags('Session User')
@@ -22,7 +23,8 @@ export class SessionUserController {
     private readonly sessionUserService: SessionUserService,
     private readonly shieldsService: ShieldsService,
     private readonly usersService: UsersService,
-    private readonly repositoriesService: RepositoriesService
+    private readonly repositoriesService: RepositoriesService,
+    private readonly eventsService: EventsService
   ) {}
 
   @Get()
@@ -254,13 +256,22 @@ export class SessionUserController {
     @ReqUser() user: User,
     @Res() res: Response
   ) {
-    await this.sessionUserService.installWebhookOnRepo(
-      user,
-      'asd',
-      SystemEnum.GITHUB,
-      installationId
-    );
+    // await this.sessionUserService.installWebhookOnRepo(
+    //   user,
+    //   'asd',
+    //   SystemEnum.GITHUB,
+    //   installationId
+    // );
 
-    res.redirect('/profile');
+    setTimeout(() => {
+      this.eventsService.sendAchievementToUser('thatkookooguy', {
+        name: 'Big Achievement Hunter',
+        description: `You have added a repository`,
+        id: 'big-achievement-hunter',
+        avatar: 'https://github.com/k1b1b0t.png'
+      });
+    }, 5000);
+
+    res.redirect('/profile/integrations');
   }
 }

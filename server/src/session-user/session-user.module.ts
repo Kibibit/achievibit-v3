@@ -7,13 +7,15 @@ import { UsersModule } from '@kb-users';
 import { SystemsModule } from '../systems/systems.module';
 import { SessionUserController } from './session-user.controller';
 import { SessionUserService } from './session-user.service';
+import { EventsModule } from '@kb-events';
 
 @Module({
   imports: [
     SystemsModule,
     UsersModule,
     RepositoriesModule,
-    ShieldsModule
+    ShieldsModule,
+    EventsModule
   ],
   controllers: [ SessionUserController ],
   providers: [ SessionUserService ]
