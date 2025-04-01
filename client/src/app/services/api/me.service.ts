@@ -25,7 +25,7 @@ export class MeApiService implements ICachableService {
     );
   }
 
-  @Cacheable({ emitOnce: true })
+  @Cacheable({ emitOnce: false })
   getLoggedInUser(options?: { emitOnce?: boolean }) {
     return this
       .meApiService
