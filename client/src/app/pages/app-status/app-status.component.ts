@@ -23,10 +23,7 @@ export class AppStatusComponent {
     private readonly socketService: SocketService
   ) {}
 
-  // pizza() {
-  //   this.healthCheck$.subscribe((data) => {
-  //     const papa = data.app?.details?.['pizza'];
-  //     console.log('data', data.app?.details?.['pizza'].status);
-  //   });
-  // }
+  triggerMiniGame() {
+    this.socketService.emit('test-test-test', {}, () => {});
+  }
 }

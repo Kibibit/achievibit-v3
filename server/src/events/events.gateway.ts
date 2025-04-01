@@ -1,14 +1,16 @@
+import { join } from 'path';
+
+import { parse as parseCookie } from 'cookie';
+import { readJSON } from 'fs-extra';
+import * as jwt from 'jsonwebtoken';
+import { chain } from 'lodash';
 import { Server, Socket } from 'socket.io';
 
-import { ConnectedSocket, MessageBody, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { Achievement, ApiInfo, User } from '@kb-models';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { ConnectedSocket, MessageBody, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+
 import { configService, Logger } from '@kb-config';
-import { readJSON } from 'fs-extra';
-import { join } from 'path';
-import { chain } from 'lodash';
-import { parse as parseCookie } from 'cookie';
-import * as jwt from 'jsonwebtoken';
+import { Achievement, ApiInfo, User } from '@kb-models';
 
 interface IAuthenticatedEventData {
   user: User;
@@ -30,18 +32,18 @@ export class EventsGateway implements OnGatewayConnection {
 
   afterInit(server: Server) {
     server.use((socket: AuthenticatedSocket, next) => {
-        const payload = this.getUserFromCookieOrHeaderToken(socket);
+      const payload = this.getUserFromCookieOrHeaderToken(socket);
 
-        if (!payload) {
-          return next();
-        }
+      if (!payload) {
+        return next();
+      }
 
-        socket.data.user = {
-          id: payload.sub,
-          username: payload.username
-        } as User;
+      socket.data.user = {
+        id: payload.sub,
+        username: payload.username
+      } as User;
 
-        next();
+      next();
     });
   }
 
@@ -70,7 +72,7 @@ export class EventsGateway implements OnGatewayConnection {
 
   @SubscribeMessage('join-user-achievements')
   handleJoinUserAchievements(@ConnectedSocket() client: Socket, @MessageBody() username: string) {
-    this.logger.debug(`User JOINED user achievement's room`, {
+    this.logger.debug('User JOINED user achievement\'s room', {
       roomUsername: username,
       clientUserId: client.id
     });
@@ -85,7 +87,7 @@ export class EventsGateway implements OnGatewayConnection {
 
   @SubscribeMessage('leave-user-achievements')
   handleLeaveUserAchievements(@ConnectedSocket() client: Socket, @MessageBody() username: string) {
-    this.logger.debug(`User LEFT user achievement's room`, {
+    this.logger.debug('User LEFT user achievement\'s room', {
       roomUsername: username,
       clientUserId: client.id
     });
@@ -94,7 +96,7 @@ export class EventsGateway implements OnGatewayConnection {
 
   @SubscribeMessage('join-organization-achievements')
   handleJoinOrganizationAchievements(@ConnectedSocket() client: Socket, @MessageBody() orgName: string) {
-    this.logger.debug(`User JOINED organization achievement's room`, {
+    this.logger.debug('User JOINED organization achievement\'s room', {
       roomOrgName: orgName,
       clientUserId: client.id
     });
@@ -103,7 +105,7 @@ export class EventsGateway implements OnGatewayConnection {
 
   @SubscribeMessage('leave-organization-achievements')
   handleLeaveOrganizationAchievements(@ConnectedSocket() client: Socket, @MessageBody() orgName: string) {
-    this.logger.debug(`User LEFT organization achievement's room`, {
+    this.logger.debug('User LEFT organization achievement\'s room', {
       roomUsername: orgName,
       clientUserId: client.id
     });
@@ -112,7 +114,7 @@ export class EventsGateway implements OnGatewayConnection {
 
   @SubscribeMessage('join-repository-achievements')
   handleJoinRepositoryAchievements(@ConnectedSocket() client: Socket, @MessageBody() repoId: string) {
-    this.logger.debug(`User JOINED repository achievement's room`, {
+    this.logger.debug('User JOINED repository achievement\'s room', {
       roomRepoId: repoId,
       clientUserId: client.id
     });
@@ -121,11 +123,18 @@ export class EventsGateway implements OnGatewayConnection {
 
   @SubscribeMessage('leave-repository-achievements')
   handleLeaveRepositoryAchievements(@ConnectedSocket() client: Socket, @MessageBody() repoId: string) {
-    this.logger.debug(`User LEFT repository achievement's room`, {
+    this.logger.debug('User LEFT repository achievement\'s room', {
       roomRepoId: repoId,
       clientUserId: client.id
     });
     client.leave(`repository-achievements:${ repoId }`);
+  }
+
+  @SubscribeMessage('test-test-test')
+  testStartMiniGame(
+    @ConnectedSocket() client: Socket
+  ) {
+    client.emit('test-test-test-do-it');
   }
 
   sendAchievementToUser(username: string, achievement: Partial<Achievement>) {
@@ -148,10 +157,10 @@ export class EventsGateway implements OnGatewayConnection {
       id: 'test-achievement',
       avatar: 'https://github.com/kibibit.png',
       name: `Test Achievement ${ Math.round(Math.random() * 100000000) }`,
-      description: 'This is a test achievement',
+      description: 'This is a test achievement'
     };
 
-    this.logger.debug(`Sending test USER achievement event`, {
+    this.logger.debug('Sending test USER achievement event', {
       username,
       mockAchievement
     });
@@ -166,10 +175,10 @@ export class EventsGateway implements OnGatewayConnection {
       id: 'test-another-achievement',
       avatar: 'https://github.com/k1b1b0t.png',
       name: `ANOTHER Achievement  ${ Math.round(Math.random() * 100000000) }`,
-      description: 'This is a test achievement',
+      description: 'This is a test achievement'
     };
 
-    this.logger.debug(`Sending test USER achievement event`, {
+    this.logger.debug('Sending test USER achievement event', {
       username,
       mockAchievement
     });
@@ -183,10 +192,10 @@ export class EventsGateway implements OnGatewayConnection {
       id: 'test-another-achievement',
       avatar: 'https://github.com/k1b1b0t.png',
       name: `ORG Achievement ${ Math.round(Math.random() * 100000000) }`,
-      description: 'This is a test achievement',
+      description: 'This is a test achievement'
     };
 
-    this.logger.debug(`Sending test ORG achievement event`, {
+    this.logger.debug('Sending test ORG achievement event', {
       orgName,
       mockAchievement
     });
@@ -200,10 +209,10 @@ export class EventsGateway implements OnGatewayConnection {
       id: 'test-another-achievement',
       avatar: 'https://picsum.photos/seed/404/100',
       name: `REPO Achievement ${ Math.round(Math.random() * 100000000) }`,
-      description: 'This is a test achievement',
+      description: 'This is a test achievement'
     };
 
-    this.logger.debug(`Sending test REPO achievement event`, {
+    this.logger.debug('Sending test REPO achievement event', {
       repoFullname,
       mockAchievement
     });
@@ -243,21 +252,21 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   private getUserFromCookieOrHeaderToken(socket: AuthenticatedSocket) {
-      try {
-        const cookieHeader = socket.handshake.headers.cookie;
-        const cookies = cookieHeader ? parseCookie(cookieHeader) : {};
-        const token: string = cookies['kibibit-jwt'] || socket.handshake.auth.token;
-  
-        if (!token) {
-          // will throw an error and the socket will not be authenticated
-          // return value is in catch block
-          throw new Error('No token provided in cookies or headers');
-        }
-  
-        return jwt.verify(token, configService.config.JWT_SECRET) as jwt.JwtPayload & User;
-      } catch (error) {
-        this.logger.warn('Failed to authenticate socket:', error.message);
-        return null;
+    try {
+      const cookieHeader = socket.handshake.headers.cookie;
+      const cookies = cookieHeader ? parseCookie(cookieHeader) : {};
+      const token: string = cookies['kibibit-jwt'] || socket.handshake.auth.token;
+
+      if (!token) {
+        // will throw an error and the socket will not be authenticated
+        // return value is in catch block
+        throw new Error('No token provided in cookies or headers');
       }
+
+      return jwt.verify(token, configService.config.JWT_SECRET) as jwt.JwtPayload & User;
+    } catch (error) {
+      this.logger.warn('Failed to authenticate socket:', error.message);
+      return null;
     }
+  }
 }

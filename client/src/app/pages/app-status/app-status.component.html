@@ -1,6 +1,10 @@
 <div class="padding">
 <div class="container">
   <h4>Application Status</h4>
+  <button class="refresh margin" type="button" (click)="triggerMiniGame()">
+    <i class="material-symbols-outlined">refresh</i>
+    <span>Test Mini Game</span>
+  </button>
   <div class="grid">
     <ng-container *ngIf="socketConnectionStatus$ | async as socketConnectionStatus">
     <article class="s3">
