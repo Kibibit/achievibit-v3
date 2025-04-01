@@ -62,8 +62,8 @@ export class HeaderComponent implements OnInit {
     // I can just hide it there and only redirect to login if the user tries to
     // access a page that requires authentication
     this
-      .authService
-      .getLoggedInUser()
+      .meApiService
+      .checkUserLoggedIn()
       .subscribe({
         next: (user) => {
           this.loggedInUser = user;

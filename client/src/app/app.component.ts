@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
           }
 
           // Handle other errors
-          window.location.href = '/login';
+          // window.location.href = '/login';
         }
       });
   }

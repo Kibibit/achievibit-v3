@@ -47,7 +47,9 @@ export class ServerValidationError extends Error {
 export class ApiErrorHandler {
   private static handleUnauthorized() {
     createSnackbar('Session expired. Please log in.');
-    window.location.href = '/login';
+    // window.location.href = '/login';
+
+    return Promise.reject(new Error('Session expired'));
   }
 
   private static handleForbidden() {
@@ -81,8 +83,7 @@ export class ApiErrorHandler {
           }
           break;
         case StatusCodes.UNAUTHORIZED:
-          ApiErrorHandler.handleUnauthorized();
-          break;
+          return ApiErrorHandler.handleUnauthorized();
 
         case StatusCodes.FORBIDDEN:
           ApiErrorHandler.handleForbidden();
