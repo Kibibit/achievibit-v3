@@ -38,7 +38,8 @@
       "@kb-systems": ["src/systems/index"],
       "@kb-tasks": ["src/tasks/index"],
       "@kb-events": ["src/events/index"],
-      "@kb-health": ["src/health/index"]
+      "@kb-health": ["src/health/index"],
+      "@kb-engines": ["src/engines/index"]
     }
   }
 }

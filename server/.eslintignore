@@ -1,5 +1,0 @@
-.storybook/**/*
-tester-app/**/*
-dist/**/*
-.eslintrc.js
-socket-io.js
