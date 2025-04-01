@@ -24,24 +24,25 @@
           <img class="responsive" alt="user avatar" [src]="loggedInUser.avatar">
         </button>
           <menu id="userMenu" class="left no-wrap" [class.active]="menuOpen">
-            <a class="row show-mobile" routerLinkActive="fill" [routerLink]="['/repos']" (click)="closeMenu()">
+            <a class="row mobile-show" routerLinkActive="fill" [routerLink]="['/repos']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 tactic
               </i>
               Repositories
             </a>
-            <a class="row show-mobile" routerLinkActive="fill" [routerLink]="['/users']" (click)="closeMenu()">
+            <a class="row mobile-show" routerLinkActive="fill" [routerLink]="['/users']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 group
               </i>
               Users
             </a>
-            <a class="row show-mobile" routerLinkActive="fill" [routerLink]="['/orgs']" (click)="closeMenu()">
+            <a class="row mobile-show" routerLinkActive="fill" [routerLink]="['/orgs']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 corporate_fare
               </i>
               Organizations
             </a>
+            <hr class="small">
             <a class="row" routerLinkActive="fill" [routerLink]="['/profile/overview']" (click)="closeMenu()">
               <i class="material-symbols-outlined">
                 person
