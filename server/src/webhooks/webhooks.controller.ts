@@ -1,5 +1,5 @@
 import { Body, Controller, Headers, Post, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiExcludeEndpoint, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiCreatedResponse, ApiExcludeEndpoint, ApiOperation, ApiSecurity, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
 import { configService, Logger } from '@kb-config';
 import { DisableInProduction } from '@kb-decorators';
@@ -25,6 +25,12 @@ export class WebhooksController {
       type: 'object'
     }
   })
+  @ApiCreatedResponse({
+    description: 'Webhook received and processed successfully'
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Invalid or missing signature'
+  })
   bitbucket(
     @Body() body: any
   ) {
@@ -39,6 +45,12 @@ export class WebhooksController {
     schema: {
       type: 'object'
     }
+  })
+  @ApiCreatedResponse({
+    description: 'Webhook received and processed successfully'
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Invalid or missing signature'
   })
   github(
     @Body() body: any,
@@ -56,6 +68,12 @@ export class WebhooksController {
     schema: {
       type: 'object'
     }
+  })
+  @ApiCreatedResponse({
+    description: 'Webhook received and processed successfully'
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Invalid or missing signature'
   })
   gitlab(
     @Body() body: any

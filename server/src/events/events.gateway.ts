@@ -16,7 +16,7 @@ interface IAuthenticatedEventData {
   user: User;
 }
 
-interface AuthenticatedSocket extends Socket {
+interface IAuthenticatedSocket extends Socket {
   data: IAuthenticatedEventData;
 }
 
@@ -31,7 +31,7 @@ export class EventsGateway implements OnGatewayConnection {
   constructor() {}
 
   afterInit(server: Server) {
-    server.use((socket: AuthenticatedSocket, next) => {
+    server.use((socket: IAuthenticatedSocket, next) => {
       const payload = this.getUserFromCookieOrHeaderToken(socket);
 
       if (!payload) {
@@ -48,7 +48,7 @@ export class EventsGateway implements OnGatewayConnection {
   }
 
   // on client connect, broadcast the api version
-  async handleConnection(client: AuthenticatedSocket) {
+  async handleConnection(client: IAuthenticatedSocket) {
     this.logger.debug('Client connected', { clientId: client.id });
 
     const apiDetails = await this.getApiDetails();
@@ -130,11 +130,22 @@ export class EventsGateway implements OnGatewayConnection {
     client.leave(`repository-achievements:${ repoId }`);
   }
 
+  @SubscribeMessage('test-results-updated')
+  handleTestResultsUpdated(@ConnectedSocket() client: Socket) {
+    this.logger.debug('Test results updated, broadcasting to all clients');
+    // Broadcast to all clients that test results have been updated
+    this.server.emit('refresh-test-results');
+    return { status: 'ok' };
+  }
+
   @SubscribeMessage('test-test-test')
   testStartMiniGame(
     @ConnectedSocket() client: Socket
   ) {
-    client.emit('test-test-test-do-it');
+    client.emit('test-test-test-do-it', {
+      url: Math.random() > 0.5 ? 'https://kibibit.io/pirate-fight' : 'https://kibibit.io/phaser-rhythm-game',
+      name: 'Pirate Fight'
+    });
   }
 
   sendAchievementToUser(username: string, achievement: Partial<Achievement>) {
@@ -251,7 +262,7 @@ export class EventsGateway implements OnGatewayConnection {
     return this.apiDetails;
   }
 
-  private getUserFromCookieOrHeaderToken(socket: AuthenticatedSocket) {
+  private getUserFromCookieOrHeaderToken(socket: IAuthenticatedSocket) {
     try {
       const cookieHeader = socket.handshake.headers.cookie;
       const cookies = cookieHeader ? parseCookie(cookieHeader) : {};

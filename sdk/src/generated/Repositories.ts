@@ -68,4 +68,19 @@ export class Repositories<SecurityDataType = unknown> extends HttpClient<Securit
       format: "json",
       ...params,
     });
+  /**
+   * @description Test OpenAI API
+   *
+   * @tags Repositories
+   * @name RepositoriesControllerTestOpenAi
+   * @summary Test OpenAI
+   * @request GET:/api/repos/test-openai
+   */
+  repositoriesControllerTestOpenAi = (params: RequestParams = {}) =>
+    this.request<string, any>({
+      path: `/api/repos/test-openai`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
 }

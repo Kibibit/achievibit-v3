@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`repositories api routes should GET a repository by its fullname /api/repos/{owner}/{name} 1`] = `""`;
+
+exports[`repositories api routes should GET all repositories with pagination /api/repos 1`] = `
+{
+  "hasNextPage": false,
+  "hasPreviousPage": false,
+  "itemCount": 0,
+  "page": 1,
+  "pageCount": 0,
+  "take": 10,
+}
+`;

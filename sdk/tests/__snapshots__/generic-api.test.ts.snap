@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generic api routes should GET the api info /api 1`] = `
+{
+  "author": "thatkookooguy <neilkalman@gmail.com>",
+  "description": "Achievements & Gamification for Cloud Git Systems",
+  "license": "MIT",
+  "name": "@kibibit/achievibit-backend",
+  "version": "0.0.2-beta.18",
+}
+`;
+
+exports[`generic api routes should GET the dev center options /api/swagger 1`] = `
+{
+  "showAsyncDocs": false,
+  "showNestjsDevTools": true,
+  "showSmeeClient": true,
+  "showSwaggerJson": false,
+  "showSwaggerUi": true,
+  "smeeUrl": "https://smee.kibibit.io/thatkookooguy",
+}
+`;

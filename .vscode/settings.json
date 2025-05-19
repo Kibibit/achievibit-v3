@@ -4,6 +4,11 @@
   "files.associations": {
     "*.json": "json"
   },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true
+  },
+  "debug.toolBarLocation": "docked",
   "workbench.colorTheme": "Andromeda Bordered",
   "indentRainbow.indicatorStyle": "light",
   "indentRainbow.colors": [
@@ -21,6 +26,10 @@
   "gitlens.mode.statusBar.enabled": false,
   "gitlens.launchpad.indicator.enabled": false,
   "eslint.enable": true,
+  // "eslint.run": "onType",
+  // "eslint.workingDirectories": [
+  //   { "mode": "auto" }
+  // ],
   "eslint.options": {
       "overrideConfigFile": "./.eslintrc.js",
       "extensions": [".js", ".jsx", ".ts", ".tsx", ".html"]

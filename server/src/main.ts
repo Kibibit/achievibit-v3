@@ -3,6 +3,7 @@ import { join } from 'path';
 import { magenta, yellow } from 'colors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import { existsSync } from 'fs-extra';
 import { WinstonModule } from 'nest-winston';
 
 import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
@@ -43,7 +44,7 @@ async function bootstrap() {
     exceptionFactory: (errors) => {
       // Pass the raw ValidationError[] into the exception
       return new BadRequestException(errors);
-    },
+    }
   }));
   // app.useGlobalInterceptors(new ErrorLoggingInterceptor());
   // app.useGlobalFilters(new HttpExceptionFilter());
@@ -62,18 +63,45 @@ async function bootstrap() {
 
   app.enableCors();
 
-  app.useStaticAssets(join(configService.appRoot, 'client'), {
+  const clientPath = join(configService.appRoot, 'client');
+  const loginAppPath = join(configService.appRoot, 'login-app');
+  const testResultsPath = join(configService.appRoot, '..', 'test-results');
+  const notFoundPath = join(configService.appRoot, '404');
+  const socketIoAdminPath = join(configService.appRoot, 'node_modules', '@socket.io', 'admin-ui', 'ui', 'dist');
+
+  app.useStaticAssets(clientPath, {
     // Cache static assets for 1 day
     maxAge: configService.isDevelopmentMode ? 0 : '1d'
   });
 
-  app.useStaticAssets(join(configService.appRoot, 'login-app'), {
+  app.useStaticAssets(loginAppPath, {
     // Cache static assets for 1 day
     maxAge: configService.isDevelopmentMode ? 0 : '1d',
     prefix: '/login'
   });
 
-  app.useStaticAssets(join(__dirname, '..', 'node_modules', '@socket.io', 'admin-ui', 'ui', 'dist'), {
+  // Custom middleware to handle test-results requests
+  app.use('/test-results', (req, res, next) => {
+    // Extract the relative path from the URL and remove query params
+    const relativePath = req.url.split('?')[0];
+    const fullPath = join(testResultsPath, relativePath);
+    // Check if the test-results directory exists and if the specific file/folder exists
+    if (existsSync(testResultsPath) && existsSync(fullPath)) {
+      // If it exists, continue to the next middleware (standard static file handling)
+      next();
+    } else {
+      // If not, serve the 404 application instead
+      res.sendFile(join(notFoundPath, 'index.html'));
+    }
+  });
+
+  // Still serve test-results if they exist for the static file middleware to work
+  app.useStaticAssets(testResultsPath, {
+    maxAge: 0,
+    prefix: '/test-results'
+  });
+
+  app.useStaticAssets(socketIoAdminPath, {
     prefix: '/api/socket-io'
   });
 
@@ -81,6 +109,8 @@ async function bootstrap() {
   app.useWebSocketAdapter(new CustomSocketIoAdapter(app));
 
   await Documentation.addDocumentation(app);
+
+  Documentation.addCoverage(app);
 
   await app.listen(configService.config.PORT);
 

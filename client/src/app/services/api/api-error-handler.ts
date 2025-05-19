@@ -46,7 +46,7 @@ export class ServerValidationError extends Error {
 
 export class ApiErrorHandler {
   private static handleUnauthorized() {
-    createSnackbar('Session expired. Please log in.');
+    // createSnackbar('Session expired. Please log in.');
     // window.location.href = '/login';
 
     return Promise.reject(new Error('Session expired'));

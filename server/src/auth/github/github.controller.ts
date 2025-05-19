@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { ReqUser } from '@kb-decorators';
 import { User } from '@kb-models';
@@ -38,12 +38,24 @@ export class GithubController {
     summary: 'Github OAuth callback',
     description: 'Github OAuth callback URL. This is the URL that Github will redirect to after authentication'
   })
+  @ApiQuery({
+    name: 'code',
+    type: String,
+    required: true,
+    description: 'Authorization code from GitHub'
+  })
+  @ApiQuery({
+    name: 'state',
+    type: String,
+    required: false,
+    description: 'CSRF state token'
+  })
   @UseGuards(GitHubAuthGuard)
   async githubAuthCallback(
       @ReqUser() user: User,
       @Req() req: Request,
       @Res({ passthrough: true }) res: Response
-  ) {
+  ): Promise<void | { access_token: string }> {
     const { accessToken } = await this.jwtService.generateAccessToken(user);
 
     res.cookie('kibibit-jwt', accessToken, {

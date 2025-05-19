@@ -8,9 +8,9 @@ import { Injectable } from '@nestjs/common';
 
 import { configService, Logger } from '@kb-config';
 import { SystemEnum, User } from '@kb-models';
+import { OrganizationsService } from '@kb-organizations';
 import { RepositoriesService } from '@kb-repositories';
 import { UsersService } from '@kb-users';
-import { OrganizationsService } from '@kb-organizations';
 
 export interface IInstallationAccessTokenResponse {
   token: string;
@@ -190,7 +190,8 @@ export class GithubService {
           url: repo.html_url,
           owner: user,
           organization: organization,
-          system: SystemEnum.GITHUB
+          system: SystemEnum.GITHUB,
+          externalId: repo.id
           // private: repo.private
         },
         repo.description,
@@ -298,9 +299,9 @@ export class GithubService {
       owner: repo.owner.login,
       name: repo.name
     };
-  
+
     const sha = pr.head.sha;
-  
+
     // Add status
     await octokit.repos.createCommitStatus({
       owner,
@@ -308,15 +309,15 @@ export class GithubService {
       sha,
       state: 'pending',
       context: 'Achievibit',
-      description: 'Scanning for achievements...',
+      description: 'Scanning for achievements...'
     });
-  
+
     // Optional comment
     await octokit.issues.createComment({
       owner,
       repo: name,
       issue_number: pr.number,
-      body: '👋 Hey! This PR is being scanned for achievements by **Achievibit**. Stay tuned! 🎉',
+      body: '👋 Hey! This PR is being scanned for achievements by **Achievibit**. Stay tuned! 🎉'
     });
   }
 }

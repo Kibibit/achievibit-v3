@@ -86,7 +86,8 @@ export class BitbucketService {
       fullname: repoFullName,
       url: `https://bitbucket.org/${ repoFullName }`,
       owner: user,
-      system: SystemEnum.BITBUCKET
+      system: SystemEnum.BITBUCKET,
+      externalId: repoFullName
     });
 
     return newHook;

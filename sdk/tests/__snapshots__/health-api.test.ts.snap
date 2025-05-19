@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`health api routes should GET application health /api/health 1`] = `
+{
+  "details": {
+    "database": {
+      "status": "up",
+    },
+    "memory heap": {
+      "status": "up",
+    },
+    "ssl certificate": {
+      "message": "SSL check skipped for localhost",
+      "status": "up",
+    },
+  },
+  "error": {},
+  "info": {
+    "database": {
+      "status": "up",
+    },
+    "memory heap": {
+      "status": "up",
+    },
+    "ssl certificate": {
+      "message": "SSL check skipped for localhost",
+      "status": "up",
+    },
+  },
+  "status": "ok",
+}
+`;
+
+exports[`health api routes should GET devtools health /api/devtools 1`] = `
+{
+  "details": {
+    "forms.kibibit.io": {
+      "status": "up",
+    },
+    "growthbook.kibibit.io": {
+      "status": "up",
+    },
+    "imgproxy.kibibit.io": {
+      "status": "up",
+    },
+    "matomo.kibibit.io": {
+      "status": "up",
+    },
+    "n8n.kibibit.io": {
+      "status": "up",
+    },
+    "prometheus.kibibit.io": {
+      "status": "up",
+    },
+    "secrets.kibibit.io": {
+      "status": "up",
+    },
+    "smee.kibibit.io": {
+      "status": "up",
+    },
+  },
+  "error": {},
+  "info": {
+    "forms.kibibit.io": {
+      "status": "up",
+    },
+    "growthbook.kibibit.io": {
+      "status": "up",
+    },
+    "imgproxy.kibibit.io": {
+      "status": "up",
+    },
+    "matomo.kibibit.io": {
+      "status": "up",
+    },
+    "n8n.kibibit.io": {
+      "status": "up",
+    },
+    "prometheus.kibibit.io": {
+      "status": "up",
+    },
+    "secrets.kibibit.io": {
+      "status": "up",
+    },
+    "smee.kibibit.io": {
+      "status": "up",
+    },
+  },
+  "status": "ok",
+}
+`;

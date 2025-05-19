@@ -6,3 +6,8 @@ export * from './base-event-map.type';
 export * from './client-to-server.events';
 export * from './server-to-client.events';
 export * from './socket.service';
+export * from './payloads/announcement.payload';
+export * from './payloads/game-update.payload';
+export * from './payloads/lives-update.payload';
+export * from './payloads/message-recieved.payload';
+export * from './payloads/xp-update.payload';

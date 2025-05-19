@@ -17,7 +17,8 @@
     "sdk:angular": "swagger-codegen generate -i http://localhost:10102/api/docs-json -l typescript-angular -o ./sdks/angular -c ./angular-sdk-options.json",
     "sdk:angular:build": "ng-packagr -p ./sdks/angular/ng-package.json",
     "create:github": "ts-node ./scripts/create-github.script.ts",
-    "e2e:ui": "xvfb-run playwright test --ui --ui-port=10103"
+    "e2e:ui": "playwright test --ui --ui-port=10103",
+    "e2e": "playwright test"
   },
   "author": "thatkookooguy <neilkalman@gmail.com>",
   "license": "MIT",
@@ -33,6 +34,7 @@
     "@stylistic/eslint-plugin": "^2.8.0",
     "@stylistic/eslint-plugin-js": "^2.8.0",
     "@types/fs-extra": "^11.0.4",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
@@ -59,6 +61,17 @@
       "nice-napi",
       "protobufjs",
       "puppeteer"
-    ]
+    ],
+    "configDependencies": {
+      "swagger-coverage": "0.1.2+sha512-5h4iH8+8cfkcflT37+kQJGQ1hYgMMgQt2Qm3hcuwh3kmUM+BfQ5u2TMVoOP6OCtxVK8Ia14hk4H8zfG2CWCwCg==",
+      "supertest": "7.1.0+sha512-5QeSO8hSrKghtcWEoPiO036fxH0Ii2wVQfFZSP0oqQhmjk8bOLhDFXr4JrvaFmPuEWUoq4znY3uSi8UzLKxGqw==",
+      "jest": "29.7.0+sha512-NIy3oAFp9shda19hy4HK0HRTWKtPJmGdnvywu01nOqNC2vZg+Z+fvJDxpMQA88eb2I9EcafcdjYgsDthnYTvGw==",
+      "ts-jest": "29.3.2+sha512-bJJkrWc6PjFVz5g2DGCNUo8z7oFEYaz1xP1NpeDU7KNLMWPpEyV8Chbpkn8xjzgRDpQhnGMyvyldoL7h8JXyug==",
+      "@types/jest": "29.5.14+sha512-ZN+4sdnLUbo8EVvVc2ao0GFW6oVrQRPn4K2lglySj7APvSrgzxHiNNK99us4WDMi57xxA2yggblIAMNhXOotLQ==",
+      "nock": "14.0.4+sha512-86fh+gIKH8H02+y0/HKAOZZXn6OwgzXvl6JYwfjvKkoKxUWz54wIIDU/+w24xzMvk/R8pNVXOrvTubyl+Ml6cg==",
+      "swagger-spec-validator": "5.0.0+sha512-qqg596kLU6bcTngDYpRih6iOl1biwvRkzoJGMSX8Cp0W7ObSKrOjq6Ob6nDQSGQgmrLpS5kg9UyA98ErL0l6Pg==",
+      "ibm-openapi-validator": "1.35.2+sha512-iNBgLIdO4ejlQxRROxcfnLhbfISdRfr1m3dx6wYdviuqm7yKPJf5xh/Uw+v9U7bjs3tQyr5sL7Anqfe2eJrZlw==",
+      "jest-junit": "16.0.0+sha512-A94mmw6NfJab4Fg/BlvVOUXzXgF0XIH6EmTgJ5NDPp4xoKq0Kr7sErb+4Xs9nZvu58pJojz5RFGpqnZYJTrRfQ=="
+    }
   }
 }

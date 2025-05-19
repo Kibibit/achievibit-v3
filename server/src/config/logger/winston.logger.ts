@@ -87,6 +87,10 @@ const instanceLogger = (process.env.NODE_ENV === 'production') ? prodLogger : de
 export const loggerInstance = createLogger(instanceLogger);
 
 function strictLength(str: string, len: number) {
+  if (!str) {
+    return '';
+  }
+
   if (str.length >= len) {
     return str;
   }

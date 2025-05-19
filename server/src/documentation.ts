@@ -1,10 +1,17 @@
+import { join } from 'path';
+
 import axios from 'axios';
+import { makeBadge } from 'badge-maker';
+import { writeJSON } from 'fs-extra';
 import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { configService } from '@kb-config';
+
+import { getSwaggerCoverageReport, swaggerCoverageMiddleware } from './middleware/swagger-coverage.middleware';
+import { SwaggerLintService } from './swagger-lint.service';
 
 interface ISwaggerMethod {
   get: (attr: string) => string;
@@ -47,7 +54,9 @@ export class Documentation {
       `mode-${ configService.config.NODE_ENV }-`,
       `${ configService.isDevelopmentMode ? 'FF5BF8' : '8A2BE2' }`,
       ')\n\n',
-      'The achievibit API description.\n\n',
+      // coverage badge
+      // '![swagger-coverage](http://localhost:10102/api/coverage-badge)\n\n',
+      // 'The achievibit API description.\n\n',
       'Since this swagger shares the same domain as the app, ',
       'you can use the same cookie for authentication.',
       '\n\n',
@@ -90,16 +99,114 @@ export class Documentation {
 
   static async addDocumentation(app: INestApplication) {
     await Documentation.addSwagger(app);
+    await Documentation.addSwagger(
+      app,
+      'api/coverage',
+      true,
+      `.response-coverage-badge,
+.coverage-badge {
+  display: block;
+}
+
+.swagger-ui .topbar .topbar-wrapper a::before {
+  content: 'API Test Coverage';
+}
+
+.swagger-ui .topbar .kb-tabs,
+.swagger-ui section.models {
+  display: none;
+}
+
+.scheme-container,
+.model-example,
+.opblock-section,
+.execute-wrapper,
+.expand-operation,
+.swagger-ui .opblock.is-open .opblock-summary::after,
+.info .description,
+.info .info__contact,
+.swagger-ui .response-controls,
+.swagger-ui .response-col_links:not(.col_header) {
+  display: none;
+}
+
+input, select, textarea, .swagger-ui .authorization__btn {
+  pointer-events: none !important;
+}
+  
+.swagger-ui .topbar .topbar-wrapper::after {
+  content: attr(data-coverage, '(run tests for coverage)');
+}
+
+.undocumented-response-row {
+  border: 2px solid #FFB710;
+}
+
+.undocumented-response-row .response-coverage-badge {
+  color: #FFB710 !important;
+}
+
+tr.response.undocumented-response-row *:before {
+    color: #FFB710 !important;
+}
+`
+    );
     // await Documentation.addAsyncApi(app);
+
+    app.getHttpAdapter().getInstance().get('/api/swagger-lint', (req, res) => {
+      res.json(SwaggerLintService.runLint(join(configService.appRoot, 'swagger.json')));
+    });
   }
 
-  static async addSwagger(app: INestApplication) {
+  static addCoverage(app: INestApplication) {
+    // Register your coverage middleware
+    app.use(
+      swaggerCoverageMiddleware({
+        docsPath: join(configService.appRoot, 'swagger.json'),
+        enable: true
+      })
+    );
+
+    // Add an endpoint to expose the report
+    app.getHttpAdapter().getInstance().get('/api/swagger-coverage-report', (req, res) => {
+      res.json(getSwaggerCoverageReport());
+    });
+
+    // add shield with coverage percentage
+    app.getHttpAdapter().getInstance().get('/api/coverage-badge', (req, res) => {
+      const report = getSwaggerCoverageReport();
+      const coverage = report.coverage || 0;
+      const color = coverage < 50 ? 'red' : coverage < 80 ? 'orange' : 'green';
+
+      const badge = makeBadge({
+        label: 'swagger-coverage',
+        message: `${ coverage.toFixed(2) }%`,
+        color,
+        style: 'for-the-badge',
+        labelColor: '#222222'
+      });
+
+      res.setHeader('Content-Type', 'image/svg+xml');
+      res.send(badge);
+    });
+  }
+
+  static async addSwagger(
+    app: INestApplication,
+    swaggerPath = Documentation.swaggerPath,
+    expandOnDefault = false,
+    extraCss = ''
+  ) {
     const document = SwaggerModule.createDocument(app, Documentation.config);
+
+    // write the swagger document to a file
+    await writeJSON(configService.appRoot + '/swagger.json', document, { spaces: 2 });
+
     const swaggerCssResponse = await axios
       .get('https://kibibit.io/kibibit-assets/swagger/swagger.css');
     const customCss = swaggerCssResponse.data;
 
-    SwaggerModule.setup(Documentation.swaggerPath, app, document, {
+    SwaggerModule.setup(swaggerPath, app, document, {
       customSiteTitle: Documentation.title,
       customCss: `${ customCss }
 [id*="BitbucketController"] .opblock-summary-description:before,
@@ -193,11 +300,13 @@ export class Documentation {
 }
 
 .swagger-ui .topbar .kb-tabs a {
-  display: block;
   font-family: 'Comfortaa';
   font-weight: 100;
   cursor: pointer;
   padding-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .swagger-ui .topbar .kb-tabs a.active {
@@ -208,13 +317,36 @@ export class Documentation {
 .swagger-ui .topbar .topbar-wrapper a::before {
   content: 'Dev Center';
 }
+
+.response {
+  position: relative;
+}
+
+.response-coverage-badge,
+.coverage-badge {
+  display: none;
+  background: #222222;
+  padding: 0.3em 0.5em;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.swagger-ui table.responses-table tbody tr td:first-of-type {
+  min-width: 10em;
+}
+
+.response-col_links {
+  display: none;
+}
+
+${ extraCss }
       `.trim(),
       customJs: [
         '//kibibit.io/kibibit-assets/swagger/swagger.js',
         '/login/swagger-tabs.js'
       ],
       swaggerOptions: {
-        docExpansion: 'none',
+        docExpansion: expandOnDefault ? 'full' : 'none',
         apisSorter: 'alpha',
         operationsSorter: Documentation.getOperationsSorter()
       }

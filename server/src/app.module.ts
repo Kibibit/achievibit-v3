@@ -1,5 +1,8 @@
 import { join } from 'path';
 
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+
+import { CacheModule } from '@nestjs/cache-manager';
 import { ClassSerializerInterceptor, MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DevtoolsModule } from '@nestjs/devtools-integration';
@@ -24,18 +27,17 @@ import { TasksModule } from '@kb-tasks';
 import { UsersModule } from '@kb-users';
 import { WebhooksModule } from '@kb-webhooks';
 
+import { ProvidersModule } from './providers/providers.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     CacheModule.register(),
     PrometheusModule.register({
-      path: "/api/metrics",
+      path: '/api/metrics',
       defaultLabels: {
-        app: "achievibit-v3"
+        app: 'achievibit-v3'
       }
     }),
     DevtoolsModule.register({
@@ -45,7 +47,7 @@ import { CacheModule } from '@nestjs/cache-manager';
       // Adjust the path to your client build directory
       rootPath: join(configService.appRoot, 'client'),
       // Exclude API routes
-      exclude: [ '/api*', '/login*', '/socket.io*' ]
+      exclude: [ '/api*', '/login*', '/socket.io*', '/test-results*' ]
     }),
     ThrottlerModule.forRoot([ {
       ttl: 60000,
@@ -63,7 +65,8 @@ import { CacheModule } from '@nestjs/cache-manager';
     HealthModule,
     SystemsModule,
     TasksModule,
-    EventsModule
+    EventsModule,
+    ProvidersModule
   ],
   controllers: [ AppController ],
   providers: [

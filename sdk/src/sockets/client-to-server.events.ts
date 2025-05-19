@@ -1,9 +1,6 @@
 import { IClientToServerEventShape, IEventMapBase } from './base-event-map.type';
 
 export enum ClientToServerEvent {
-  /**
-   * Logged in user connects to the server
-   */
   JoinLoggedInUserRoom = 'join-room:logged-in-user',
   JoinUserAchievementsRoom = 'join-room:user-achievements',
   JoinOrgAchievementsRoom = 'join-room:org-achievements',

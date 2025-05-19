@@ -23,7 +23,7 @@ export class SessionUser<SecurityDataType = unknown> extends HttpClient<Security
    * @secure
    */
   sessionUserControllerGetSessionUser = (params: RequestParams = {}) =>
-    this.request<User, any>({
+    this.request<User, void>({
       path: `/api/me`,
       method: "GET",
       secure: true,
@@ -40,7 +40,7 @@ export class SessionUser<SecurityDataType = unknown> extends HttpClient<Security
    * @secure
    */
   sessionUserControllerLogout = (params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<void, void>({
       path: `/api/me/logout`,
       method: "GET",
       secure: true,

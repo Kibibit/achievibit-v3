@@ -4,9 +4,15 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "module": "CommonJS",
     "target": "ESNext",
-    "strict": true
+    "strict": true,
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "include": ["index.ts"]
 }

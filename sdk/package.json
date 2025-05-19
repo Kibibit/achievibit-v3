@@ -1,6 +1,6 @@
 {
   "name": "@kibibit/achievibit-sdk",
-  "version": "1.11.0",
+  "version": "1.13.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -11,17 +11,27 @@
     "generate-barrels": "barrelsby --delete -d ./src -l below -q --exclude spec.ts --exclude spec.js --exclude __mocks__ && echo '> Barrels Generated'",
     "prebuild": "rimraf dist && npm run generate-barrels",
     "build": "tsup index.ts --format esm,cjs --dts",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.3.1",
     "barrelsby": "^2.8.1",
+    "http-status-codes": "^2.3.0",
+    "jest": "^29.0.0",
+    "nock": "^14.0.4",
     "rimraf": "^6.0.1",
     "swagger-typescript-api": "^13.0.23",
+    "ts-jest": "^29.3.2",
     "tsup": "^8.4.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "@types/jsonwebtoken": "^9.0.7"
   },
   "peerDependencies": {
     "axios": "^1.7.7",

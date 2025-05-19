@@ -7,9 +7,57 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('server_url', window.location.origin);
     localStorage.setItem('ws_only', 'false');
 
+    // Dynamically load socket.io client if it's not already loaded
+    if (!window.io) {
+      const socketScript = document.createElement('script');
+      socketScript.src = '/socket.io';
+      document.head.appendChild(socketScript);
+
+      // Wait for the script to load
+      await new Promise((resolve) => {
+        socketScript.onload = resolve;
+        socketScript.onerror = () => {
+          console.error('Failed to load socket.io client');
+          resolve();
+        };
+      });
+    }
+
+    // Set up socket.io connection to listen for test results updates
+    const socket = io(window.location.origin + '/system', {
+      path: '/socket.io',
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
+    });
+    
+    // Connection handling
+    socket.on('connect', () => {
+      console.log('Connected to system events socket namespace');
+    });
+    
+    socket.on('connect_error', (error) => {
+      console.error('Failed to connect to system events socket:', error.message);
+    });
+
+    // Listen for the refresh-test-results event
+    socket.on('refresh-test-results', (data) => {
+      console.log('Received refresh-test-results event', data);
+      if (unitTestsResultsIframe) {
+        // Add timestamp to bust cache if needed
+        const timestamp = data?.timestamp || new Date().toISOString();
+        const separator = unitTestsResultsIframe.src.includes('?') ? '&' : '?';
+        unitTestsResultsIframe.src = `${unitTestsResultsIframe.src}${separator}_t=${encodeURIComponent(timestamp)}`;
+        console.log('Refreshed test results iframe');
+      } else {
+        console.warn('Test results iframe not found');
+      }
+    });
+
     const swaggerTopbar = document.querySelector('.topbar');
     const swaggerUi = document.querySelector('div.swagger-ui');
     const swaggerContainer = document.querySelector('.swagger-container');
+    const swaggerFooter = document.querySelector('footer');
 
     // get the smee url from server
     const swaggerResponse = await fetch('/api/swagger');
@@ -20,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const showAsyncDocs = swaggerBody.showAsyncDocs;
     const showSmeeClient = swaggerBody.showSmeeClient;
     const showNestjsDevTools = swaggerBody.showNestjsDevTools;
+    const showUnitTestsResults = swaggerBody.showUnitTestsResults;
 
 
     const smeeIframe = document.createElement('iframe');
@@ -82,10 +131,21 @@ document.addEventListener('DOMContentLoaded', function() {
       swaggerContainer.appendChild(socketIoAdminIframe);
     }
 
+    const unitTestsResultsIframe = document.createElement('iframe');
+    unitTestsResultsIframe.src = '/test-results/server';
+    unitTestsResultsIframe.style.display = 'none';
+    unitTestsResultsIframe.style.width = '100%';
+    unitTestsResultsIframe.style.height = '100%';
+    unitTestsResultsIframe.style.border = 'none';
+    unitTestsResultsIframe.style.flexGrow = '1';
+
+    if (showUnitTestsResults) {
+      swaggerContainer.appendChild(unitTestsResultsIframe);
+    }
+
     // add tabs under the topbar
     const tabs = document.createElement('div');
     // get active tab based on the current url
-    const activeTab = getCurrentActiveTab();
     const allTabsHtml = [];
 
     if (showSwaggerUi) {
@@ -112,10 +172,24 @@ document.addEventListener('DOMContentLoaded', function() {
       allTabsHtml.push('<a id="nestjs-devtools">NestJs DevTools</a>');
     }
 
+    if (showUnitTestsResults) {
+      allTabsHtml.push('<a id="unit-tests-results">Unit Tests Results <button id="refresh-tests" title="Refresh Tests Results" style="margin-left: 5px; padding: 2px 5px; cursor: pointer; font-size: 12px; background: #49cc90; border: none; border-radius: 3px; color: white;">↻</button></a>');
+    }
+
     tabs.innerHTML = allTabsHtml.join('');
     tabs.classList.add('kb-tabs');
 
     tabs.addEventListener('click', setActiveTab);
+
+    // Add event listener for the refresh button
+    tabs.addEventListener('click', function(event) {
+      // Prevent triggering tab switch
+      if (event.target.id === 'refresh-tests') {
+        event.stopPropagation();
+        // Reload iframe
+        unitTestsResultsIframe.src = unitTestsResultsIframe.src;
+      }
+    });
 
     setActiveTab();
 
@@ -140,6 +214,10 @@ document.addEventListener('DOMContentLoaded', function() {
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
         socketIoAdminIframe.style.display = 'none';
+        unitTestsResultsIframe.style.display = 'none';
+        swaggerFooter.style.removeProperty('display');
+        // remove height from style attribute so the class height is applied
+        swaggerContainer.style.removeProperty('height');
       } else if (tab === 'json') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
@@ -147,6 +225,10 @@ document.addEventListener('DOMContentLoaded', function() {
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
         socketIoAdminIframe.style.display = 'none';
+        unitTestsResultsIframe.style.display = 'none';
+        swaggerFooter.style.removeProperty('display');
+        // remove height from style attribute so the class height is applied
+        swaggerContainer.style.removeProperty('height');
       } else if (tab === 'async') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
@@ -154,6 +236,10 @@ document.addEventListener('DOMContentLoaded', function() {
         asyncDocsIframe.style.display = 'block';
         nestjsDevToolsIframe.style.display = 'none';
         socketIoAdminIframe.style.display = 'none';
+        unitTestsResultsIframe.style.display = 'none';
+        swaggerFooter.style.removeProperty('display');
+        // remove height from style attribute so the class height is applied
+        swaggerContainer.style.removeProperty('height');
       } else if (tab === 'smee') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'block';
@@ -161,6 +247,10 @@ document.addEventListener('DOMContentLoaded', function() {
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
         socketIoAdminIframe.style.display = 'none';
+        unitTestsResultsIframe.style.display = 'none';
+        swaggerFooter.style.removeProperty('display');
+        // remove height from style attribute so the class height is applied
+        swaggerContainer.style.removeProperty('height');
       } else if (tab === 'nestjs-devtools') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
@@ -168,8 +258,12 @@ document.addEventListener('DOMContentLoaded', function() {
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'block';
         socketIoAdminIframe.style.display = 'none';
+        unitTestsResultsIframe.style.display = 'none';
+        swaggerFooter.style.removeProperty('display');
         // open a new tab to nestjs devtools
         window.open('https://devtools.nestjs.com/', '_blank');
+        // remove height from style attribute so the class height is applied
+        swaggerContainer.style.removeProperty('height');
       } else if (tab === 'socket-io-admin') {
         swaggerUi.style.display = 'none';
         smeeIframe.style.display = 'none';
@@ -177,6 +271,20 @@ document.addEventListener('DOMContentLoaded', function() {
         asyncDocsIframe.style.display = 'none';
         nestjsDevToolsIframe.style.display = 'none';
         socketIoAdminIframe.style.display = 'block';
+        unitTestsResultsIframe.style.display = 'none';
+        swaggerFooter.style.removeProperty('display');
+        // remove height from style attribute so the class height is applied
+        swaggerContainer.style.removeProperty('height');
+      } else if (tab === 'unit-tests-results') {
+        swaggerUi.style.display = 'none';
+        smeeIframe.style.display = 'none';
+        swaggerJsonIframe.style.display = 'none';
+        asyncDocsIframe.style.display = 'none';
+        nestjsDevToolsIframe.style.display = 'none';
+        unitTestsResultsIframe.style.display = 'block';
+        socketIoAdminIframe.style.display = 'none';
+        swaggerFooter.style.display = 'none';
+        swaggerContainer.style.height = '100dvh';
       }
     }
 

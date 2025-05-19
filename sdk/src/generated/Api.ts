@@ -44,12 +44,12 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   /**
    * No description
    *
-   * @name AppControllerGetSmeeUrl
-   * @summary Get Smee URL
+   * @name AppControllerGetDevCenterOptions
+   * @summary Get Dev Center Options
    * @request GET:/api/swagger
    */
-  appControllerGetSmeeUrl = (params: RequestParams = {}) =>
-    this.request<void, any>({
+  appControllerGetDevCenterOptions = (params: RequestParams = {}) =>
+    this.request<void, void>({
       path: `/api/swagger`,
       method: "GET",
       ...params,

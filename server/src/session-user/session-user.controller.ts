@@ -1,12 +1,14 @@
 import { instanceToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { UserSettings } from 'src/models/user-settings.entity';
 import { Octokit } from '@octokit/core';
 
 import { Body, Controller, Delete, Get, NotImplementedException, Param, Patch, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiOkResponse, ApiOperation, ApiQuery, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
 import { ReqUser } from '@kb-decorators';
+import { EventsService } from '@kb-events';
 import { JwtAuthGuard, JwtAuthOptionalGuard } from '@kb-guards';
 import { SystemEnum, User } from '@kb-models';
 import { RepositoriesService } from '@kb-repositories';
@@ -14,7 +16,6 @@ import { ShieldsService } from '@kb-shields';
 import { UsersService } from '@kb-users';
 
 import { SessionUserService } from './session-user.service';
-import { EventsService } from '@kb-events';
 
 @Controller('api/me')
 @ApiTags('Session User')
@@ -38,6 +39,13 @@ export class SessionUserController {
   @ApiOkResponse({
     description: 'Current user',
     type: User
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Unauthorized',
+    example: {
+      message: 'Unauthorized',
+      statusCode: StatusCodes.UNAUTHORIZED
+    }
   })
   getSessionUser(@Req() req: Request) {
     return instanceToPlain(new User(req.user), { groups: [ 'self' ] });
@@ -70,6 +78,12 @@ export class SessionUserController {
   @ApiOperation({
     summary: 'Logout',
     description: 'Clears the JWT cookie, and invalidates the JWT token'
+  })
+  @ApiUnauthorizedResponse({
+    description: 'If the user is not authenticated, it cannot log out.'
+  })
+  @ApiOkResponse({
+    description: 'The user has been logged out successfully.'
   })
   logout(
     @Req() req: Request,
@@ -167,11 +181,6 @@ export class SessionUserController {
     summary: 'Get available repositories',
     description: 'Will return the available repositories for the given cloud git system'
   })
-  // @ApiQuery({
-  //   name: 'system',
-  //   enum: SystemEnum,
-  //   description: 'The cloud git system to get the available repositories for'
-  // })
   async getSessionUserAvailableRepositories(
     @Param('system') system: SystemEnum,
     @ReqUser() user: User
@@ -266,7 +275,7 @@ export class SessionUserController {
     setTimeout(() => {
       this.eventsService.sendAchievementToUser('thatkookooguy', {
         name: 'Big Achievement Hunter',
-        description: `You have added a repository`,
+        description: 'You have added a repository',
         id: 'big-achievement-hunter',
         avatar: 'https://github.com/k1b1b0t.png'
       });

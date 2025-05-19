@@ -89,6 +89,9 @@ export class Repository {
   @ApiProperty()
   readonly private?: boolean;
 
+  @Column({ nullable: true })
+    externalId: string;
+
   constructor(partial: Partial<Repository>) {
     Object.assign(this, partial);
   }

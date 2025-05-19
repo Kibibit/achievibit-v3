@@ -18,6 +18,11 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "types": [
+      "node",
+      "jest",
+      "./node_modules/@types"
+    ],
     "paths": {
       "@kb-auth": ["src/auth/index"],
       "@kb-config": ["src/config/index"],

@@ -22,7 +22,7 @@ export class Webhooks<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @secure
    */
   webhooksControllerBitbucket = (data: object, params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<void, void>({
       path: `/api/webhooks/bitbucket`,
       method: "POST",
       body: data,
@@ -40,7 +40,7 @@ export class Webhooks<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @secure
    */
   webhooksControllerGithub = (data: object, params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<void, void>({
       path: `/api/webhooks/github`,
       method: "POST",
       body: data,
@@ -58,7 +58,7 @@ export class Webhooks<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @secure
    */
   webhooksControllerGitlab = (data: object, params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<void, void>({
       path: `/api/webhooks/gitlab`,
       method: "POST",
       body: data,

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`users api routes should GET all users with pagination /api/users 1`] = `
+{
+  "hasNextPage": false,
+  "hasPreviousPage": false,
+  "itemCount": 0,
+  "page": 1,
+  "pageCount": 0,
+  "take": 10,
+}
+`;

@@ -22,7 +22,7 @@ export class Authentication<SecurityDataType = unknown> extends HttpClient<Secur
    * @secure
    */
   authControllerLogout = (params: RequestParams = {}) =>
-    this.request<void, any>({
+    this.request<void, void>({
       path: `/api/auth/logout`,
       method: "GET",
       secure: true,
@@ -50,10 +50,19 @@ export class Authentication<SecurityDataType = unknown> extends HttpClient<Secur
    * @summary Github OAuth callback
    * @request GET:/api/auth/github/callback
    */
-  githubControllerGithubAuthCallback = (params: RequestParams = {}) =>
+  githubControllerGithubAuthCallback = (
+    query: {
+      /** CSRF state token */
+      state?: string;
+      /** Authorization code from GitHub */
+      code: string;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<void, any>({
       path: `/api/auth/github/callback`,
       method: "GET",
+      query: query,
       ...params,
     });
 }

@@ -71,7 +71,8 @@ export class GitlabService {
       fullname: repoFullName,
       url: `https://gitlab.com/${ repoFullName }`,
       owner: user,
-      system: SystemEnum.GITLAB
+      system: SystemEnum.GITLAB,
+      externalId: repoFullName
     });
 
     return newHook;

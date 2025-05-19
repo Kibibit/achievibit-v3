@@ -14,9 +14,10 @@
 
 </div>
 <iframe
+  *ngIf="miniGameUrl"
   class="game-frame"
-  src="https://kibibit.io/pirate-fight/"
   title="Mini Game"
   frameborder="0"
   allowfullscreen
+  [src]="miniGameUrl"
 ></iframe>

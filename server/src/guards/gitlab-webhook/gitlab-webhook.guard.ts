@@ -12,7 +12,11 @@ export class GitLabWebhookGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const token = request.headers['x-gitlab-token'] as string;
 
-    if (!token || token !== this.secret) {
+    if (!token) {
+      throw new UnauthorizedException('No token provided');
+    }
+
+    if (token !== this.secret) {
       throw new UnauthorizedException('Invalid token');
     }
 

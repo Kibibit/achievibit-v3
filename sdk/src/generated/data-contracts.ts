@@ -99,6 +99,7 @@ export interface Repository {
   /** @format date-time */
   createdAt: string;
   name: string;
+  avatar: string;
   system: string;
   owner: User;
   fullname: string;

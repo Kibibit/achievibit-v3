@@ -1,0 +1,35 @@
+---
+description: "CursorRIPER Framework - State Management"
+globs: 
+alwaysApply: true
+---
+# CursorRIPER Framework - State Management
+# Version 1.0.2
+
+## CURRENT PROJECT STATE
+
+PROJECT_PHASE: "DEVELOPMENT"
+RIPER_CURRENT_MODE: "RESEARCH"
+START_PHASE_STATUS: "COMPLETED"
+START_PHASE_STEP: 6
+LAST_UPDATE: "2024-04-05T00:00:00Z"
+INITIALIZATION_DATE: "2024-04-05T00:00:00Z"
+FRAMEWORK_VERSION: "1.0.2"
+
+---
+
+*This file automatically tracks the current state of the project. It should never be edited manually.*
+
+   - Reset state to PROJECT_PHASE = "INITIALIZING"
+   - Reset START_PHASE_STATUS to "IN_PROGRESS"
+   - Reset START_PHASE_STEP to 1
+
+---
+
+*This file automatically tracks the current state of the project. It should never be edited manually.*
+
+   - Reset START_PHASE_STEP to 1
+
+---
+
+*This file automatically tracks the current state of the project. It should never be edited manually.*
