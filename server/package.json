@@ -6,6 +6,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "prepare": "if [ ! -d 404 ]; then npm run fetch-404; fi",
+    "fetch-404": "rimraf 404 && degit https://github.com/kibibit/404 404",
     "build:sdk": "swagger-typescript-api -p http://localhost:10102/api/docs-json -o ../sdk/src/generated --extract-enums --module-name-first-tag --modular --axios && cd ../sdk && npm version minor",
     "generate-barrels": "barrelsby --delete -d ./src -l below -q --exclude spec.ts --exclude spec.js --exclude __mocks__ && echo '> Barrels Generated'",
     "prebuild": "npm run generate-barrels",
@@ -120,6 +122,7 @@
     "@typescript-eslint/parser": "^8.6.0",
     "barrelsby": "^2.8.1",
     "commitizen": "^4.3.0",
+    "degit": "^2.8.4",
     "dotenv": "^16.4.5",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
